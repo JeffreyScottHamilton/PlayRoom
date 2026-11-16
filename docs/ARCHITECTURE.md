@@ -273,10 +273,14 @@ export type Engine = "flash" | "html5";
 // in Game:
   /** Runtime. Omitted = "flash" (all existing entries). */
   engine?: Engine;
+  /** html5 only. The game fills any frame and has no intended size; width/height are omitted and the player uses RESPONSIVE_FRAME. */
+  responsive?: boolean;
+  width?: number;   // required unless responsive
+  height?: number;  // required unless responsive
 ```
 - `flash`: `gameFile` = `/games/<id>/game.swf` (unchanged).
-- `html5`: the game's files live in `public/games/<id>/html/`; `gameFile` = `/games/<id>/html/index.html` (or another `.html` inside that folder). `width`/`height` = the game's intended canvas size (aspect ratio); must come from the game itself or the supplier, never guessed — validator requires them as today.
-- Helper in `src/data/catalog.ts`: `export function engineOf(game: Game): Engine` (returns `game.engine ?? "flash"`).
+- `html5`: the game's files live in `public/games/<id>/html/`; `gameFile` = `/games/<id>/html/index.html` (or another `.html` inside that folder). `width`/`height` = the game's intended canvas size (aspect ratio); must come from the game itself or the supplier, never guessed. A game that fills its window may set `responsive: true` and omit both.
+- Helpers in `src/data/catalog.ts`: `export function engineOf(game: Game): Engine` (returns `game.engine ?? "flash"`); `export const RESPONSIVE_FRAME = { width: 16, height: 9 }`; `export function frameSize(game: Game)` (the game's width/height, or `RESPONSIVE_FRAME` when responsive). GamePage sizes both players with `frameSize`.
 
 ### Player (`src/player/Html5Player.tsx`)
 Same contract as RufflePlayer: `forwardRef<GamePlayerHandle, GamePlayerProps>` where
@@ -295,6 +299,8 @@ export interface GamePlayerProps { src: string; width: number; height: number; o
 ### Validation (`scripts/validate-games.mjs`)
 - `engine` absent or one of `flash|html5`.
 - flash: gameFile ends `.swf`. html5: gameFile matches `/games/<id>/html/**/*.html` and the file exists; no `..`.
+- `responsive` absent or boolean. `responsive: true`: engine must be `html5`, and width and height must be absent.
+- Otherwise width/height are required positive integers, as before.
 - html5 folder size reported; fail if any single file > 25 MiB (Cloudflare Pages limit).
 
 ### Import (`scripts/import-games.mjs`)

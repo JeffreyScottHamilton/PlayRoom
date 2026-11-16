@@ -47,7 +47,7 @@ export const GAMES_DIR_REL = join('public', 'games')
 export const GAME_FIELDS = [
   'id', 'title', 'description', 'category', 'thumbnail', 'gameFile', 'controls',
   'developer', 'releaseYear', 'compatibility', 'addedAt', 'license', 'width', 'height',
-  'needsKeyboard', 'popularRank', 'featured', 'engine',
+  'needsKeyboard', 'popularRank', 'featured', 'engine', 'responsive',
 ]
 // Import-only keys stored on drafts; stripped when promoting.
 export const DRAFT_META_KEYS = ['missing', 'flags', 'sha256']
@@ -236,8 +236,11 @@ function computeMissing(draft, hasImageInBatch, root) {
   const thumbPresent =
     hasImageInBatch || (isNonEmptyString(draft.thumbnail) && existsSync(join(root, 'public', draft.thumbnail)))
   if (!thumbPresent) missing.push('thumbnail')
-  if (!isPositiveInt(draft.width)) missing.push('width')
-  if (!isPositiveInt(draft.height)) missing.push('height')
+  // A responsive html5 game has no intended size (ARCHITECTURE §13).
+  if (draft.responsive !== true) {
+    if (!isPositiveInt(draft.width)) missing.push('width')
+    if (!isPositiveInt(draft.height)) missing.push('height')
+  }
   return missing
 }
 
@@ -322,6 +325,10 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
     if (fields.engine !== undefined) {
       delete fields.engine
       row.flags.push('sidecar "engine" ignored (SWF games are flash)')
+    }
+    if (fields.responsive !== undefined) {
+      delete fields.responsive
+      row.flags.push('sidecar "responsive" ignored (SWF games are flash)')
     }
 
     const slugSource = typeof fields.id === 'string' && fields.id ? fields.id : (fields.title ?? stem)
@@ -436,6 +443,15 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
       if (fields.engine !== 'html5') row.flags.push(`sidecar "engine" ignored (folder is html5)`)
       delete fields.engine
     }
+    if (fields.responsive !== undefined && typeof fields.responsive !== 'boolean') {
+      row.flags.push('sidecar "responsive" must be true or false; ignored')
+      delete fields.responsive
+    }
+    if (fields.responsive === true && (fields.width !== undefined || fields.height !== undefined)) {
+      row.flags.push('sidecar width/height ignored (responsive game has no size)')
+      delete fields.width
+      delete fields.height
+    }
 
     const slugSource = typeof fields.id === 'string' && fields.id ? fields.id : (fields.title ?? basename(folder))
     const slug = slugify(slugSource)
@@ -488,6 +504,11 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
     Object.assign(draft, fields)
     draft.id = slug
     draft.engine = 'html5'
+    if (draft.responsive === true) {
+      // An earlier draft may still carry a size from before the sidecar became responsive.
+      delete draft.width
+      delete draft.height
+    }
     draft.gameFile = `/games/${slug}/${HTML5_SUBDIR}/${HTML5_ENTRY}`
     // Thumbnail: an image next to the folder with the same base name (folder.webp, folder.png, ...).
     const group = groups.get(join(dirname(folder), basename(folder)))
@@ -505,8 +526,12 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
       draft.needsKeyboard = true
       row.flags.push('needsKeyboard defaulted — verify')
     }
-    row.flags.push(...html5Flags(insp, { width: draft.width, height: draft.height }))
-    row.stage = isPositiveInt(draft.width) && isPositiveInt(draft.height) ? `${draft.width}x${draft.height}` : 'unknown'
+    const responsive = draft.responsive === true
+    const sizeFlags = html5Flags(insp, { width: draft.width, height: draft.height })
+    // A responsive game is not missing a size, so drop the missing-size flag.
+    row.flags.push(...(responsive ? sizeFlags.filter((f) => !f.startsWith('missing-size')) : sizeFlags))
+    if (responsive) row.stage = 'responsive'
+    else row.stage = isPositiveInt(draft.width) && isPositiveInt(draft.height) ? `${draft.width}x${draft.height}` : 'unknown'
 
     const norm = normalizeTitle(draft.title)
     if (norm) {

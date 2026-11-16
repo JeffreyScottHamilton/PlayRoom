@@ -333,8 +333,10 @@ function verdictFor({ loaded, fatal, blank, nonFatal, needsReview }) {
 async function captureOne(browser, base, draft) {
   const id = draft.id
   const needsReview = (draft.flags ?? []).some((f) => f.startsWith('needs-review'))
-  const width = Number.isInteger(draft.width) ? draft.width : 550
-  const height = Number.isInteger(draft.height) ? draft.height : 400
+  // Responsive html5 drafts have no size; they are captured on a 16:9 stage (the player's RESPONSIVE_FRAME ratio).
+  const responsive = draft.responsive === true
+  const width = responsive ? 1280 : Number.isInteger(draft.width) ? draft.width : 550
+  const height = responsive ? 720 : Number.isInteger(draft.height) ? draft.height : 400
   // Keep the on-page stage within 900 px wide; the aspect ratio is preserved.
   const scale = Math.min(1, 900 / width)
   const W = Math.round(width * scale)

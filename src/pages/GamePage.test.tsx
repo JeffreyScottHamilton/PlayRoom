@@ -20,6 +20,10 @@ vi.mock("../data/catalog", () => ({
   getGame: mocks.getGame,
   getRelatedGames: mocks.getRelatedGames,
   engineOf: (game: Game) => game.engine ?? "flash",
+  frameSize: (game: Game) =>
+    game.responsive || game.width === undefined || game.height === undefined
+      ? { width: 16, height: 9 }
+      : { width: game.width, height: game.height },
 }));
 
 vi.mock("../player/loadRuffle", () => ({

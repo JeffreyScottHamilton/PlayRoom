@@ -126,9 +126,17 @@ export function validateGames(games, options = REPO_ROOT) {
       }
     }
 
-    // Dimensions
-    if (!isPositiveInt(g.width)) fail('width must be a positive integer')
-    if (!isPositiveInt(g.height)) fail('height must be a positive integer')
+    // Dimensions. A responsive html5 game has no intended size; everything else needs width/height.
+    if (g.responsive !== undefined && typeof g.responsive !== 'boolean') {
+      fail('responsive must be a boolean when present')
+    } else if (g.responsive === true) {
+      if (g.engine !== 'html5') fail('responsive is only allowed for engine "html5"')
+      if (g.width !== undefined) fail('responsive game must not set width')
+      if (g.height !== undefined) fail('responsive game must not set height')
+    } else {
+      if (!isPositiveInt(g.width)) fail('width must be a positive integer')
+      if (!isPositiveInt(g.height)) fail('height must be a positive integer')
+    }
 
     // Curation
     if (g.popularRank !== undefined) {

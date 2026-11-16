@@ -29,6 +29,20 @@ export function engineOf(game: Game): Engine {
   return game.engine ?? "flash";
 }
 
+/** Player frame for responsive games (no intended size). 16:9. */
+export const RESPONSIVE_FRAME = { width: 16, height: 9 } as const;
+
+/**
+ * Width/height the player uses. Responsive games get RESPONSIVE_FRAME; a game with no
+ * size (only possible if the manifest is invalid) falls back to it as well.
+ */
+export function frameSize(game: Game): { width: number; height: number } {
+  if (game.responsive || game.width === undefined || game.height === undefined) {
+    return { width: RESPONSIVE_FRAME.width, height: RESPONSIVE_FRAME.height };
+  }
+  return { width: game.width, height: game.height };
+}
+
 /**
  * Builds the typed accessors over an arbitrary games array. Unsupported entries
  * are hidden from every accessor. Tests use this with fixtures; the module-level

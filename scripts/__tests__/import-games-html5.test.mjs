@@ -263,6 +263,83 @@ describe('runImport with html5 folders', () => {
   })
 })
 
+describe('runImport with responsive html5 sidecars', () => {
+  const responsiveSidecar = (overrides = {}) =>
+    sidecar({ width: undefined, height: undefined, responsive: true, ...overrides })
+
+  it('drafts a responsive html5 game without width/height, with no missing-size flag', () => {
+    const root = fixtureRoot()
+    const input = tempDir('h5-responsive')
+    html5Game(input, 'fill-game')
+    writeAt(input, 'fill-game.json', responsiveSidecar({ title: 'Fill Game' }))
+
+    const result = runImport({ inputDir: input, root, today: TODAY })
+    const [row] = result.rows
+    expect(row.stage).toBe('responsive')
+    expect(row.missing).not.toEqual(expect.arrayContaining(['width', 'height']))
+    expect(row.flags.some((f) => f.startsWith('missing-size'))).toBe(false)
+
+    const [draft] = readDrafts(root)
+    expect(draft).toMatchObject({ id: 'fill-game', engine: 'html5', responsive: true })
+    expect(draft).not.toHaveProperty('width')
+    expect(draft).not.toHaveProperty('height')
+    expect(draft.missing).not.toEqual(expect.arrayContaining(['width', 'height']))
+  })
+
+  it('drops a width/height on a responsive sidecar and flags it', () => {
+    const root = fixtureRoot()
+    const input = tempDir('h5-responsive-size')
+    html5Game(input, 'sized-fill')
+    writeAt(input, 'sized-fill.json', sidecar({ title: 'Sized Fill', responsive: true }))
+
+    const result = runImport({ inputDir: input, root, today: TODAY })
+    expect(result.rows[0].flags).toContain('sidecar width/height ignored (responsive game has no size)')
+    expect(result.rows[0].stage).toBe('responsive')
+    const [draft] = readDrafts(root)
+    expect(draft).toMatchObject({ responsive: true })
+    expect(draft).not.toHaveProperty('width')
+    expect(draft).not.toHaveProperty('height')
+  })
+
+  it('keeps width/height for a non-responsive html5 sidecar and still flags missing-size without them', () => {
+    const root = fixtureRoot()
+    const input = tempDir('h5-not-responsive')
+    html5Game(input, 'plain')
+    writeAt(input, 'plain.json', sidecar({ title: 'Plain', width: undefined, height: undefined }))
+
+    const result = runImport({ inputDir: input, root, dryRun: true, today: TODAY })
+    expect(result.rows[0].stage).toBe('unknown')
+    expect(result.rows[0].missing).toEqual(expect.arrayContaining(['width', 'height']))
+    expect(result.rows[0].flags).toContain('missing-size: sidecar has no width/height')
+  })
+
+  it('ignores responsive on a SWF and flags it', () => {
+    const root = fixtureRoot()
+    const input = tempDir('h5-responsive-swf')
+    writeAt(input, 'resp.swf', buildSwf({ width: 550, height: 400 }))
+    writeAt(input, 'resp.json', sidecar({ title: 'Resp', responsive: true }))
+
+    const result = runImport({ inputDir: input, root, today: TODAY })
+    expect(result.rows[0].flags).toContain('sidecar "responsive" ignored (SWF games are flash)')
+    const [draft] = readDrafts(root)
+    expect(draft).not.toHaveProperty('responsive')
+    expect(draft).toMatchObject({ width: 550, height: 400 })
+  })
+
+  it('flags a non-boolean responsive value and treats the game as sized', () => {
+    const root = fixtureRoot()
+    const input = tempDir('h5-responsive-bad')
+    html5Game(input, 'bad-flag')
+    writeAt(input, 'bad-flag.json', sidecar({ title: 'Bad Flag', responsive: 'yes' }))
+
+    const result = runImport({ inputDir: input, root, today: TODAY })
+    expect(result.rows[0].flags).toContain('sidecar "responsive" must be true or false; ignored')
+    const [draft] = readDrafts(root)
+    expect(draft).not.toHaveProperty('responsive')
+    expect(draft).toMatchObject({ width: 800, height: 600 })
+  })
+})
+
 describe('import-games CLI with html5 folders', () => {
   it('prints both an html5 game and a swf with the right flags on --dry-run', () => {
     const input = tempDir('h5-cli')

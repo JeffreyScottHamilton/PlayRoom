@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Game } from "../types/game";
-import { createCatalog, engineOf } from "./catalog";
+import { createCatalog, engineOf, frameSize, RESPONSIVE_FRAME } from "./catalog";
 
 function makeGame(id: string, title: string, extra: Partial<Game> = {}): Game {
   return {
@@ -214,5 +214,27 @@ describe("engineOf", () => {
     expect(engineOf(makeGame("web", "Web", { engine: "html5", gameFile: "/games/web/html/index.html" }))).toBe(
       "html5",
     );
+  });
+});
+
+describe("frameSize", () => {
+  it("returns the game's width and height for a sized game", () => {
+    expect(frameSize(makeGame("sized", "Sized", { width: 800, height: 600 }))).toEqual({ width: 800, height: 600 });
+  });
+
+  it("returns RESPONSIVE_FRAME for a responsive html5 game without a size", () => {
+    const game = makeGame("fill", "Fill", {
+      engine: "html5",
+      responsive: true,
+      gameFile: "/games/fill/html/index.html",
+      width: undefined,
+      height: undefined,
+    });
+    expect(frameSize(game)).toEqual({ width: 16, height: 9 });
+    expect(frameSize(game)).toEqual(RESPONSIVE_FRAME);
+  });
+
+  it("falls back to RESPONSIVE_FRAME when a non-responsive game has no size", () => {
+    expect(frameSize(makeGame("nosize", "NoSize", { width: undefined, height: undefined }))).toEqual(RESPONSIVE_FRAME);
   });
 });

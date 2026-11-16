@@ -4,7 +4,7 @@ import { Container } from "../components/layout/Container";
 import { Button } from "../components/ui/Button";
 import { GameGrid } from "../components/ui/GameGrid";
 import { SectionHeader } from "../components/ui/SectionHeader";
-import { engineOf, getGame, getRelatedGames } from "../data/catalog";
+import { engineOf, frameSize, getGame, getRelatedGames } from "../data/catalog";
 import { assetUrl } from "../lib/assetUrl";
 import { useFavorites } from "../hooks/useFavorites";
 import { useRecentlyPlayed } from "../hooks/useRecentlyPlayed";
@@ -110,15 +110,15 @@ export default function GamePage() {
             ref={playerRef}
             title={game.title}
             src={assetUrl(game.gameFile)}
-            width={game.width}
-            height={game.height}
+            width={frameSize(game).width}
+            height={frameSize(game).height}
           />
         ) : (
           <RufflePlayer
             ref={playerRef}
             src={assetUrl(game.gameFile)}
-            width={game.width}
-            height={game.height}
+            width={frameSize(game).width}
+            height={frameSize(game).height}
           />
         )}
       </div>

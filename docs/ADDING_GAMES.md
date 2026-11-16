@@ -259,6 +259,11 @@ is the only source.
 `engine` is optional in the sidecar. For an html5 folder the importer always sets
 `"html5"`. A sidecar `engine` on a SWF is ignored and flagged.
 
+If the game has no fixed size and fills its window, set `"responsive": true` and omit
+`width` and `height`. Only do this when the game's own code shows it resizes to the window.
+Do not guess a size. A responsive sidecar that also has `width` or `height` has them dropped
+and flagged. `responsive` on a SWF is ignored and flagged.
+
 ### What the flags mean
 
 Read every flag in the dry run. They are reported, not hidden.
@@ -267,8 +272,8 @@ Read every flag in the dry run. They are reported, not hidden.
   `http(s)://` URLs to these hosts. The game may fail offline, or it may send data to them.
   Check each host and why it is there. Hot-linked assets are not allowed. Download the
   assets into the folder and get permission to host them.
-- **`missing-size`**: the sidecar has no `width` and `height`. Add them. The draft cannot
-  be promoted without them.
+- **`missing-size`**: the sidecar has no `width` and `height`. Add them, or set
+  `"responsive": true` if the game fills its window. The draft cannot be promoted without one of these.
 - **`large-file: <path>`**: one file is over 25 MiB. Cloudflare Pages rejects files that large.
   Compress or split the asset.
 - **`inline-iframe-breakout (informational)`**: the code refers to `top.location`,

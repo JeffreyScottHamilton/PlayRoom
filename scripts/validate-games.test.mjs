@@ -161,3 +161,63 @@ describe('validateGames: html5 entries', () => {
     expect(validateGames([html5Entry()], root)).toEqual([])
   })
 })
+
+describe('validateGames: responsive entries', () => {
+  const HTML5_ID = 'html5-sample'
+
+  function html5Root() {
+    const root = mkdtempSync(join(tmpdir(), 'playroom-validate-responsive-'))
+    const dir = join(root, 'public', 'games', HTML5_ID, 'html')
+    mkdirSync(dir, { recursive: true })
+    writeFileSync(join(root, 'public', 'games', HTML5_ID, 'thumb.webp'), 'RIFF')
+    writeFileSync(join(dir, 'index.html'), '<!doctype html><canvas></canvas>')
+    return root
+  }
+
+  // Base responsive entry (no width/height), with overrides applied last.
+  const responsiveEntry = (overrides = {}) => {
+    const { width: _w, height: _h, ...base } = entry({
+      id: HTML5_ID,
+      engine: 'html5',
+      responsive: true,
+      thumbnail: `/games/${HTML5_ID}/thumb.webp`,
+      gameFile: `/games/${HTML5_ID}/html/index.html`,
+    })
+    return { ...base, ...overrides }
+  }
+
+  it('accepts a responsive html5 game without width or height', () => {
+    expect(validateGames([responsiveEntry()], html5Root())).toEqual([])
+  })
+
+  it('accepts responsive: false on a sized entry', () => {
+    const root = html5Root()
+    expect(validateGames([responsiveEntry({ responsive: false, width: 640, height: 480 })], root)).toEqual([])
+  })
+
+  it('fails when a responsive game sets width', () => {
+    const errors = validateGames([responsiveEntry({ width: 640 })], html5Root())
+    expect(errors).toContain(`${HTML5_ID}: responsive game must not set width`)
+  })
+
+  it('fails when a responsive game sets height', () => {
+    const errors = validateGames([responsiveEntry({ height: 480 })], html5Root())
+    expect(errors).toContain(`${HTML5_ID}: responsive game must not set height`)
+  })
+
+  it('fails when a responsive game is flash', () => {
+    const errors = validateGames([responsiveEntry({ engine: undefined, gameFile: '/games/sample/game.swf', thumbnail: '/games/sample/thumb.webp', id: 'sample' })], fixtureRoot())
+    expect(errors.some((e) => e.startsWith('sample:') && /responsive is only allowed for engine "html5"/.test(e))).toBe(true)
+  })
+
+  it('still requires width and height on a non-responsive game', () => {
+    const { width: _w, ...noWidth } = entry()
+    const errors = validateGames([noWidth], fixtureRoot())
+    expect(errors).toContain('sample: width must be a positive integer')
+  })
+
+  it('rejects a non-boolean responsive value', () => {
+    const errors = validateGames([responsiveEntry({ responsive: 'yes' })], html5Root())
+    expect(errors).toContain(`${HTML5_ID}: responsive must be a boolean when present`)
+  })
+})

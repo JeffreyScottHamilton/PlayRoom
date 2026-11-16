@@ -34,9 +34,11 @@ export interface Game {
   addedAt: string;
   /** Required for every published entry */
   license: GameLicense;
-  /** Native SWF stage size, from the SWF header; drives aspect ratio */
-  width: number;
-  height: number;
+  /** Native SWF stage size, from the SWF header; drives aspect ratio. Omitted when responsive. */
+  width?: number;
+  height?: number;
+  /** html5 only. The game fills any frame and has no intended size; width/height are omitted and the player uses RESPONSIVE_FRAME. */
+  responsive?: boolean;
   /** Requires keyboard (true) — shows a mobile notice */
   needsKeyboard: boolean;
   /** Curated "Popular" list position (1 = first). Omit if not curated. No invented stats. */
