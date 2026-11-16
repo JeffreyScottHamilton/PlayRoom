@@ -87,4 +87,19 @@ describe('postbuildPages', () => {
     rmSync(join(root, 'dist', 'index.html'))
     expect(() => postbuildPages({ root, scope: 'all' })).toThrow(/index\.html/)
   })
+
+  it('refuses to finish when a built asset still references an owner-asserted game folder', () => {
+    const root = setup(GAMES)
+    mkdirSync(join(root, 'dist', 'assets'), { recursive: true })
+    writeFileSync(join(root, 'dist', 'assets', 'index-abc.js'), 'const g="/games/owned-one/game.swf"')
+    expect(() => postbuildPages({ root, scope: 'open' })).toThrow(/leaked into dist\/assets/)
+    expect(existsSync(join(root, 'dist', '404.html'))).toBe(false)
+  })
+
+  it('does not flag assets that only mention open games', () => {
+    const root = setup(GAMES)
+    mkdirSync(join(root, 'dist', 'assets'), { recursive: true })
+    writeFileSync(join(root, 'dist', 'assets', 'index-abc.js'), 'const g="/games/open-one/game.swf"')
+    expect(postbuildPages({ root, scope: 'open' }).removed).toEqual(['owned-one'])
+  })
 })

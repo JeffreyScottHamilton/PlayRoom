@@ -2,16 +2,26 @@
 // - Always: copies dist/index.html to dist/404.html (SPA fallback) and writes dist/.nojekyll.
 // - VITE_LIBRARY=open: deletes dist/games/<id>/ for every owner-asserted manifest entry.
 //   Ids are validated before anything is deleted, and only paths inside dist/games are touched.
-import { copyFileSync, existsSync, lstatSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { isOwnerAssertedEntry } from './vite-library-scope.mjs'
 
 const ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const SCOPES = ['all', 'open']
 
-// Mirror of isOwnerAsserted() in src/data/catalog.ts (this script runs outside Vite).
-function isOwnerAssertedEntry(game) {
-  return typeof game?.license?.type === 'string' && game.license.type.startsWith('Owner-asserted')
+// Throws if any built JS/CSS/HTML under dist/assets still references an owner-asserted
+// game's folder (the asset path is "/games/<id>/..."). Defence in depth behind the Vite plugin.
+function assertNoOwnerLeak(dist, ids) {
+  const assets = join(dist, 'assets')
+  if (!existsSync(assets)) return
+  const needles = ids.map((id) => `/games/${id}/`)
+  for (const name of readdirSync(assets)) {
+    if (!/\.(m?js|css|html)$/.test(name)) continue
+    const text = readFileSync(join(assets, name), 'utf8')
+    const hit = needles.find((n) => text.includes(n))
+    if (hit) throw new Error(`owner-asserted path "${hit}" leaked into dist/assets/${name}`)
+  }
 }
 
 /**
@@ -43,6 +53,7 @@ export function postbuildPages({ root, scope = 'all' }) {
       }
     }
     result.ownerAsserted = owned.length
+    assertNoOwnerLeak(dist, owned.map((g) => g.id))
 
     const gamesDir = resolve(dist, 'games')
     for (const game of owned) {

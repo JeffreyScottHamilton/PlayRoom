@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitest/config'
+import { libraryScopePlugin } from './scripts/vite-library-scope.mjs'
 
 // Deployment base path. Default "/" (Vercel). GitHub Pages project sites use "/PlayRoom/".
 const basePath = process.env.BASE_PATH || '/'
@@ -15,7 +16,7 @@ if (libraryScope !== 'all' && libraryScope !== 'open') {
 // https://vite.dev/config/
 export default defineConfig({
   base: basePath,
-  plugins: [react(), tailwindcss()],
+  plugins: [libraryScopePlugin({ scope: libraryScope }), react(), tailwindcss()],
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
