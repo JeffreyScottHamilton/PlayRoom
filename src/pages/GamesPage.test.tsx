@@ -1,0 +1,226 @@
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import type { ReactNode } from "react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
+import type { Category, Game } from "../types/game";
+import GamesPage from "./GamesPage";
+
+const { fixtures, state, make } = vi.hoisted(() => {
+  const make = (id: string, title: string, extra: Partial<Game> = {}): Game => ({
+    id,
+    title,
+    description: "",
+    category: ["Action"],
+    thumbnail: `/games/${id}/thumb.webp`,
+    gameFile: `/games/${id}/game.swf`,
+    controls: "",
+    compatibility: "verified",
+    addedAt: "2024-01-01",
+    license: { type: "MIT", source: "https://example.com" },
+    width: 640,
+    height: 400,
+    needsKeyboard: false,
+    ...extra,
+  });
+  const quests = Array.from({ length: 30 }, (_, i) =>
+    make(`quest-${i + 1}`, `Quest ${String(i + 1).padStart(2, "0")}`),
+  );
+  return {
+    make,
+    fixtures: [
+      ...quests,
+      make("mario-kart", "Mario Kart", { category: ["Racing"] }),
+      make("puzzle-box", "Puzzle Box", { category: ["Puzzle"] }),
+      make("hidden", "Hidden Quest", { compatibility: "unsupported" }),
+    ],
+    state: { games: [] as Game[] },
+  };
+});
+
+// The catalog delegates to a mutable list so one test can simulate an empty library.
+vi.mock("../data/catalog", async () => {
+  const { createCatalog } = await vi.importActual<typeof import("../data/catalog")>(
+    "../data/catalog",
+  );
+  return {
+    get allGames() {
+      return createCatalog(state.games).allGames;
+    },
+    getGame: (id: string) => createCatalog(state.games).getGame(id),
+    getGamesByCategory: (cat: Category | "All") =>
+      createCatalog(state.games).getGamesByCategory(cat),
+  };
+});
+
+// GameGrid, CategoryFilter and EmptyState are S2 components; these minimal stand-ins
+// keep the page logic under test independent of their styling.
+vi.mock("../components/ui/GameGrid", () => ({
+  GameGrid: ({ games }: { games: Game[] }) => (
+    <ul aria-label="Games">
+      {games.map((g) => (
+        <li key={g.id}>{g.title}</li>
+      ))}
+    </ul>
+  ),
+}));
+
+vi.mock("../components/ui/CategoryFilter", () => ({
+  CategoryFilter: ({
+    value,
+    onChange,
+  }: {
+    value: string;
+    onChange: (c: string) => void;
+  }) => (
+    <div role="radiogroup" aria-label="Categories">
+      {["All", "Action", "Puzzle", "Racing"].map((c) => (
+        <button
+          key={c}
+          type="button"
+          role="radio"
+          aria-checked={value === c}
+          onClick={() => onChange(c)}
+        >
+          {c}
+        </button>
+      ))}
+    </div>
+  ),
+}));
+
+vi.mock("../components/ui/EmptyState", () => ({
+  EmptyState: ({ children }: { children?: ReactNode }) => (
+    <div role="region" aria-label="Empty state">
+      {children}
+    </div>
+  ),
+}));
+
+function Where() {
+  const location = useLocation();
+  return <output aria-label="location">{location.pathname + location.search + location.hash}</output>;
+}
+
+function renderPage(initial: string) {
+  return render(
+    <MemoryRouter initialEntries={[initial]}>
+      <Routes>
+        <Route
+          path="*"
+          element={
+            <>
+              <GamesPage />
+              <Where />
+            </>
+          }
+        />
+      </Routes>
+    </MemoryRouter>,
+  );
+}
+
+const titles = () =>
+  within(screen.getByRole("list", { name: "Games" }))
+    .queryAllByRole("listitem")
+    .map((li) => li.textContent);
+
+beforeEach(() => {
+  state.games = [...fixtures];
+});
+
+afterEach(() => {
+  cleanup();
+});
+
+describe("GamesPage", () => {
+  it("renders the heading and the visible game count, hiding unsupported games", () => {
+    renderPage("/games");
+    expect(screen.getByRole("heading", { level: 1, name: "All Games" })).toBeInTheDocument();
+    // 30 quests + Mario Kart + Puzzle Box; the unsupported one is hidden.
+    expect(screen.getByText("32 games")).toBeInTheDocument();
+  });
+
+  it("lists titles A–Z and pages 24 at a time with Load more", () => {
+    renderPage("/games");
+    const shown = titles();
+    expect(shown).toHaveLength(24);
+    expect(shown[0]).toBe("Mario Kart");
+    expect(shown[1]).toBe("Puzzle Box");
+
+    const loadMore = screen.getByRole("button", { name: "Load more (8 remaining)" });
+    fireEvent.click(loadMore);
+
+    expect(titles()).toHaveLength(32);
+    expect(screen.queryByRole("button", { name: /load more/i })).not.toBeInTheDocument();
+  });
+
+  it("filters by category and syncs ?category=", () => {
+    renderPage("/games");
+    fireEvent.click(screen.getByRole("radio", { name: "Puzzle" }));
+
+    expect(titles()).toEqual(["Puzzle Box"]);
+    expect(screen.getByText("1 game")).toBeInTheDocument();
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games?category=Puzzle");
+  });
+
+  it("applies the category from the URL on load", () => {
+    renderPage("/games?category=Racing");
+    expect(titles()).toEqual(["Mario Kart"]);
+    expect(screen.getByRole("radio", { name: "Racing" })).toHaveAttribute(
+      "aria-checked",
+      "true",
+    );
+  });
+
+  it("searches titles and syncs ?q=", () => {
+    renderPage("/games");
+    fireEvent.change(screen.getByRole("searchbox", { name: "Search titles" }), {
+      target: { value: "mario" },
+    });
+
+    expect(titles()).toEqual(["Mario Kart"]);
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games?q=mario");
+  });
+
+  it("applies the category first, then the search within it", () => {
+    renderPage("/games?category=Racing&q=quest");
+    expect(screen.getByText("No games match “quest”")).toBeInTheDocument();
+  });
+
+  it("uses search rank order when a query is present", () => {
+    renderPage("/games?q=quest%2001");
+    expect(titles()).toEqual(["Quest 01"]);
+  });
+
+  it("clears the search from the empty state", () => {
+    renderPage("/games?q=zzz");
+    expect(screen.getByText("No games match “zzz”")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Clear search" }));
+    expect(screen.getByLabelText("location")).toHaveTextContent(/^\/games$/);
+    expect(titles()).toHaveLength(24);
+  });
+
+  it("offers to show all games when the chosen category is empty", () => {
+    state.games = [make("only-action", "Only Action")];
+    renderPage("/games");
+    fireEvent.click(screen.getByRole("radio", { name: "Puzzle" }));
+
+    expect(screen.getByText("No games in this category.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Show all games" }));
+    expect(screen.getByLabelText("location")).toHaveTextContent(/^\/games$/);
+    expect(titles()).toEqual(["Only Action"]);
+  });
+
+  it("shows the empty library state when there are no games", () => {
+    state.games = [];
+    renderPage("/games");
+    expect(screen.getByText("0 games")).toBeInTheDocument();
+    expect(screen.getByText("No games in the library yet.")).toBeInTheDocument();
+  });
+
+  it("focuses the category filter when the URL hash is #categories", () => {
+    renderPage("/games#categories");
+    expect(document.getElementById("categories")).toHaveFocus();
+  });
+});
