@@ -47,9 +47,17 @@ opaque (`null`) origin. Found in real-browser tests:
 Rejected, never add: Chrome Dino, Mario JS, Super Bowser's World, Reversed, Racer,
 Tetris/Pong/Breakout clones, Clumsy Bird, Q1K3, Highway 404.
 
-## Waiting on the owner
+## Decisions made by the owner (2026-11-16)
 
-`.github/workflows/pages.yml` on `main` publishes all 83 games, including 68
-owner-asserted commercial titles, to a public GitHub Pages site. Recommendation: change its
-build step back to `npm run build:pages` (open-licensed only). Do not change `main` without
-the owner's go-ahead.
+- Pages deploy: approved. `main` 9e8da21 switches `.github/workflows/pages.yml` to
+  `npm run build:pages` (open-licensed only; 68 owner-asserted titles not deployed).
+- Games with no fixed size: approved adding `responsive: true` (html5 only; width/height
+  omitted; player uses a 16:9 frame). Used for Space Huggers, 2048, Bounce Back,
+  Black Hole Square, The Wandering Wraith.
+
+## Prepared files (scratchpad, lost with the container)
+
+Game folders and sidecars were prepared in the session scratchpad (`incoming/`,
+`incoming2/`) and are then imported into `public/games/<id>/html/` and committed. If a
+session ends before import, redo from the repo + commit listed in each entry's
+`license.notes`; the edits needed are listed there too.
