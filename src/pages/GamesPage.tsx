@@ -56,9 +56,10 @@ export default function GamesPage() {
   }
 
   // "/categories" redirects here with #categories: move focus to the filter.
+  // location.key changes on every navigation, so re-visiting the same hash refocuses too.
   useEffect(() => {
     if (location.hash === "#categories") categoriesRef.current?.focus();
-  }, [location.hash]);
+  }, [location.hash, location.key]);
 
   const inCategory = useMemo(() => getGamesByCategory(category), [category]);
   const results = useMemo(

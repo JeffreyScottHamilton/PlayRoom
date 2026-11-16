@@ -161,6 +161,17 @@ describe("GamePage", () => {
     expect(link).toHaveAttribute("href", "https://example.com/license");
   });
 
+  it("shows the licence as plain text when the source is not an https URL", () => {
+    mocks.getGame.mockReturnValue(
+      fixtureGame({ license: { type: "Unverified", source: "javascript:alert(1)" } }),
+    );
+    renderAt("/games/fixture-game");
+
+    expect(screen.queryByRole("link", { name: "Unverified" })).toBeNull();
+    expect(screen.getByText("Unverified")).toBeInTheDocument();
+    expect(document.querySelector('a[href^="javascript:"]')).toBeNull();
+  });
+
   it("shows developer and year only when they are known", () => {
     mocks.getGame.mockReturnValue(fixtureGame({ developer: undefined, releaseYear: undefined }));
     renderAt("/games/fixture-game");

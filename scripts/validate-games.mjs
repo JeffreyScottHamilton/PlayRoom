@@ -96,7 +96,11 @@ export function validateGames(games, options = REPO_ROOT) {
       fail('license is required')
     } else {
       if (!isNonEmptyString(g.license.type)) fail('license.type is required')
-      if (!isNonEmptyString(g.license.source)) fail('license.source is required')
+      if (!isNonEmptyString(g.license.source)) {
+        fail('license.source is required')
+      } else if (!g.license.source.startsWith('https://')) {
+        fail('license.source must be an https URL')
+      }
       if (g.license.notes !== undefined && typeof g.license.notes !== 'string') {
         fail('license.notes must be a string when present')
       }

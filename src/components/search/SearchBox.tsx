@@ -116,7 +116,16 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
   }
 
   return (
-    <div role="search" className={`relative ${className}`.trim()}>
+    <div
+      role="search"
+      className={`relative ${className}`.trim()}
+      // Close only when focus leaves the search box, so the "All Games" link can take focus.
+      onBlur={(e) => {
+        if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
+        setOpen(false);
+        setActive(-1);
+      }}
+    >
       <input
         ref={inputRef}
         type="search"
@@ -137,10 +146,6 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
           setOpen(true);
         }}
         onFocus={() => setOpen(true)}
-        onBlur={() => {
-          setOpen(false);
-          setActive(-1);
-        }}
         onKeyDown={onKeyDown}
       />
 
@@ -179,7 +184,11 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
             ))}
           </ul>
         ) : (
-          <div className="absolute inset-x-0 top-full z-50 mt-2 flex flex-col gap-1 rounded-card border border-line bg-elevated p-3">
+          <div
+            // Keep focus in the input while the link is pressed; the click still lands.
+            onMouseDown={(e) => e.preventDefault()}
+            className="absolute inset-x-0 top-full z-50 mt-2 flex flex-col gap-1 rounded-card border border-line bg-elevated p-3"
+          >
             <p className="text-sm text-ink-muted">No games match “{trimmed}”</p>
             <Link to="/games" className={linkClass}>
               All Games

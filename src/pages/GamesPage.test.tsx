@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
+import { Link, MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import type { Category, Game } from "../types/game";
 import GamesPage from "./GamesPage";
 
@@ -177,5 +177,32 @@ describe("GamesPage", () => {
   it("focuses the category filter when the URL hash is #categories", () => {
     renderPage("/games#categories");
     expect(document.getElementById("categories")).toHaveFocus();
+  });
+
+  it("refocuses the category filter when #categories is navigated to again on /games", () => {
+    render(
+      <MemoryRouter initialEntries={["/games#categories"]}>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <>
+                <input aria-label="Other field" />
+                <Link to="/games#categories">Categories</Link>
+                <GamesPage />
+              </>
+            }
+          />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const categories = document.getElementById("categories");
+    expect(categories).toHaveFocus();
+
+    screen.getByRole("textbox", { name: "Other field" }).focus();
+    expect(categories).not.toHaveFocus();
+
+    fireEvent.click(screen.getByRole("link", { name: "Categories" }));
+    expect(categories).toHaveFocus();
   });
 });

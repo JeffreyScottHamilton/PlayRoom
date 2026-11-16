@@ -1,6 +1,8 @@
 import { createRef } from "react";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { MemoryRouter } from "react-router-dom";
+import { SearchBox } from "../components/search/SearchBox";
 import { RufflePlayer, type RufflePlayerHandle } from "./RufflePlayer";
 
 const mocks = vi.hoisted(() => ({
@@ -205,5 +207,32 @@ describe("RufflePlayer lifecycle and handle", () => {
     fireEvent.mouseDown(target);
 
     expect(document.activeElement).toBe(target);
+  });
+});
+
+describe("RufflePlayer keyboard shortcuts", () => {
+  it("marks the container with data-player so the '/' search shortcut is disabled", () => {
+    const { container } = renderPlayer();
+    expect(container.firstElementChild).toHaveAttribute("data-player");
+  });
+
+  it("does not let '/' pressed inside the real player steal focus to search", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <SearchBox />
+        <RufflePlayer src="/games/demo/game.swf" width={550} height={400} />
+      </MemoryRouter>,
+    );
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    const player = container.querySelector<HTMLElement>("[data-player]");
+    expect(player).not.toBeNull();
+
+    player!.focus();
+    expect(player).toHaveFocus();
+    const notPrevented = fireEvent.keyDown(player!, { key: "/" });
+
+    expect(input).not.toHaveFocus();
+    expect(player).toHaveFocus();
+    expect(notPrevented).toBe(true);
   });
 });

@@ -168,6 +168,38 @@ describe("SearchBox", () => {
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
+  it("keeps the no-results popup open while focus moves to the All Games link", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "zzz" } });
+    const link = screen.getByRole("link", { name: "All Games" });
+
+    input.focus();
+    fireEvent.blur(input, { relatedTarget: link });
+    expect(screen.getByRole("link", { name: "All Games" })).toBeInTheDocument();
+  });
+
+  it("closes the no-results popup when focus leaves the search box", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "zzz" } });
+
+    fireEvent.blur(input, { relatedTarget: screen.getByRole("textbox", { name: "Notes" }) });
+    expect(screen.queryByRole("link", { name: "All Games" })).not.toBeInTheDocument();
+  });
+
+  it("keeps focus in the input when the no-results popup is pressed, so the click lands", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "zzz" } });
+    const link = screen.getByRole("link", { name: "All Games" });
+
+    const notPrevented = fireEvent.mouseDown(link);
+    expect(notPrevented).toBe(false);
+    fireEvent.click(link);
+    expect(screen.getByLabelText("location")).toHaveTextContent(/^\/games$/);
+  });
+
   it("focuses the field on '/' when focus is not in a text field", () => {
     renderBox();
     const input = screen.getByRole("combobox", { name: "Search games" });

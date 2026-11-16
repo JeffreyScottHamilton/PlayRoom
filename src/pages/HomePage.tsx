@@ -1,4 +1,5 @@
 import { useState, type JSX } from "react";
+import { Link } from "react-router-dom";
 import { Container } from "../components/layout/Container";
 import { Hero } from "../components/home/Hero";
 import { CategoryFilter } from "../components/ui/CategoryFilter";
@@ -16,10 +17,15 @@ import { useRecentlyPlayed } from "../hooks/useRecentlyPlayed";
 import type { Category, Game } from "../types/game";
 
 const VIEW_ALL = { label: "View All →", to: "/games" } as const;
+/** Games shown under "All" in the Categories section before linking to /games. */
+const ALL_PREVIEW = 12;
+
+const linkButtonClass =
+  "inline-flex min-h-11 items-center rounded-card px-1 text-sm font-semibold text-ink-muted transition-colors duration-150 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink motion-reduce:transition-none";
 
 export default function HomePage(): JSX.Element {
   const [category, setCategory] = useState<Category | "All">("All");
-  const { recent } = useRecentlyPlayed();
+  const { recent, clearRecent } = useRecentlyPlayed();
 
   const continuePlaying = recent
     .map((id) => getGame(id))
@@ -27,7 +33,7 @@ export default function HomePage(): JSX.Element {
     .slice(0, 6);
   const popular = getPopularGames(6);
   const recentlyAdded = getRecentlyAdded(6);
-  const categoryGames = category === "All" ? [] : getGamesByCategory(category);
+  const categoryGames = getGamesByCategory(category);
   const libraryEmpty = allGames.length === 0;
 
   return (
@@ -39,12 +45,23 @@ export default function HomePage(): JSX.Element {
         <div className="mt-4">
           <CategoryFilter value={category} onChange={setCategory} />
         </div>
-        {category !== "All" && (
+        {(category !== "All" || categoryGames.length > 0) && (
           <div className="mt-6">
-            {categoryGames.length > 0 ? (
-              <GameGrid games={categoryGames} />
-            ) : (
+            {categoryGames.length === 0 ? (
               <EmptyState title={`No ${category} games yet`} />
+            ) : category === "All" ? (
+              <>
+                <GameGrid games={categoryGames.slice(0, ALL_PREVIEW)} />
+                {categoryGames.length > ALL_PREVIEW && (
+                  <div className="mt-6 flex justify-center">
+                    <Link to="/games" className={linkButtonClass}>
+                      View all games
+                    </Link>
+                  </div>
+                )}
+              </>
+            ) : (
+              <GameGrid games={categoryGames} />
             )}
           </div>
         )}
@@ -52,7 +69,19 @@ export default function HomePage(): JSX.Element {
 
       {continuePlaying.length > 0 && (
         <section className="mt-12">
-          <SectionHeader title="CONTINUE PLAYING" />
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <SectionHeader title="CONTINUE PLAYING" />
+            </div>
+            <button
+              type="button"
+              aria-label="Clear recently played"
+              onClick={() => clearRecent()}
+              className={linkButtonClass}
+            >
+              Clear
+            </button>
+          </div>
           <div className="mt-4">
             <GameGrid games={continuePlaying} />
           </div>

@@ -175,14 +175,18 @@ export default function GamePage() {
       <section aria-labelledby="license-heading" className="mt-12">
         <SectionHeader id="license-heading" title="License" />
         <p className="mt-3 text-sm text-ink">
-          <a
-            href={license.source}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`underline underline-offset-4 hover:text-ink ${FOCUS_RING}`}
-          >
-            {license.type}
-          </a>
+          {license.source.startsWith("https://") ? (
+            <a
+              href={license.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`underline underline-offset-4 hover:text-ink ${FOCUS_RING}`}
+            >
+              {license.type}
+            </a>
+          ) : (
+            license.type
+          )}
         </p>
         {license.notes && <p className="mt-2 text-sm text-ink-muted">{license.notes}</p>}
       </section>

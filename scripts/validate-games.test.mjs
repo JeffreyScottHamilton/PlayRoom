@@ -49,6 +49,13 @@ describe('validateGames', () => {
     expect(errors.some((e) => e.startsWith('sample:') && /license/.test(e))).toBe(true)
   })
 
+  it('rejects a licence source that is not an https URL', () => {
+    const js = entry({ license: { type: 'Developer permission', source: 'javascript:alert(1)' } })
+    expect(validateGames([js], root)).toContain('sample: license.source must be an https URL')
+    const http = entry({ license: { type: 'Developer permission', source: 'http://example.com' } })
+    expect(validateGames([http], root)).toContain('sample: license.source must be an https URL')
+  })
+
   it('fails on duplicate ids', () => {
     const errors = validateGames([entry(), entry()], root)
     expect(errors.some((e) => e.startsWith('sample:') && /duplicate/i.test(e))).toBe(true)

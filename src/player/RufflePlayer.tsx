@@ -131,6 +131,7 @@ export const RufflePlayer = forwardRef<RufflePlayerHandle, RufflePlayerProps>(
       <div
         ref={containerRef}
         tabIndex={-1}
+        data-player=""
         data-status={status}
         onKeyDown={handleKeyDown}
         onMouseDown={focusContainer}

@@ -24,13 +24,22 @@ vi.mock("../data/catalog", () => ({
   getRelatedGames: () => [],
 }));
 
-vi.mock("../hooks/useRecentlyPlayed", () => ({
-  useRecentlyPlayed: () => ({
-    recent: state.recentIds,
-    recordPlay: () => {},
-    clearRecent: () => {},
-  }),
-}));
+vi.mock("../hooks/useRecentlyPlayed", async () => {
+  const { useReducer } = await import("react");
+  return {
+    useRecentlyPlayed: () => {
+      const [, rerender] = useReducer((n: number) => n + 1, 0);
+      return {
+        recent: state.recentIds,
+        recordPlay: () => {},
+        clearRecent: () => {
+          state.recentIds = [];
+          rerender();
+        },
+      };
+    },
+  };
+});
 
 import HomePage from "./HomePage";
 
@@ -111,7 +120,7 @@ describe("HomePage", () => {
     state.all = [featured];
     state.featured = featured;
     renderHome();
-    expect(screen.getByRole("link", { name: /Hero Game/ })).toHaveAttribute(
+    expect(screen.getAllByRole("link", { name: /Hero Game/ })[0]).toHaveAttribute(
       "href",
       "/games/hero-game",
     );
@@ -143,12 +152,55 @@ describe("HomePage", () => {
 
   it("shows the selected category's games under the filter", () => {
     const puzzle = fixture("cube", "Cube Puzzle", { category: ["Puzzle"] });
-    state.all = [puzzle];
+    const racer = fixture("racer", "Fast Racer", { category: ["Racing"] });
+    state.all = [puzzle, racer];
     state.byCategory = { Puzzle: [puzzle] };
     renderHome();
-    expect(screen.queryByRole("link", { name: "Cube Puzzle" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Fast Racer" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("radio", { name: "Puzzle" }));
     expect(screen.getByRole("link", { name: "Cube Puzzle" })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Fast Racer" })).toBeNull();
+  });
+
+  it("shows the first 12 games by title under All, with a View all games link", () => {
+    const games = Array.from({ length: 13 }, (_, i) =>
+      fixture(`game-${i + 1}`, `Game ${String(i + 1).padStart(2, "0")}`),
+    );
+    state.all = games;
+    renderHome();
+    const heading = screen.getByRole("heading", { name: "CATEGORIES" });
+    const section = heading.closest("section") as HTMLElement;
+
+    const links = within(section).getAllByRole("link", { name: /^Game \d\d$/ });
+    expect(links).toHaveLength(12);
+    expect(links[0]).toHaveTextContent("Game 01");
+    expect(links[11]).toHaveTextContent("Game 12");
+    expect(within(section).queryByRole("link", { name: "Game 13" })).toBeNull();
+    expect(within(section).getByRole("link", { name: "View all games" })).toHaveAttribute(
+      "href",
+      "/games",
+    );
+  });
+
+  it("shows all games under All without a View all games link when there are 12 or fewer", () => {
+    state.all = [fixture("alpha", "Alpha"), fixture("beta", "Beta")];
+    renderHome();
+    const heading = screen.getByRole("heading", { name: "CATEGORIES" });
+    const section = heading.closest("section") as HTMLElement;
+    expect(within(section).getByRole("link", { name: "Alpha" })).toBeInTheDocument();
+    expect(within(section).getByRole("link", { name: "Beta" })).toBeInTheDocument();
+    expect(within(section).queryByRole("link", { name: "View all games" })).toBeNull();
+  });
+
+  it("clears recently played from the Continue Playing header", () => {
+    const a = fixture("alpha", "Alpha");
+    state.all = [a];
+    state.recentIds = ["alpha"];
+    renderHome();
+    expect(screen.getByRole("heading", { name: "CONTINUE PLAYING" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Clear recently played" }));
+    expect(screen.queryByRole("heading", { name: "CONTINUE PLAYING" })).toBeNull();
   });
 
   it("shows an empty state for a category with no games", () => {
