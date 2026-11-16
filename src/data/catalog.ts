@@ -1,4 +1,4 @@
-import type { Category, Game } from "../types/game";
+import type { Category, Engine, Game } from "../types/game";
 import gamesJson from "./games.json";
 
 function byTitle(a: Game, b: Game): number {
@@ -22,6 +22,11 @@ export function isOwnerAsserted(game: Game): boolean {
 /** "open" drops owner-asserted entries; "all" keeps every entry. Pure; returns a new array. */
 export function filterByScope(games: readonly Game[], scope: LibraryScope): Game[] {
   return scope === "open" ? games.filter((g) => !isOwnerAsserted(g)) : [...games];
+}
+
+/** Runtime for a game. Entries without an engine are Flash (all existing entries). */
+export function engineOf(game: Game): Engine {
+  return game.engine ?? "flash";
 }
 
 /**

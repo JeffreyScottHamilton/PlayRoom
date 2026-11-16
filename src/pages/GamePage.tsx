@@ -4,11 +4,13 @@ import { Container } from "../components/layout/Container";
 import { Button } from "../components/ui/Button";
 import { GameGrid } from "../components/ui/GameGrid";
 import { SectionHeader } from "../components/ui/SectionHeader";
-import { getGame, getRelatedGames } from "../data/catalog";
+import { engineOf, getGame, getRelatedGames } from "../data/catalog";
 import { assetUrl } from "../lib/assetUrl";
 import { useFavorites } from "../hooks/useFavorites";
 import { useRecentlyPlayed } from "../hooks/useRecentlyPlayed";
-import { RufflePlayer, type RufflePlayerHandle } from "../player/RufflePlayer";
+import { Html5Player } from "../player/Html5Player";
+import { RufflePlayer } from "../player/RufflePlayer";
+import type { GamePlayerHandle } from "../player/types";
 
 const FOCUS_RING =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
@@ -53,7 +55,7 @@ export default function GamePage() {
   const game = getGame(id);
   const location = useLocation();
   const navigate = useNavigate();
-  const playerRef = useRef<RufflePlayerHandle>(null);
+  const playerRef = useRef<GamePlayerHandle>(null);
   const coarse = useCoarsePointer();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { recordPlay } = useRecentlyPlayed();
@@ -103,12 +105,22 @@ export default function GamePage() {
       <h1 className="mt-2 text-[28px] font-semibold leading-[34px] text-ink">{game.title}</h1>
 
       <div className="mt-4">
-        <RufflePlayer
-          ref={playerRef}
-          src={assetUrl(game.gameFile)}
-          width={game.width}
-          height={game.height}
-        />
+        {engineOf(game) === "html5" ? (
+          <Html5Player
+            ref={playerRef}
+            title={game.title}
+            src={assetUrl(game.gameFile)}
+            width={game.width}
+            height={game.height}
+          />
+        ) : (
+          <RufflePlayer
+            ref={playerRef}
+            src={assetUrl(game.gameFile)}
+            width={game.width}
+            height={game.height}
+          />
+        )}
       </div>
 
       <div className="mt-3 flex flex-wrap gap-3">

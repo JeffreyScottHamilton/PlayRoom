@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>html5 fixture</title>
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="game" width="640" height="480"></canvas>
+<script>
+  // Test-only fixture. Written for PLAYROOM's e2e checks, not a shipped game.
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  const held = new Set();
+  const state = { x: 300, y: 200, size: 40, speed: 4, storage: "untested", top: "untested" };
+  window.__fixture = state;
+
+  // Sandboxed (opaque origin): both probes are expected to throw.
+  try {
+    localStorage.setItem("playroom:e2e-probe", "iframe-value");
+    state.storage = "written";
+  } catch (err) {
+    state.storage = "blocked";
+  }
+  try {
+    void window.top.location.href;
+    state.top = "readable";
+  } catch (err) {
+    state.top = "blocked";
+  }
+
+  addEventListener("keydown", (e) => {
+    if (e.key.startsWith("Arrow")) {
+      held.add(e.key);
+      e.preventDefault();
+    }
+  });
+  addEventListener("keyup", (e) => held.delete(e.key));
+
+  function update() {
+    if (held.has("ArrowLeft")) state.x -= state.speed;
+    if (held.has("ArrowRight")) state.x += state.speed;
+    if (held.has("ArrowUp")) state.y -= state.speed;
+    if (held.has("ArrowDown")) state.y += state.speed;
+    state.x = Math.max(0, Math.min(canvas.width - state.size, state.x));
+    state.y = Math.max(0, Math.min(canvas.height - state.size, state.y));
+  }
+
+  function draw() {
+    ctx.fillStyle = "#1a1a2e";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#e94560";
+    ctx.fillRect(state.x, state.y, state.size, state.size);
+    ctx.fillStyle = "#f5f5f5";
+    ctx.font = "24px sans-serif";
+    ctx.fillText("html5 fixture", 16, 36);
+    ctx.fillText(`storage: ${state.storage}  top: ${state.top}`, 16, 466);
+  }
+
+  function frame() {
+    update();
+    draw();
+    requestAnimationFrame(frame);
+  }
+  frame();
+</script>
+</body>
+</html>

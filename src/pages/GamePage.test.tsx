@@ -13,11 +13,17 @@ const mocks = vi.hoisted(() => ({
   recordPlay: vi.fn(),
   restart: vi.fn(),
   enterFullscreen: vi.fn(),
+  loadRuffle: vi.fn(),
 }));
 
 vi.mock("../data/catalog", () => ({
   getGame: mocks.getGame,
   getRelatedGames: mocks.getRelatedGames,
+  engineOf: (game: Game) => game.engine ?? "flash",
+}));
+
+vi.mock("../player/loadRuffle", () => ({
+  loadRuffle: mocks.loadRuffle,
 }));
 
 vi.mock("../hooks/useFavorites", () => ({
@@ -96,6 +102,7 @@ beforeEach(() => {
   mocks.isFavorite.mockReturnValue(false);
   mocks.getRelatedGames.mockReturnValue([]);
   setCoarsePointer(false);
+  mocks.loadRuffle.mockReset();
   document.title = "PLAYROOM — The games you grew up with";
 });
 
@@ -245,5 +252,41 @@ describe("GamePage", () => {
     expect(screen.getByRole("link", { name: "All games" })).toHaveAttribute("href", "/games");
     expect(mocks.recordPlay).not.toHaveBeenCalled();
     expect(screen.queryByTestId("player")).not.toBeInTheDocument();
+  });
+
+  it("renders an HTML5 game in a sandboxed iframe and never loads Ruffle", () => {
+    mocks.getGame.mockReturnValue(
+      fixtureGame({ engine: "html5", gameFile: "/games/fixture-game/html/index.html" }),
+    );
+    const { container } = renderAt("/games/fixture-game");
+
+    const frame = container.querySelector("iframe");
+    expect(frame).not.toBeNull();
+    expect(frame).toHaveAttribute("sandbox", "allow-scripts allow-pointer-lock");
+    expect(frame).toHaveAttribute("src", "/games/fixture-game/html/index.html");
+    expect(frame).toHaveAttribute("title", "Fixture Game game");
+    expect(screen.queryByTestId("player")).not.toBeInTheDocument();
+    expect(mocks.loadRuffle).not.toHaveBeenCalled();
+  });
+
+  it("keeps the Ruffle path for flash games and does not render an iframe", () => {
+    mocks.getGame.mockReturnValue(fixtureGame({ engine: "flash" }));
+    const { container } = renderAt("/games/fixture-game");
+
+    expect(screen.getByTestId("player")).toHaveAttribute("data-src", "/games/fixture-game/game.swf");
+    expect(container.querySelector("iframe")).toBeNull();
+  });
+
+  it("wires the toolbar buttons to the HTML5 player handle", () => {
+    mocks.getGame.mockReturnValue(
+      fixtureGame({ engine: "html5", gameFile: "/games/fixture-game/html/index.html" }),
+    );
+    const { container } = renderAt("/games/fixture-game");
+    const before = container.querySelector("iframe");
+
+    fireEvent.click(screen.getByRole("button", { name: "Restart" }));
+
+    expect(container.querySelector("iframe")).not.toBe(before);
+    expect(mocks.loadRuffle).not.toHaveBeenCalled();
   });
 });
