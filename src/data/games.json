@@ -370,7 +370,7 @@
     ],
     "description": "Classic Flash strategy game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Unknown"
+    "developer": "XGen Studios"
   },
   {
     "id": "1gunblood",
@@ -414,8 +414,7 @@
       "Platformer"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Nintendo"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "learn-2-fly",
@@ -459,8 +458,7 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "StickPage"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "portal-wcs2",
@@ -483,7 +481,7 @@
     ],
     "description": "Classic Flash puzzle game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Ericson"
+    "developer": "We Create Stuff"
   },
   {
     "id": "the-impossible-quiz",
@@ -505,7 +503,7 @@
     ],
     "description": "Classic Flash quiz game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Splapp-Me-Do"
+    "developer": "Splapp-me-do"
   },
   {
     "id": "abobbos-big-adventure",
@@ -528,7 +526,7 @@
     ],
     "description": "Classic Flash action adventure game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "I-Mockery / Pox Box"
+    "developer": "Team Bobo"
   },
   {
     "id": "age-of-war",
@@ -574,7 +572,7 @@
     ],
     "description": "Classic Flash action platformer.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "The Behemoth"
+    "developer": "Tom Fulp / Dan Paladin"
   },
   {
     "id": "asteroids-flash",
@@ -595,8 +593,7 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Atari (Flash port)"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "bad-piggies",
@@ -617,8 +614,7 @@
       "Puzzle"
     ],
     "description": "Classic Flash puzzle game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Rovio Entertainment"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "bloody-rage",
@@ -639,8 +635,7 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Undefined"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "bloons-tower-defense",
@@ -684,8 +679,7 @@
       "Puzzle"
     ],
     "description": "Classic Flash puzzle game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Tetris (Flash port)"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "bubble-shooter",
@@ -729,8 +723,7 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Unknown"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "commando-2",
@@ -752,7 +745,7 @@
     ],
     "description": "Classic Flash action game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Miniclip"
+    "developer": "Macrojoy"
   },
   {
     "id": "cubefield",
@@ -796,7 +789,7 @@
     ],
     "description": "Classic Flash adventure game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Tom Fulp / Newgrounds"
+    "developer": "Tom Fulp / Dan Paladin"
   },
   {
     "id": "meat-boy",
@@ -818,7 +811,7 @@
     ],
     "description": "Classic Flash platformer.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Edmund McMillen / Team Meat"
+    "developer": "Edmund McMillen / Jonathan McEntee"
   },
   {
     "id": "super-mario-flash",
@@ -862,8 +855,7 @@
       "Arcade"
     ],
     "description": "Classic Flash shooter game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Nintendo (Flash port)"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "duck-life",
@@ -951,8 +943,7 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "ETDesign"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "escaping-the-prison",
@@ -996,8 +987,7 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Rexona / Unilever"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "fancy-pants-adventure",
@@ -1042,7 +1032,7 @@
     ],
     "description": "Classic Flash puzzle game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Tetris (Flash port)"
+    "developer": "Gavin Ward"
   },
   {
     "id": "doom",
@@ -1064,7 +1054,7 @@
     ],
     "description": "Classic Flash first-person shooter.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "id Software (Flash port)"
+    "developer": "Herschel"
   },
   {
     "id": "hands-millionaire",
@@ -1085,8 +1075,7 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Unknown"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "hobo",
@@ -1152,7 +1141,7 @@
     ],
     "description": "Classic Flash adventure game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "kouri"
+    "developer": "Shock Value"
   },
   {
     "id": "miami-shark",
@@ -1196,7 +1185,7 @@
     ],
     "description": "Classic Flash mini golf game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Miniclip"
+    "developer": "Psycho Goldfish Creative Media"
   },
   {
     "id": "my-friend-pedro",
@@ -1263,7 +1252,7 @@
     ],
     "description": "Classic Flash arcade game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Namco (Flash port)"
+    "developer": "Paul Neave"
   },
   {
     "id": "papas-burgeria",
@@ -1463,8 +1452,7 @@
       "Arcade"
     ],
     "description": "Classic Flash table tennis game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Atari (Flash port)"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "riddle-school",
@@ -1601,8 +1589,7 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Unknown"
+    "controls": "Controls are not documented by the developer."
   },
   {
     "id": "stealing-the-diamond",
@@ -1691,7 +1678,7 @@
     ],
     "description": "Classic Flash quiz game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Splapp-Me-Do"
+    "developer": "Splapp-me-do"
   },
   {
     "id": "the-worlds-hardest-game",
@@ -1758,7 +1745,7 @@
     ],
     "description": "Classic Flash platformer.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "jmtb02 / Armor Games"
+    "developer": "John Cooney"
   },
   {
     "id": "toss-the-turtle",
@@ -1781,7 +1768,7 @@
     ],
     "description": "Classic Flash sports game.",
     "controls": "Controls are not documented by the developer.",
-    "developer": "Forevernowhere / Gonzossm"
+    "developer": "Foreverkul / GonzoSSM"
   },
   {
     "id": "ultimate-flash-sonic",
