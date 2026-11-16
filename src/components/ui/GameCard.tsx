@@ -58,6 +58,11 @@ export function GameCard({ game, showFavorite = true }: GameCardProps): JSX.Elem
         >
           {game.title}
         </span>
+        {game.developer && (
+          <span className="block truncate text-xs leading-4 text-ink-muted">
+            {game.developer}
+          </span>
+        )}
       </Link>
       {showFavorite && (
         <button
