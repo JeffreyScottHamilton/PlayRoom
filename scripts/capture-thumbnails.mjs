@@ -23,6 +23,10 @@
 //   Playwright: require('playwright') first, then PLAYWRIGHT_MODULE_PATH (a package directory).
 // Needs Node, Playwright and public/ruffle/ (run node scripts/copy-ruffle.mjs first). Never installs browsers.
 // Set CAPTURE_DEBUG_DIR to also save each screenshot as <id>.png there (review aid).
+//
+// HTML5 drafts (engine "html5", ARCHITECTURE §13) are not loaded in Ruffle. They load in an iframe
+// with sandbox="allow-scripts allow-pointer-lock" (never allow-same-origin) inside a generated page,
+// get the same clicks and waits, and the iframe element is screenshotted. Same verdict rules.
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { createRequire } from 'node:module'
@@ -41,6 +45,8 @@ const CLICK_COUNT = Number(process.env.CAPTURE_CLICKS ?? 2)
 const FATAL_PATTERN = /panic|uncaught|runtimeerror/i
 // Browser GPU driver chatter (not Ruffle or the game); ignored so it does not count as a warning.
 const IGNORED_CONSOLE_PATTERN = /GL Driver Message/
+// Same sandbox as src/player/Html5Player.tsx. Exact value: never add allow-same-origin.
+const HTML5_SANDBOX = 'allow-scripts allow-pointer-lock'
 
 function loadPlaywright() {
   const specs = ['playwright']
@@ -120,6 +126,46 @@ const PAGE_HTML = `<!doctype html>
 </html>
 `
 
+// Generated page for html5 drafts. The game runs in a sandboxed iframe with no same-origin access.
+const HTML5_PAGE_HTML = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<title>capture</title>
+</head>
+<body style="margin:0;background:#111514">
+<div id="stage" style="position:relative;background:#111514"></div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var src = q.get("src");
+  var w = Number(q.get("w")) || 550;
+  var h = Number(q.get("h")) || 400;
+  var state = (window.__state = { loaded: false, error: null, meta: null });
+  var stage = document.getElementById("stage");
+  stage.style.width = w + "px";
+  stage.style.height = h + "px";
+  var frame = document.createElement("iframe");
+  frame.id = "game-frame";
+  frame.setAttribute("sandbox", "${HTML5_SANDBOX}");
+  frame.setAttribute("title", "game");
+  frame.style.display = "block";
+  frame.style.border = "0";
+  frame.style.width = w + "px";
+  frame.style.height = h + "px";
+  frame.addEventListener("load", function () {
+    state.loaded = true;
+    state.meta = { width: w, height: h };
+  });
+  frame.src = src;
+  stage.appendChild(frame);
+})();
+</script>
+</body>
+</html>
+`
+
 const MIME = {
   '.js': 'application/javascript',
   '.wasm': 'application/wasm',
@@ -127,6 +173,25 @@ const MIME = {
   '.webp': 'image/webp',
   '.json': 'application/json',
   '.map': 'application/json',
+  '.html': 'text/html; charset=utf-8',
+  '.htm': 'text/html; charset=utf-8',
+  '.css': 'text/css',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.mp3': 'audio/mpeg',
+  '.ogg': 'audio/ogg',
+  '.wav': 'audio/wav',
+}
+
+const isHtml5 = (draft) => draft.engine === 'html5'
+
+/** Public path of an html5 draft's entry: its gameFile when it sits in html/, else html/index.html. */
+function html5EntryPath(draft) {
+  const prefix = `/games/${draft.id}/html/`
+  const given = typeof draft.gameFile === 'string' ? draft.gameFile : ''
+  const safe = given.startsWith(prefix) && /\.html?$/i.test(given) && !given.split('/').includes('..') && !/[?#\\]/.test(given)
+  return safe ? given : `${prefix}index.html`
 }
 
 function startServer() {
@@ -135,6 +200,11 @@ function startServer() {
     if (url.pathname === '/__capture.html') {
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
       res.end(PAGE_HTML)
+      return
+    }
+    if (url.pathname === '/__capture-html5.html') {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
+      res.end(HTML5_PAGE_HTML)
       return
     }
     if (!url.pathname.startsWith('/ruffle/') && !url.pathname.startsWith('/games/')) {
@@ -286,8 +356,14 @@ async function captureOne(browser, base, draft) {
   })
 
   const result = { id, loaded: false, errors: [], blank: null, meta: null, verdict: 'unsupported', thumb: null, needsReview }
+  const html5 = isHtml5(draft)
+  // The element that is clicked and screenshotted: Ruffle's stage for SWF, the iframe for html5.
+  const surface = html5 ? '#game-frame' : '#stage'
   try {
-    await page.goto(`${base}/__capture.html?src=${encodeURIComponent(`/games/${id}/game.swf`)}&w=${W}&h=${H}`, {
+    const target = html5
+      ? `${base}/__capture-html5.html?src=${encodeURIComponent(html5EntryPath(draft))}&w=${W}&h=${H}`
+      : `${base}/__capture.html?src=${encodeURIComponent(`/games/${id}/game.swf`)}&w=${W}&h=${H}`
+    await page.goto(target, {
       waitUntil: 'load',
     })
     await page
@@ -304,7 +380,7 @@ async function captureOne(browser, base, draft) {
     // Let the first frames run, click the player centre once, then wait 3 s.
     const plan = CAPTURE_PLAN[id] ?? {}
     await page.waitForTimeout(plan.preWaitMs ?? 2000)
-    const box = await page.locator('#stage').boundingBox()
+    const box = await page.locator(surface).boundingBox()
     // Ruffle shows a click-to-play overlay until the player receives a click. The first click
     // can land before the overlay is active, so click, wait, then click again (CLICK_COUNT).
     // A per-game plan may list stage-relative click points (fractions of width and height) instead.
@@ -320,10 +396,12 @@ async function captureOne(browser, base, draft) {
       await page.keyboard.press(key)
       await page.waitForTimeout(clickWait)
     }
-    const dismissed = await page.evaluate(DISMISS_NOTICES)
-    if (process.env.CAPTURE_DEBUG_DIR) console.log(`debug ${id}: dismissed ${dismissed} notice button(s)`)
+    if (!html5) {
+      const dismissed = await page.evaluate(DISMISS_NOTICES)
+      if (process.env.CAPTURE_DEBUG_DIR) console.log(`debug ${id}: dismissed ${dismissed} notice button(s)`)
+    }
     await page.waitForTimeout(plan.postWaitMs ?? 0)
-    const shot = await page.locator('#stage').screenshot({ type: 'png' })
+    const shot = await page.locator(surface).screenshot({ type: 'png' })
     if (process.env.CAPTURE_DEBUG_DIR) writeFileSync(join(process.env.CAPTURE_DEBUG_DIR, `${id}.png`), shot)
     const analysis = await page.evaluate(ANALYSE_IN_PAGE, {
       png: `data:image/png;base64,${shot.toString('base64')}`,
@@ -411,8 +489,10 @@ async function main() {
   const results = []
   try {
     for (const draft of selected) {
-      if (!existsSync(join(PUBLIC, 'games', draft.id, 'game.swf'))) {
-        results.push({ id: draft.id, loaded: false, errors: ['FATAL game.swf missing'], fatalCount: 1, nonFatalCount: 0, blank: null, meta: null, verdict: 'unsupported' })
+      const entryFile = isHtml5(draft) ? html5EntryPath(draft) : `/games/${draft.id}/game.swf`
+      if (!existsSync(join(PUBLIC, entryFile))) {
+        const what = isHtml5(draft) ? 'html entry' : 'game.swf'
+        results.push({ id: draft.id, loaded: false, errors: [`FATAL ${what} missing`], fatalCount: 1, nonFatalCount: 0, blank: null, meta: null, verdict: 'unsupported' })
         continue
       }
       results.push(await captureOne(browser, base, draft))

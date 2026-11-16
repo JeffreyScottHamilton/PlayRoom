@@ -205,6 +205,108 @@ Promotion is a one-time move. After it, `src/data/games.json` is the source of t
 To pull a game temporarily, set `compatibility` to `unsupported` instead. Its files and
 entry stay in place.
 
+## HTML5 games
+
+Some games are HTML5 (HTML, JavaScript, CSS) rather than SWF. They use the same flow, with
+these differences. Rule zero applies in full: only games named by you from a known source,
+with permission recorded in `license`.
+
+### Folder layout
+
+One sub-folder per game. The folder must hold `index.html` at its top level. Everything in
+the folder is copied, except dotfiles (`.env`, `.git`, `.DS_Store`), `node_modules` and
+symlinks. Symlinks are never followed.
+
+```
+incoming/
+  sky-runner/            # html5 game folder. index.html at the top. Required.
+    index.html
+    game.js
+    assets/
+  sky-runner.webp        # thumbnail next to the folder, same base name. Optional.
+  sky-runner.json        # sidecar next to the folder (or game.json inside it). Optional.
+```
+
+The import copies the folder to `public/games/<id>/html/` and writes a draft with
+`engine: "html5"` and `gameFile: "/games/<id>/html/index.html"`. The draft starts as
+`compatibility: "unsupported"`, as with SWF.
+
+### Sidecar example
+
+`width` and `height` are the game's intended canvas size. Take them from the game or the
+supplier. Never guess them. HTML5 folders have no header to read them from, so the sidecar
+is the only source.
+
+```json
+{
+  "title": "Sky Runner",
+  "description": "Run across rooftops and jump the gaps before the timer ends.",
+  "category": ["Platformer"],
+  "controls": "Arrow keys to run, Space to jump",
+  "developer": "Example Studio",
+  "releaseYear": 2019,
+  "engine": "html5",
+  "width": 800,
+  "height": 600,
+  "license": {
+    "type": "Developer permission",
+    "source": "https://example.com/permission-letter-2026-04.pdf",
+    "notes": "Email from the developer, 2026-04-10, permits hosting and embedding."
+  }
+}
+```
+
+`engine` is optional in the sidecar. For an html5 folder the importer always sets
+`"html5"`. A sidecar `engine` on a SWF is ignored and flagged.
+
+### What the flags mean
+
+Read every flag in the dry run. They are reported, not hidden.
+
+- **`external-requests: <hosts>`**: the game's `.html`, `.js` or `.css` files contain
+  `http(s)://` URLs to these hosts. The game may fail offline, or it may send data to them.
+  Check each host and why it is there. Hot-linked assets are not allowed. Download the
+  assets into the folder and get permission to host them.
+- **`missing-size`**: the sidecar has no `width` and `height`. Add them. The draft cannot
+  be promoted without them.
+- **`large-file: <path>`**: one file is over 25 MiB. Cloudflare Pages rejects files that large.
+  Compress or split the asset.
+- **`inline-iframe-breakout (informational)`**: the code refers to `top.location`,
+  `parent.location` or `window.top`. These are attempts to leave the frame. The sandbox
+  blocks them, so the game may misbehave. This flag does not block the import.
+- **`skipped symlink: <path>`**, **`skipped dotfile: <path>`**, **`skipped node_modules: <path>`**:
+  entries that were not copied. Check that the game does not need them.
+
+### Sandbox consequences
+
+The player runs the game in an iframe with `sandbox="allow-scripts allow-pointer-lock"`.
+The game runs in an opaque origin, so:
+
+- **No localStorage, IndexedDB or cookie saves.** Progress is lost on reload, and a game
+  that refuses to start without storage may fail. Test the game, then mark it `partial`
+  or `unsupported`.
+- **No popups, no forms, no top-level navigation, no modals.** A game that opens a new window
+  or submits a form will do nothing. Note this in the description.
+- The sandbox is not relaxed per game. Do not ask for `allow-same-origin` or other flags.
+
+### Rules for HTML5 games
+
+- Only games named by you from a known source, with permission recorded in
+  `license.type` and `license.source`.
+- No obfuscated loader bundles. Do not import a packed or obfuscated loader whose behaviour
+  you cannot read, because the code must be reviewable. The importer does not check this for you.
+- No hot-linked games. A game that loads its code or assets from another site is not
+  imported. Host the whole folder yourself.
+
+### Dry run and duplicates
+
+Run `npm run import -- incoming/ --dry-run` first, as for SWF. A folder is a duplicate when
+its files (names and contents) match a published `public/games/<id>/html/` folder or another
+folder in the same batch. The duplicate is skipped.
+
+Thumbnails and the preview come from `capture-thumbnails.mjs`. HTML5 drafts are loaded in
+the same sandboxed iframe for the check, and the iframe is screenshotted.
+
 ## Thumbnails
 
 - Size 640x400 pixels, 16:10 aspect ratio, WebP format.

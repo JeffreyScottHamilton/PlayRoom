@@ -105,6 +105,19 @@ describe('promoteGame', () => {
     expect(result.errors[0]).toMatch(/no draft "ghost"/)
   })
 
+  it('carries engine and the html5 gameFile from an html5 draft into the live manifest', () => {
+    const html5Draft = draftEntry({ engine: 'html5', gameFile: '/games/alpha/html/index.html' })
+    const root = setup({ drafts: [html5Draft] })
+    writeAt(root, 'public/games/alpha/html/index.html', '<!doctype html>')
+
+    const result = promoteGame({ id: 'alpha', compat: 'partial', root })
+
+    expect(result.ok).toBe(true)
+    const [entry] = readJson(root, 'src/data/games.json')
+    expect(entry).toMatchObject({ id: 'alpha', engine: 'html5', gameFile: '/games/alpha/html/index.html', compatibility: 'partial' })
+    for (const key of ['missing', 'flags', 'sha256']) expect(entry).not.toHaveProperty(key)
+  })
+
   it('leaves the published files in place', () => {
     const root = setup()
     promoteGame({ id: 'alpha', compat: 'verified', root })

@@ -3,6 +3,9 @@
 // src/data/games.import.json. Drafts are never written to the live manifest
 // (src/data/games.json); promotion is done by scripts/promote-game.mjs.
 //
+// HTML5 game folders (a sub-folder with a top-level index.html) are copied whole to
+// public/games/<id>/html/ with engine "html5" (ARCHITECTURE §13).
+//
 // Usage: node scripts/import-games.mjs <dir|zip-extracted-dir> [--dry-run]
 // Node stdlib only. Exit 0 after printing the table; exit 1 on an unreadable input dir.
 import { createHash } from 'node:crypto'
@@ -20,6 +23,17 @@ import {
 } from 'node:fs'
 import { basename, dirname, extname, join, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  HTML5_ENTRY,
+  HTML5_SUBDIR,
+  copyHtml5Files,
+  findHtml5Folders,
+  hashHtml5Folder,
+  html5Flags,
+  html5SidecarPath,
+  inspectHtml5Folder,
+  assertSafeCopy,
+} from './lib/html5.mjs'
 import { parseSwfHeader } from './lib/swf.mjs'
 import { readCategories } from './validate-games.mjs'
 
@@ -33,7 +47,7 @@ export const GAMES_DIR_REL = join('public', 'games')
 export const GAME_FIELDS = [
   'id', 'title', 'description', 'category', 'thumbnail', 'gameFile', 'controls',
   'developer', 'releaseYear', 'compatibility', 'addedAt', 'license', 'width', 'height',
-  'needsKeyboard', 'popularRank', 'featured',
+  'needsKeyboard', 'popularRank', 'featured', 'engine',
 ]
 // Import-only keys stored on drafts; stripped when promoting.
 export const DRAFT_META_KEYS = ['missing', 'flags', 'sha256']
@@ -91,11 +105,14 @@ export function writeJsonArray(path, entries) {
   writeFileSync(path, `${JSON.stringify(entries, null, 2)}\n`)
 }
 
-function walk(dir, out = []) {
+// Symlinks are neither directories nor files here, so they are never followed. `skip` holds
+// html5 game folders, whose files are handled by the html5 path instead.
+function walk(dir, out = [], skip = null) {
   for (const ent of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, ent.name)
-    if (ent.isDirectory()) walk(full, out)
-    else if (ent.isFile()) out.push(full)
+    if (ent.isDirectory()) {
+      if (!skip?.has(full)) walk(full, out, skip)
+    } else if (ent.isFile()) out.push(full)
   }
   return out
 }
@@ -136,6 +153,19 @@ function groupFiles(files) {
     else ignored.push(file)
   }
   return { groups, ignored }
+}
+
+function scanPublishedHtml5(root) {
+  const dir = join(root, GAMES_DIR_REL)
+  if (!existsSync(dir)) return []
+  const out = []
+  for (const ent of readdirSync(dir, { withFileTypes: true })) {
+    if (!ent.isDirectory()) continue
+    const htmlDir = join(dir, ent.name, HTML5_SUBDIR)
+    if (!existsSync(join(htmlDir, HTML5_ENTRY))) continue
+    out.push({ id: ent.name, sha: hashHtml5Folder(htmlDir) })
+  }
+  return out
 }
 
 function scanPublishedSwfs(root) {
@@ -219,9 +249,11 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
   const fail = (error) => ({ exitCode: 1, error, rows: [], ignored: [], dryRun, copied: 0, draftsWritten: false })
 
   let files
+  let html5Folders
   try {
     if (!statSync(inputDir).isDirectory()) throw new Error('not a directory')
-    files = walk(inputDir).sort()
+    html5Folders = findHtml5Folders(inputDir)
+    files = walk(inputDir, [], new Set(html5Folders)).sort()
   } catch (err) {
     return fail(`cannot read input directory ${inputDir}: ${err.message}`)
   }
@@ -287,6 +319,10 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
     const imageFile = group.images.find((p) => p.toLowerCase().endsWith('.webp')) ?? group.images[0]
     const { fields, flags: sidecarFlags } = readSidecar(group.sidecars[0], validCategories)
     row.flags.push(...sidecarFlags)
+    if (fields.engine !== undefined) {
+      delete fields.engine
+      row.flags.push('sidecar "engine" ignored (SWF games are flash)')
+    }
 
     const slugSource = typeof fields.id === 'string' && fields.id ? fields.id : (fields.title ?? stem)
     const slug = slugify(slugSource)
@@ -371,17 +407,137 @@ export function runImport({ inputDir, root = REPO_ROOT, dryRun = false, today = 
     batchSlugs.add(slug)
     batchSha.set(hash, rel)
     row.action = existing ? 'update draft' : 'draft'
-    planned.push({ draft, swf, thumb: imageFile ?? null })
+    planned.push({ draft, swf, thumb: imageFile ?? null, folder: null })
+  }
+
+  // HTML5 game folders (ARCHITECTURE §13). Each folder is one candidate. Its files were kept
+  // out of the SWF scan above, and nothing is copied until the plan is complete.
+  const publishedHtml5 = html5Folders.length > 0 ? scanPublishedHtml5(root) : []
+  const batchHtml5 = new Map()
+  for (const folder of html5Folders) {
+    const rel = `${relative(inputDir, folder).split(sep).join('/')}/`
+    const row = { file: rel, slug: '-', size: 0, swf: 'html5', stage: 'unknown', duplicates: '', missing: [], flags: [], action: '' }
+    rows.push(row)
+
+    let insp
+    try {
+      insp = inspectHtml5Folder(folder)
+    } catch (err) {
+      row.action = 'skip: unreadable'
+      row.flags.push(err.message)
+      continue
+    }
+    row.size = insp.bytes
+    for (const s of insp.skipped) row.flags.push(`skipped ${s.reason}: ${s.rel}`)
+
+    const { fields, flags: sidecarFlags } = readSidecar(html5SidecarPath(folder), validCategories)
+    row.flags.push(...sidecarFlags)
+    if (fields.engine !== undefined) {
+      if (fields.engine !== 'html5') row.flags.push(`sidecar "engine" ignored (folder is html5)`)
+      delete fields.engine
+    }
+
+    const slugSource = typeof fields.id === 'string' && fields.id ? fields.id : (fields.title ?? basename(folder))
+    const slug = slugify(slugSource)
+    if (!slug) {
+      row.action = 'skip: no usable slug'
+      continue
+    }
+    row.slug = slug
+    if (slug !== String(slugSource).toLowerCase()) row.flags.push(`slug normalised from "${slugSource}" to "${slug}"`)
+
+    const destHtml = join(root, GAMES_DIR_REL, slug, HTML5_SUBDIR)
+    try {
+      assertSafeCopy(folder, insp.files, destHtml)
+    } catch (err) {
+      row.action = 'skip: unsafe path'
+      row.flags.push(err.message)
+      continue
+    }
+
+    const hash = insp.sha256
+    const pubDup = publishedHtml5.find((p) => p.sha === hash && p.id !== slug)
+    const draftDup = drafts.find((d) => d?.engine === 'html5' && d?.sha256 === hash && d.id !== slug)
+    if (pubDup) row.duplicates = `public/games/${pubDup.id}/${HTML5_SUBDIR}`
+    else if (draftDup) row.duplicates = `draft ${draftDup.id}`
+    else if (batchHtml5.has(hash)) row.duplicates = `batch ${batchHtml5.get(hash)}`
+
+    if (liveIds.has(slug)) {
+      row.action = 'skip: live entry exists'
+      row.flags.push(`games.json already has "${slug}"; live entries are never overwritten`)
+      continue
+    }
+    if (batchSlugs.has(slug)) {
+      row.action = 'skip: slug used earlier in batch'
+      continue
+    }
+    if (row.duplicates) {
+      row.action = 'skip: duplicate folder'
+      continue
+    }
+    if (existsSync(join(destHtml, HTML5_ENTRY)) && hashHtml5Folder(destHtml) !== hash) {
+      row.action = 'skip: destination has a different html folder'
+      continue
+    }
+
+    const existing = draftById.get(slug)
+    const draft = {}
+    if (existing) {
+      for (const [k, v] of Object.entries(existing)) if (!DRAFT_META_KEYS.includes(k)) draft[k] = v
+    }
+    Object.assign(draft, fields)
+    draft.id = slug
+    draft.engine = 'html5'
+    draft.gameFile = `/games/${slug}/${HTML5_SUBDIR}/${HTML5_ENTRY}`
+    // Thumbnail: an image next to the folder with the same base name (folder.webp, folder.png, ...).
+    const group = groups.get(join(dirname(folder), basename(folder)))
+    const imageFile = group?.images.find((p) => p.toLowerCase().endsWith('.webp')) ?? group?.images[0]
+    if (imageFile) {
+      const ext = extname(imageFile).toLowerCase()
+      draft.thumbnail = `/games/${slug}/thumb${ext}`
+      if (ext !== '.webp') row.flags.push('convert to webp (copied as-is)')
+    } else if (!draft.thumbnail) {
+      draft.thumbnail = `/games/${slug}/thumb.webp`
+    }
+    draft.compatibility = 'unsupported'
+    draft.addedAt = existing?.addedAt ?? today
+    if (draft.needsKeyboard === undefined) {
+      draft.needsKeyboard = true
+      row.flags.push('needsKeyboard defaulted — verify')
+    }
+    row.flags.push(...html5Flags(insp, { width: draft.width, height: draft.height }))
+    row.stage = isPositiveInt(draft.width) && isPositiveInt(draft.height) ? `${draft.width}x${draft.height}` : 'unknown'
+
+    const norm = normalizeTitle(draft.title)
+    if (norm) {
+      const titleDup =
+        liveTitles.find((t) => t.id !== slug && t.norm === norm) ??
+        draftTitles.find((t) => t.id !== slug && t.norm === norm) ??
+        batchTitles.find((t) => t.id !== slug && t.norm === norm)
+      if (titleDup) row.flags.push(`possible duplicate title of "${titleDup.id}"`)
+      batchTitles.push({ id: slug, norm })
+    }
+
+    draft.missing = computeMissing(draft, Boolean(imageFile), root)
+    draft.flags = row.flags
+    draft.sha256 = hash
+    row.missing = draft.missing
+
+    batchSlugs.add(slug)
+    batchHtml5.set(hash, rel)
+    row.action = existing ? 'update draft' : 'draft'
+    planned.push({ draft, swf: null, thumb: imageFile ?? null, folder, files: insp.files, destHtml })
   }
 
   let copied = 0
   let draftsWritten = false
   if (!dryRun && planned.length > 0) {
     const nextDrafts = [...drafts]
-    for (const { draft, swf, thumb } of planned) {
+    for (const { draft, swf, thumb, folder, files, destHtml } of planned) {
       const destDir = join(root, GAMES_DIR_REL, draft.id)
       mkdirSync(destDir, { recursive: true })
-      copyFileSync(swf, join(destDir, 'game.swf'))
+      if (folder) copyHtml5Files(folder, files, destHtml)
+      else copyFileSync(swf, join(destDir, 'game.swf'))
       if (thumb) copyFileSync(thumb, join(destDir, `thumb${extname(thumb).toLowerCase()}`))
       copied++
       const idx = nextDrafts.findIndex((d) => d?.id === draft.id)
@@ -423,11 +579,11 @@ export function formatReport(result) {
     out.push(line(cells[i]))
     for (const f of r.flags) out.push(`    ! ${f}`)
   })
-  if (result.rows.length === 0) out.push('(no SWF files found)')
+  if (result.rows.length === 0) out.push('(no SWF files or html5 game folders found)')
   for (const f of result.ignored) out.push(`ignored: ${f}`)
   const drafted = result.rows.filter((r) => r.action === 'draft' || r.action === 'update draft').length
   out.push('')
-  out.push(`${result.rows.length} SWF file(s): ${drafted} draft(s), ${result.rows.length - drafted} skipped.`)
+  out.push(`${result.rows.length} game candidate(s): ${drafted} draft(s), ${result.rows.length - drafted} skipped.`)
   out.push(
     result.dryRun
       ? 'Dry run: nothing was copied or written.'
