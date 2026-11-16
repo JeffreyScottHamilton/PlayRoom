@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 
 export interface SectionHeaderProps {
   title: string;
+  /** Id for the h2, for aria-labelledby. */
+  id?: string;
   action?: { label: string; to: string };
 }
 
-export function SectionHeader({ title, action }: SectionHeaderProps): JSX.Element {
+export function SectionHeader({ id, title, action }: SectionHeaderProps): JSX.Element {
   return (
     <div className="flex items-center justify-between gap-4">
-      <h2 className="text-[13px] font-semibold uppercase leading-5 tracking-[0.2em] text-ink">
+      <h2 id={id} className="text-[13px] font-semibold uppercase leading-5 tracking-[0.2em] text-ink">
         {title}
       </h2>
       {action && (

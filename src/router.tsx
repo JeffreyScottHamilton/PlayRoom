@@ -1,12 +1,13 @@
-import { lazy, Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
-
-const HomePage = lazy(() => import("./pages/HomePage"));
-const GamesPage = lazy(() => import("./pages/GamesPage"));
-const GamePage = lazy(() => import("./pages/GamePage"));
-const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+import {
+  FavoritesPage,
+  GamePage,
+  GamesPage,
+  HomePage,
+  NotFoundPage,
+} from "./pages/lazyPages";
 
 function page(node: ReactNode) {
   return (

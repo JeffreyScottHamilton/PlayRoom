@@ -67,11 +67,12 @@ Tokens (Tailwind 4 `@theme` in `src/styles/index.css` — use the utility names,
   --color-line: #343a37;
   --color-accent: #b6463b;
   --color-accent-hover: #ce594d;
+  --color-accent-text: #d9665a;  /* accent-coloured text on bg, 5.3:1 */
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --radius-card: 6px;
 }
 ```
-→ utilities `bg-bg`, `bg-surface`, `bg-elevated`, `text-ink`, `text-ink-muted`, `border-line`, `bg-accent`, `hover:bg-accent-hover`, `rounded-card`.
+→ utilities `bg-bg`, `bg-surface`, `bg-elevated`, `text-ink`, `text-ink-muted`, `border-line`, `bg-accent`, `hover:bg-accent-hover`, `text-accent-text` (accent as text colour; `text-accent` is for icons and decoration), `rounded-card`.
 
 Type scale: display 44/48 semibold (hero h1, `text-balance`), h2 section label 13px semibold uppercase tracking-[0.2em], h1 page 28/34 semibold, body 16/26, small 14/20, meta 12/16. Container: `max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8`. Spacing scale: Tailwind default; sections separated by `mt-12`.
 

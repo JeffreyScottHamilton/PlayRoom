@@ -9,6 +9,7 @@
   --color-line: #343a37;
   --color-accent: #b6463b;
   --color-accent-hover: #ce594d;
+  --color-accent-text: #d9665a;
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --radius-card: 6px;
 }

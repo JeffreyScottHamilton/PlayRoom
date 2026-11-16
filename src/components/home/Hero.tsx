@@ -23,7 +23,7 @@ export function Hero(): JSX.Element {
   return (
     <section className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div>
-        <p className="text-[13px] font-semibold uppercase leading-4 tracking-[0.2em] text-accent">
+        <p className="text-[13px] font-semibold uppercase leading-4 tracking-[0.2em] text-accent-text">
           CLASSIC FLASH GAMES
         </p>
         <h1 className="mt-4 text-balance text-[44px] font-semibold leading-[48px] text-ink">

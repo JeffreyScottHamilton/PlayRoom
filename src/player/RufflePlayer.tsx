@@ -7,6 +7,7 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
+import { Button } from "../components/ui/Button";
 import { loadRuffle } from "./loadRuffle";
 import type { RufflePlayerElement, RuffleLoadOptions } from "./ruffle";
 
@@ -156,13 +157,9 @@ export const RufflePlayer = forwardRef<RufflePlayerHandle, RufflePlayerProps>(
             className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black p-6 text-center"
           >
             <p className="text-base text-ink">{"This game couldn't be loaded."}</p>
-            <button
-              type="button"
-              onClick={() => setGeneration((g) => g + 1)}
-              className="inline-flex min-h-11 items-center justify-center rounded-card bg-accent px-5 text-sm font-medium text-ink hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-            >
+            <Button variant="primary" onClick={() => setGeneration((g) => g + 1)}>
               Retry
-            </button>
+            </Button>
           </div>
         )}
       </div>

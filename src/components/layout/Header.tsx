@@ -20,7 +20,7 @@ function isActive(to: string, pathname: string, hash: string): boolean {
 }
 
 const linkBase =
-  "inline-flex min-h-11 items-center rounded-card px-2 text-[14px] leading-[20px] font-medium transition-colors";
+  "inline-flex min-h-11 items-center rounded-card px-2 text-sm font-medium transition-colors";
 
 function PlayMark() {
   return (
@@ -40,7 +40,7 @@ export function Header() {
 
   return (
     <header className="border-b border-line bg-bg">
-      <Container className="flex h-16 items-center gap-4">
+      <Container className="flex flex-wrap items-center gap-x-4 gap-y-3 py-3 sm:h-16 sm:flex-nowrap sm:py-0">
         <Link
           to="/"
           className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-card text-[18px] font-bold leading-none tracking-tight text-ink"
@@ -65,11 +65,11 @@ export function Header() {
           })}
         </nav>
 
-        <SearchBox className="ml-auto min-w-0 flex-1 md:max-w-64 md:flex-none" />
+        <SearchBox className="order-last basis-full sm:order-none sm:ml-auto sm:min-w-0 sm:flex-1 sm:basis-auto md:max-w-64 md:flex-none" />
 
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-card text-ink md:hidden"
+          className="ml-auto inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-card text-ink md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           onClick={() => setMenuOpen((open) => !open)}

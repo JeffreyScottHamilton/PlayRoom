@@ -50,11 +50,14 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
   const activeGame: Game | undefined =
     showPopup && active >= 0 && active < results.length ? results[active] : undefined;
 
-  // Close the results whenever the route changes.
-  useEffect(() => {
+  // Close the results whenever the route changes (state adjusted during render, no effect).
+  const routeKey = `${location.pathname}${location.search}`;
+  const [seenRoute, setSeenRoute] = useState(routeKey);
+  if (seenRoute !== routeKey) {
+    setSeenRoute(routeKey);
     setOpen(false);
     setActive(-1);
-  }, [location.pathname, location.search]);
+  }
 
   // Global "/" shortcut focuses the search field.
   useEffect(() => {

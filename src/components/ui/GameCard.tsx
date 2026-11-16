@@ -4,7 +4,7 @@ import { useFavorites } from "../../hooks/useFavorites";
 import type { Game } from "../../types/game";
 
 /** Up to two leading letters of the title's first two words, e.g. "Sample Racer" -> "SR". */
-export function initials(title: string): string {
+function initials(title: string): string {
   return title
     .split(/\s+/)
     .filter(Boolean)
