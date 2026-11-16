@@ -1,4 +1,4 @@
-# Deploys the open-licensed build (npm run build:pages) to GitHub Pages.
+# Deploys the full build (all games) to GitHub Pages.
 # Run manually: Actions -> "Deploy to GitHub Pages" -> Run workflow.
 # Pages must be enabled first: Settings -> Pages -> Source: GitHub Actions.
 name: Deploy to GitHub Pages
@@ -28,7 +28,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build:pages
+      - run: BASE_PATH=/PlayRoom/ npm run build && node scripts/postbuild-pages.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

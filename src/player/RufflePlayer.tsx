@@ -10,18 +10,10 @@ import {
 import { Button } from "../components/ui/Button";
 import { loadRuffle } from "./loadRuffle";
 import type { RufflePlayerElement, RuffleLoadOptions } from "./ruffle";
+import type { GamePlayerHandle, GamePlayerProps } from "./types";
 
-export interface RufflePlayerHandle {
-  restart(): void;
-  enterFullscreen(): void;
-}
-
-export interface RufflePlayerProps {
-  src: string;
-  width: number;
-  height: number;
-  onStatus?: (s: "loading" | "ready" | "error") => void;
-}
+export type RufflePlayerHandle = GamePlayerHandle;
+export type RufflePlayerProps = GamePlayerProps;
 
 type Status = "loading" | "ready" | "error";
 
