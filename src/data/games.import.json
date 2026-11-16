@@ -1,0 +1,30 @@
+[
+  {
+    "id": "shape-wars",
+    "title": "Shape Wars",
+    "description": "A simple arcade game, like 'Space Invaders', written in ActionScript 3.0.",
+    "category": [
+      "Arcade",
+      "Action"
+    ],
+    "controls": "Left and right arrows to move your ship. Space to fire.",
+    "developer": "rnand",
+    "license": {
+      "type": "Unlicense (public domain)",
+      "source": "https://raw.githubusercontent.com/rnand/ShapeWars/master/LICENCE",
+      "notes": "Source: https://github.com/rnand/ShapeWars."
+    },
+    "needsKeyboard": true,
+    "gameFile": "/games/shape-wars/game.swf",
+    "thumbnail": "/games/shape-wars/thumb.webp",
+    "width": 800,
+    "height": 600,
+    "compatibility": "unsupported",
+    "addedAt": "2026-11-16",
+    "missing": [
+      "thumbnail"
+    ],
+    "flags": [],
+    "sha256": "0b0b5d2269b123f9f0a4ce27ec470d3b06e44bed2077694689b73359b554ac93"
+  }
+]
