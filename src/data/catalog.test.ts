@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Game } from "../types/game";
-import { createCatalog } from "./catalog";
+import { createCatalog, engineOf } from "./catalog";
 
 function makeGame(id: string, title: string, extra: Partial<Game> = {}): Game {
   return {
@@ -198,5 +198,21 @@ describe("getRelatedGames", () => {
 
   it("never includes unsupported games", () => {
     expect(ids(catalog.getRelatedGames("alpha"))).not.toContain("hidden-pop");
+  });
+});
+
+describe("engineOf", () => {
+  it("defaults to flash when engine is omitted", () => {
+    expect(engineOf(makeGame("legacy", "Legacy"))).toBe("flash");
+  });
+
+  it("returns flash when engine is set to flash", () => {
+    expect(engineOf(makeGame("swf", "Swf", { engine: "flash" }))).toBe("flash");
+  });
+
+  it("returns html5 when engine is html5", () => {
+    expect(engineOf(makeGame("web", "Web", { engine: "html5", gameFile: "/games/web/html/index.html" }))).toBe(
+      "html5",
+    );
   });
 });

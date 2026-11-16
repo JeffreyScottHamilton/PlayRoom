@@ -6,6 +6,9 @@ export type Category = (typeof CATEGORIES)[number];
 
 export type Compatibility = "verified" | "partial" | "unsupported";
 
+/** Runtime. Omitted = "flash" (all existing entries). */
+export type Engine = "flash" | "html5";
+
 export interface GameLicense {
   /** e.g. "CC-BY-4.0", "MIT", "Developer permission", "Public domain" */
   type: string;
@@ -21,6 +24,8 @@ export interface Game {
   category: Category[];       // >= 1
   thumbnail: string;          // "/games/<id>/thumb.webp"
   gameFile: string;           // "/games/<id>/game.swf" (local) — remote https URLs only if license permits hotlinking
+  /** Runtime. Omitted = "flash" (all existing entries). */
+  engine?: Engine;
   controls: string;           // human text, e.g. "Arrow keys to move, Space to jump"
   developer?: string;
   releaseYear?: number;

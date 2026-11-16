@@ -1,13 +1,16 @@
 // Manifest validator: enforces the licensing gate and schema rules on src/data/games.json.
 // Exit 0 when valid, exit 1 listing every problem as "<id>: <problem>".
-import { existsSync, readFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const COMPATIBILITY = ['verified', 'partial', 'unsupported']
+const ENGINES = ['flash', 'html5']
+// Cloudflare Pages per-file limit.
+const MAX_FILE_BYTES = 25 * 1024 * 1024
 
 // Single source of truth: the CATEGORIES tuple in src/types/game.ts.
 export function readCategories(repoRoot = REPO_ROOT) {
@@ -106,9 +109,22 @@ export function validateGames(games, options = REPO_ROOT) {
       }
     }
 
+    // Runtime
+    if (g.engine !== undefined && !ENGINES.includes(g.engine)) {
+      fail(`engine must be one of ${ENGINES.join(', ')} when present`)
+    }
+
     // Assets
     checkAsset(fail, root, 'thumbnail', g.thumbnail, g.id)
     checkAsset(fail, root, 'gameFile', g.gameFile, g.id)
+    if (g.engine === 'html5') {
+      checkHtml5GameFile(fail, g.gameFile, g.id)
+      checkHtml5Folder(fail, root, g.id)
+    } else if (g.engine === undefined || g.engine === 'flash') {
+      if (isNonEmptyString(g.gameFile) && !g.gameFile.endsWith('.swf')) {
+        fail('flash gameFile must end in .swf')
+      }
+    }
 
     // Dimensions
     if (!isPositiveInt(g.width)) fail('width must be a positive integer')
@@ -135,6 +151,52 @@ export function validateGames(games, options = REPO_ROOT) {
   }
 
   return errors
+}
+
+function checkHtml5GameFile(fail, value, id) {
+  if (!isNonEmptyString(value) || !isNonEmptyString(id)) return
+  const prefix = `/games/${id}/html/`
+  if (!value.startsWith(prefix)) {
+    fail(`html5 gameFile must live under ${prefix}`)
+    return
+  }
+  if (!value.toLowerCase().endsWith('.html')) {
+    fail('html5 gameFile must be an .html file')
+  }
+}
+
+/** Walks public/games/<id>/html and reports files, total bytes, oversize files and symlinks. */
+export function scanHtml5Folder(root, id) {
+  const report = { files: 0, bytes: 0, oversize: [], symlinks: [] }
+  if (!ID_RE.test(id)) return report
+  const dir = join(root, 'public', 'games', id, 'html')
+  if (!existsSync(dir)) return report
+
+  const walk = (current) => {
+    for (const entry of readdirSync(current, { withFileTypes: true })) {
+      const full = join(current, entry.name)
+      const rel = relative(dir, full)
+      if (entry.isSymbolicLink()) {
+        report.symlinks.push(rel)
+      } else if (entry.isDirectory()) {
+        walk(full)
+      } else if (entry.isFile()) {
+        const { size } = statSync(full)
+        report.files++
+        report.bytes += size
+        if (size > MAX_FILE_BYTES) report.oversize.push(rel)
+      }
+    }
+  }
+  walk(dir)
+  return report
+}
+
+function checkHtml5Folder(fail, root, id) {
+  if (!isNonEmptyString(id)) return
+  const report = scanHtml5Folder(root, id)
+  for (const rel of report.symlinks) fail(`html5 folder must not contain symlinks (${rel})`)
+  for (const rel of report.oversize) fail(`html5 file ${rel} is larger than 25 MiB`)
 }
 
 function checkAsset(fail, root, field, value, id) {
@@ -175,6 +237,13 @@ function main() {
     for (const e of errors) console.error(e)
     console.error(`validate-games: ${errors.length} error(s)`)
     process.exit(1)
+  }
+  for (const g of games) {
+    if (g?.engine !== 'html5') continue
+    const report = scanHtml5Folder(REPO_ROOT, g.id)
+    console.log(
+      `validate-games: html5 ${g.id}: ${report.files} files, ${(report.bytes / (1024 * 1024)).toFixed(2)} MiB`,
+    )
   }
   console.log(`validate-games: ${games.length} entries OK`)
 }
