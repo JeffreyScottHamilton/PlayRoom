@@ -95,3 +95,84 @@ Set by the maintainer, not measured: **Fruit Madness** is the featured game. Pop
 3. A sidecar (`game.json`) was written per game from the developer's README wording. Where the README gave no description, the description was limited to the candidate notes.
 4. `node scripts/import-games.mjs .import-staging` produced drafts; `node scripts/capture-thumbnails.mjs` checked each draft in headless Ruffle and wrote the thumbnail.
 5. `node scripts/promote-game.mjs <id> --compat=<verified|partial>` moved each passing draft into `src/data/games.json`.
+
+## Owner-asserted titles (proof of concept)
+
+**These titles are not independently licence-verified. They must not be deployed publicly without written permission from the rights-holder.**
+
+The owner of the PLAYROOM project asserted on 2026-11-16 that they hold permission from the rights-holders for a private proof of concept, and instructed that all games in the chilibowlflash repository (https://github.com/CBGamesdev/chilibowlflash) be imported. No written permission has been seen. The licence record for each entry is `Owner-asserted permission (proof of concept) — not independently verified`, with the repository as `license.source`.
+
+Excluded from the import: the SoundManager 2 and XAudioJS helper SWFs (not games). No byte-identical duplicates were found. Developer and release year are given only where credited on the game's own title screen; otherwise they are omitted. Descriptions are generic genre lines and controls are not documented unless stated.
+
+Compatibility is from the automated Ruffle check (`scripts/capture-thumbnails.mjs`), not play-testing. Some thumbnails show a preloader or Ruffle's hardware-acceleration notice rather than gameplay (notably the Papa's series, which share one preloader screen).
+
+| Title | Developer | Compatibility | Source file |
+|---|---|---|---|
+| Defend Your Castle |  | verified | `102209_castle202c.swf` |
+| Gunblood |  | partial | `1gunblood.swf` |
+| Donkey Kong |  | verified | `Donkey-Kong.swf` |
+| Learn to Fly |  | verified | `Learn20Fly.swf` |
+| Mario Combat |  | partial | `Mario_Combat.swf` |
+| Portal |  | verified | `Portal_wcs2.swf` |
+| The Impossible Quiz |  | verified | `TheImpossibleQuiz.swf` |
+| Abobbo's Big Adventure |  | partial | `abobbos-big-adventure.swf` |
+| Age of War |  | verified | `age_of_war.swf` |
+| Alien Hominid |  | verified | `alien_hominid (1).swf` |
+| Asteroids |  | verified | `asteroids.swf` |
+| Bad Piggies |  | partial | `bad-piggies.swf` |
+| Bloody Rage |  | verified | `bloodyrage.swf` |
+| Bloons Tower Defense |  | partial | `bloonstd.swf` |
+| Bloxorz |  | verified | `bloxorz.swf` |
+| Blue Tetris |  | verified | `blue_tetris.swf` |
+| Bubble Shooter |  | verified | `bubble-shooter.swf` |
+| Color Combat |  | verified | `color_combat.swf` |
+| Commando 2 |  | verified | `commando2_1.swf` |
+| Cubefield |  | verified | `cubefield.swf` |
+| Dad N Me |  | verified | `dadnme.swf` |
+| Meat Boy |  | partial | `dagobah_Meat_Boy.swf` |
+| Super Mario Flash |  | verified | `dagobah_super_mario_flash.swf` |
+| Duck Hunt |  | verified | `duckhunt.swf` |
+| Duck Life |  | partial | `ducklife.swf` |
+| Duck Life 2 |  | verified | `ducklife2worldchampion.swf` |
+| Duck Life 3 |  | partial | `ducklife3.swf` |
+| Electricman 2HS |  | verified | `electricman2.swf` |
+| Escaping the Prison |  | verified | `escapingtheprisongame.swf` |
+| Extreme Pamplona |  | partial | `extreme-pamplona.swf` |
+| The Fancy Pants Adventure |  | verified | `fancypantsadventure.swf` |
+| Flash Tetris |  | verified | `flash-tetris.swf` |
+| Doom |  | verified | `flash/doom.swf` |
+| Handless Millionaire |  | verified | `flash/handlessmillionaire.swf` |
+| Hobo |  | verified | `hobo.swf` |
+| Hobo Prison Brawl |  | verified | `hobo_prison_brawl.swf` |
+| IB |  | verified | `ib.swf` |
+| Miami Shark |  | partial | `miami-shark.swf` |
+| Mini-Putt |  | verified | `miniputt.swf` |
+| My Friend Pedro |  | partial | `my-friend-pedro-15980.swf` |
+| New York Shark |  | partial | `new-york-shark-unblocked.swf` |
+| Pac-Man |  | verified | `pacman.swf` |
+| Papa's Burgeria |  | partial | `papaburger.swf` |
+| Papa's Pastaria |  | partial | `papapasta.swf` |
+| Papa's Freezeria |  | partial | `papasfreezeria.swf` |
+| Papa's Pancakeria |  | partial | `papaspancakeria.swf` |
+| Papa's Pizzeria |  | partial | `papaspizzeria_v2.swf` |
+| Papa's Sushiria |  | partial | `papassushiria.swf` |
+| Papa's Taco Mia |  | partial | `papastacomia.swf` |
+| Papa's Wingeria |  | partial | `papawing.swf` |
+| Pong |  | verified | `pong.swf` |
+| Riddle School |  | verified | `riddleschool.swf` |
+| Riddle School 2 |  | verified | `riddleschool2.swf` |
+| Riddle School 3 |  | verified | `rs3.swf` |
+| Run |  | verified | `run.swf` |
+| Run 2 |  | partial | `run2.swf` |
+| Smileys War |  | verified | `smileyswarupdate1Mjky.swf` |
+| Stealing the Diamond |  | partial | `stealingthediamondgameMTI0MQ==.swf` |
+| Stick RPG |  | verified | `stickrpg.swf` |
+| Super Mario 63 |  | verified | `supermario63.swf` |
+| The Impossible Quiz 2 |  | verified | `theimpossiblequiz2.swf` |
+| The World's Hardest Game |  | verified | `theworldshardestgame.swf` |
+| The World's Hardest Game 2 |  | verified | `theworldshardestgame2.swf` |
+| This Is the Only Level |  | verified | `this_is_the_only_level.swf` |
+| Toss the Turtle |  | partial | `toss_the_turtle.swf` |
+| Ultimate Flash Sonic |  | verified | `ultimate-flash-sonic.swf` |
+| Apple Shooter |  | verified | `weebly_apple_shooter.swf` |
+| Yeti Sports | Chris Hilbert | verified | `yetisports1free.swf` |

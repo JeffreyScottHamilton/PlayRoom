@@ -356,5 +356,1450 @@
     "compatibility": "partial",
     "addedAt": "2026-11-16",
     "popularRank": 3
+  },
+  {
+    "id": "castle-202c",
+    "title": "Defend Your Castle",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/castle-202c/game.swf",
+    "thumbnail": "/games/castle-202c/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash strategy game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "1gunblood",
+    "title": "Gunblood",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/1gunblood/game.swf",
+    "thumbnail": "/games/1gunblood/thumb.webp",
+    "width": 720,
+    "height": 425,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "donkey-kong",
+    "title": "Donkey Kong",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/donkey-kong/game.swf",
+    "thumbnail": "/games/donkey-kong/thumb.webp",
+    "width": 224,
+    "height": 256,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade",
+      "Platformer"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "learn-2-fly",
+    "title": "Learn to Fly",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/learn-2-fly/game.swf",
+    "thumbnail": "/games/learn-2-fly/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "mario-combat",
+    "title": "Mario Combat",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/mario-combat/game.swf",
+    "thumbnail": "/games/mario-combat/thumb.webp",
+    "width": 700,
+    "height": 400,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "portal-wcs2",
+    "title": "Portal",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/portal-wcs2/game.swf",
+    "thumbnail": "/games/portal-wcs2/thumb.webp",
+    "width": 800,
+    "height": 450,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Action"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "the-impossible-quiz",
+    "title": "The Impossible Quiz",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/the-impossible-quiz/game.swf",
+    "thumbnail": "/games/the-impossible-quiz/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash quiz game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "abobbos-big-adventure",
+    "title": "Abobbo's Big Adventure",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/abobbos-big-adventure/game.swf",
+    "thumbnail": "/games/abobbos-big-adventure/thumb.webp",
+    "width": 256,
+    "height": 254,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action",
+      "Adventure"
+    ],
+    "description": "Classic Flash action adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "age-of-war",
+    "title": "Age of War",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/age-of-war/game.swf",
+    "thumbnail": "/games/age-of-war/thumb.webp",
+    "width": 650,
+    "height": 450,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash strategy game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "alien-hominid",
+    "title": "Alien Hominid",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/alien-hominid/game.swf",
+    "thumbnail": "/games/alien-hominid/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action",
+      "Platformer"
+    ],
+    "description": "Classic Flash action platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "asteroids-flash",
+    "title": "Asteroids",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/asteroids-flash/game.swf",
+    "thumbnail": "/games/asteroids-flash/thumb.webp",
+    "width": 500,
+    "height": 375,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "bad-piggies",
+    "title": "Bad Piggies",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/bad-piggies/game.swf",
+    "thumbnail": "/games/bad-piggies/thumb.webp",
+    "width": 960,
+    "height": 600,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "bloody-rage",
+    "title": "Bloody Rage",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/bloody-rage/game.swf",
+    "thumbnail": "/games/bloody-rage/thumb.webp",
+    "width": 640,
+    "height": 420,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "bloons-tower-defense",
+    "title": "Bloons Tower Defense",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/bloons-tower-defense/game.swf",
+    "thumbnail": "/games/bloons-tower-defense/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash tower defense game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "blue-tetris",
+    "title": "Blue Tetris",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/blue-tetris/game.swf",
+    "thumbnail": "/games/blue-tetris/thumb.webp",
+    "width": 382,
+    "height": 380,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "bubble-shooter",
+    "title": "Bubble Shooter",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/bubble-shooter/game.swf",
+    "thumbnail": "/games/bubble-shooter/thumb.webp",
+    "width": 800,
+    "height": 600,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Arcade"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "color-combat",
+    "title": "Color Combat",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/color-combat/game.swf",
+    "thumbnail": "/games/color-combat/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "commando-2",
+    "title": "Commando 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/commando-2/game.swf",
+    "thumbnail": "/games/commando-2/thumb.webp",
+    "width": 400,
+    "height": 300,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "cubefield",
+    "title": "Cubefield",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/cubefield/game.swf",
+    "thumbnail": "/games/cubefield/thumb.webp",
+    "width": 400,
+    "height": 300,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "dad-n-me",
+    "title": "Dad N Me",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/dad-n-me/game.swf",
+    "thumbnail": "/games/dad-n-me/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Adventure"
+    ],
+    "description": "Classic Flash adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "meat-boy",
+    "title": "Meat Boy",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/meat-boy/game.swf",
+    "thumbnail": "/games/meat-boy/thumb.webp",
+    "width": 300,
+    "height": 500,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "super-mario-flash",
+    "title": "Super Mario Flash",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/super-mario-flash/game.swf",
+    "thumbnail": "/games/super-mario-flash/thumb.webp",
+    "width": 320,
+    "height": 240,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "duck-hunt",
+    "title": "Duck Hunt",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/duck-hunt/game.swf",
+    "thumbnail": "/games/duck-hunt/thumb.webp",
+    "width": 450,
+    "height": 393,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action",
+      "Arcade"
+    ],
+    "description": "Classic Flash shooter game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "duck-life",
+    "title": "Duck Life",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/duck-life/game.swf",
+    "thumbnail": "/games/duck-life/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports"
+    ],
+    "description": "Classic Flash sports game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "duck-life-2",
+    "title": "Duck Life 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/duck-life-2/game.swf",
+    "thumbnail": "/games/duck-life-2/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports"
+    ],
+    "description": "Classic Flash sports game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "duck-life-3",
+    "title": "Duck Life 3",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/duck-life-3/game.swf",
+    "thumbnail": "/games/duck-life-3/thumb.webp",
+    "width": 750,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports"
+    ],
+    "description": "Classic Flash sports game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "electric-man-2",
+    "title": "Electricman 2HS",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/electric-man-2/game.swf",
+    "thumbnail": "/games/electric-man-2/thumb.webp",
+    "width": 640,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "escaping-the-prison",
+    "title": "Escaping the Prison",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/escaping-the-prison/game.swf",
+    "thumbnail": "/games/escaping-the-prison/thumb.webp",
+    "width": 650,
+    "height": 450,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "description": "Classic Flash puzzle adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "extreme-pamplona",
+    "title": "Extreme Pamplona",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/extreme-pamplona/game.swf",
+    "thumbnail": "/games/extreme-pamplona/thumb.webp",
+    "width": 800,
+    "height": 400,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "fancy-pants-adventure",
+    "title": "The Fancy Pants Adventure",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/fancy-pants-adventure/game.swf",
+    "thumbnail": "/games/fancy-pants-adventure/thumb.webp",
+    "width": 720,
+    "height": 480,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "flash-tetris",
+    "title": "Flash Tetris",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/flash-tetris/game.swf",
+    "thumbnail": "/games/flash-tetris/thumb.webp",
+    "width": 382,
+    "height": 380,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "doom",
+    "title": "Doom",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/doom/game.swf",
+    "thumbnail": "/games/doom/thumb.webp",
+    "width": 960,
+    "height": 600,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash first-person shooter.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "hands-millionaire",
+    "title": "Handless Millionaire",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/hands-millionaire/game.swf",
+    "thumbnail": "/games/hands-millionaire/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "hobo",
+    "title": "Hobo",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/hobo/game.swf",
+    "thumbnail": "/games/hobo/thumb.webp",
+    "width": 600,
+    "height": 450,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "hobo-prison-brawl",
+    "title": "Hobo Prison Brawl",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/hobo-prison-brawl/game.swf",
+    "thumbnail": "/games/hobo-prison-brawl/thumb.webp",
+    "width": 600,
+    "height": 450,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash brawler game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "ib",
+    "title": "IB",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/ib/game.swf",
+    "thumbnail": "/games/ib/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Adventure"
+    ],
+    "description": "Classic Flash adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "miami-shark",
+    "title": "Miami Shark",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/miami-shark/game.swf",
+    "thumbnail": "/games/miami-shark/thumb.webp",
+    "width": 720,
+    "height": 450,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "miniputt",
+    "title": "Mini-Putt",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/miniputt/game.swf",
+    "thumbnail": "/games/miniputt/thumb.webp",
+    "width": 550,
+    "height": 440,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports"
+    ],
+    "description": "Classic Flash mini golf game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "my-friend-pedro",
+    "title": "My Friend Pedro",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/my-friend-pedro/game.swf",
+    "thumbnail": "/games/my-friend-pedro/thumb.webp",
+    "width": 600,
+    "height": 400,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action",
+      "Platformer"
+    ],
+    "description": "Classic Flash action platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "new-york-shark",
+    "title": "New York Shark",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/new-york-shark/game.swf",
+    "thumbnail": "/games/new-york-shark/thumb.webp",
+    "width": 720,
+    "height": 450,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "pacman",
+    "title": "Pac-Man",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/pacman/game.swf",
+    "thumbnail": "/games/pacman/thumb.webp",
+    "width": 360,
+    "height": 420,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-burgeria",
+    "title": "Papa's Burgeria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-burgeria/game.swf",
+    "thumbnail": "/games/papas-burgeria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-pasta-ria",
+    "title": "Papa's Pastaria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-pasta-ria/game.swf",
+    "thumbnail": "/games/papas-pasta-ria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-freezeria",
+    "title": "Papa's Freezeria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-freezeria/game.swf",
+    "thumbnail": "/games/papas-freezeria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-pancakeria",
+    "title": "Papa's Pancakeria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-pancakeria/game.swf",
+    "thumbnail": "/games/papas-pancakeria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-pizzeria",
+    "title": "Papa's Pizzeria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-pizzeria/game.swf",
+    "thumbnail": "/games/papas-pizzeria/thumb.webp",
+    "width": 600,
+    "height": 450,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-sushiria",
+    "title": "Papa's Sushiria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-sushiria/game.swf",
+    "thumbnail": "/games/papas-sushiria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-taco-mia",
+    "title": "Papa's Taco Mia",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-taco-mia/game.swf",
+    "thumbnail": "/games/papas-taco-mia/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "papas-wingeria",
+    "title": "Papa's Wingeria",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/papas-wingeria/game.swf",
+    "thumbnail": "/games/papas-wingeria/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Strategy"
+    ],
+    "description": "Classic Flash restaurant management game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "pong",
+    "title": "Pong",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/pong/game.swf",
+    "thumbnail": "/games/pong/thumb.webp",
+    "width": 400,
+    "height": 300,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports",
+      "Arcade"
+    ],
+    "description": "Classic Flash table tennis game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "riddle-school",
+    "title": "Riddle School",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/riddle-school/game.swf",
+    "thumbnail": "/games/riddle-school/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "description": "Classic Flash puzzle adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "riddle-school-2",
+    "title": "Riddle School 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/riddle-school-2/game.swf",
+    "thumbnail": "/games/riddle-school-2/thumb.webp",
+    "width": 700,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "description": "Classic Flash puzzle adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "rs3",
+    "title": "Riddle School 3",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/rs3/game.swf",
+    "thumbnail": "/games/rs3/thumb.webp",
+    "width": 700,
+    "height": 475,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "description": "Classic Flash puzzle adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "run",
+    "title": "Run",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/run/game.swf",
+    "thumbnail": "/games/run/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash endless runner game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "run-2",
+    "title": "Run 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/run-2/game.swf",
+    "thumbnail": "/games/run-2/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action",
+      "Platformer"
+    ],
+    "description": "Classic Flash endless runner game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "smiley-wars",
+    "title": "Smileys War",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/smiley-wars/game.swf",
+    "thumbnail": "/games/smiley-wars/thumb.webp",
+    "width": 500,
+    "height": 375,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash action game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "stealing-the-diamond",
+    "title": "Stealing the Diamond",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/stealing-the-diamond/game.swf",
+    "thumbnail": "/games/stealing-the-diamond/thumb.webp",
+    "width": 650,
+    "height": 410,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Adventure",
+      "Puzzle"
+    ],
+    "description": "Classic Flash puzzle adventure game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "stick-rpg",
+    "title": "Stick RPG",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/stick-rpg/game.swf",
+    "thumbnail": "/games/stick-rpg/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Adventure"
+    ],
+    "description": "Classic Flash role-playing game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "super-mario-63",
+    "title": "Super Mario 63",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/super-mario-63/game.swf",
+    "thumbnail": "/games/super-mario-63/thumb.webp",
+    "width": 450,
+    "height": 300,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "the-impossible-quiz-2",
+    "title": "The Impossible Quiz 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/the-impossible-quiz-2/game.swf",
+    "thumbnail": "/games/the-impossible-quiz-2/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash quiz game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "the-worlds-hardest-game",
+    "title": "The World's Hardest Game",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/the-worlds-hardest-game/game.swf",
+    "thumbnail": "/games/the-worlds-hardest-game/thumb.webp",
+    "width": 550,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "the-worlds-hardest-game-2",
+    "title": "The World's Hardest Game 2",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/the-worlds-hardest-game-2/game.swf",
+    "thumbnail": "/games/the-worlds-hardest-game-2/thumb.webp",
+    "width": 700,
+    "height": 500,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Arcade"
+    ],
+    "description": "Classic Flash arcade game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "this-is-the-only-level",
+    "title": "This Is the Only Level",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/this-is-the-only-level/game.swf",
+    "thumbnail": "/games/this-is-the-only-level/thumb.webp",
+    "width": 700,
+    "height": 500,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "toss-the-turtle",
+    "title": "Toss the Turtle",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/toss-the-turtle/game.swf",
+    "thumbnail": "/games/toss-the-turtle/thumb.webp",
+    "width": 800,
+    "height": 500,
+    "compatibility": "partial",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports",
+      "Arcade"
+    ],
+    "description": "Classic Flash sports game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "ultimate-flash-sonic",
+    "title": "Ultimate Flash Sonic",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/ultimate-flash-sonic/game.swf",
+    "thumbnail": "/games/ultimate-flash-sonic/thumb.webp",
+    "width": 350,
+    "height": 250,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Platformer"
+    ],
+    "description": "Classic Flash platformer.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "apple-shooter",
+    "title": "Apple Shooter",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/apple-shooter/game.swf",
+    "thumbnail": "/games/apple-shooter/thumb.webp",
+    "width": 720,
+    "height": 425,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "description": "Classic Flash shooter game.",
+    "controls": "Controls are not documented by the developer."
+  },
+  {
+    "id": "yeti-sports",
+    "title": "Yeti Sports",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/yeti-sports/game.swf",
+    "thumbnail": "/games/yeti-sports/thumb.webp",
+    "width": 650,
+    "height": 400,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Sports"
+    ],
+    "description": "Classic Flash sports game.",
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Chris Hilbert",
+    "releaseYear": 2004
+  },
+  {
+    "id": "bloxorz",
+    "title": "Bloxorz",
+    "license": {
+      "type": "Owner-asserted permission (proof of concept) — not independently verified",
+      "source": "https://github.com/CBGamesdev/chilibowlflash",
+      "notes": "Permission asserted by the PLAYROOM project owner on 2026-11-16 for a private proof of concept. File obtained from the chilibowlflash repository. Confirm written permission from the rights-holder before any public deployment."
+    },
+    "gameFile": "/games/bloxorz/game.swf",
+    "thumbnail": "/games/bloxorz/thumb.webp",
+    "width": 550,
+    "height": 300,
+    "compatibility": "verified",
+    "addedAt": "2026-11-16",
+    "needsKeyboard": true,
+    "category": [
+      "Puzzle"
+    ],
+    "description": "Classic Flash puzzle game.",
+    "controls": "Controls are not documented by the developer."
   }
 ]
