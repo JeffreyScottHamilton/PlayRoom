@@ -264,3 +264,45 @@ Promotion = maintainer fills gaps + licence, tests in browser, moves entry into 
 - **Pages post-build** (`scripts/postbuild-pages.mjs`, run by `npm run build:pages` after the build). Always: copies `dist/index.html` to `dist/404.html` (SPA fallback) and writes an empty `dist/.nojekyll`. With `VITE_LIBRARY=open`: deletes `dist/games/<id>/` for each owner-asserted entry in `src/data/games.json`. Ids must be kebab-case, validated before any deletion. Only paths inside `dist/games` are removed, and symlinks are refused. It then fails if any file in `dist/assets` still contains `/games/<id>/` for an owner-asserted id. It prints counts.
 - **Workflow.** `.github/workflows/pages.yml` is `workflow_dispatch` only (a `push` trigger is commented out). It builds with `npm run build:pages` and deploys `dist/` with `actions/deploy-pages`.
 - **Other hosts.** Cloudflare Pages with Cloudflare Access serves the full library privately (`npm run build`, output `dist`). Vercel keeps `vercel.json`. Build with the default `/` base and the `all` scope.
+
+## 13. HTML5 games (engine support)
+
+### Type change (`src/types/game.ts`, additive)
+```ts
+export type Engine = "flash" | "html5";
+// in Game:
+  /** Runtime. Omitted = "flash" (all existing entries). */
+  engine?: Engine;
+```
+- `flash`: `gameFile` = `/games/<id>/game.swf` (unchanged).
+- `html5`: the game's files live in `public/games/<id>/html/`; `gameFile` = `/games/<id>/html/index.html` (or another `.html` inside that folder). `width`/`height` = the game's intended canvas size (aspect ratio); must come from the game itself or the supplier, never guessed — validator requires them as today.
+- Helper in `src/data/catalog.ts`: `export function engineOf(game: Game): Engine` (returns `game.engine ?? "flash"`).
+
+### Player (`src/player/Html5Player.tsx`)
+Same contract as RufflePlayer: `forwardRef<GamePlayerHandle, GamePlayerProps>` where
+```ts
+export interface GamePlayerHandle { restart(): void; enterFullscreen(): void; }
+export interface GamePlayerProps { src: string; width: number; height: number; onStatus?: (s: "loading" | "ready" | "error") => void; }
+```
+(`RufflePlayerHandle`/`RufflePlayerProps` become aliases of these.) Renders `<iframe>` inside the same sized, centered, aspect-ratio container (`data-player`, same layout rules as RufflePlayer):
+- `sandbox="allow-scripts allow-pointer-lock"` — **never** `allow-same-origin`, `allow-top-navigation`, `allow-popups`, `allow-forms`, `allow-modals`. The game runs in an opaque origin: it cannot read PLAYROOM's localStorage/cookies/DOM. Consequence (accepted): games that require localStorage/IndexedDB saves may fail or lose progress → mark `partial`/`unsupported` after testing.
+- `allow="fullscreen; autoplay; gamepad"`, `referrerpolicy="no-referrer"`, `loading="eager"`, title "<Game title> game".
+- status: loading → ready on iframe `load`; error if no load within 20 s (Retry re-creates the iframe).
+- restart: re-create the iframe (key bump). fullscreen: `requestFullscreen` on the container.
+- Click on container focuses the iframe; Arrow/Space scroll guard as RufflePlayer (keys inside the iframe never reach the page anyway).
+- GamePage picks the player by `engineOf(game)`; Ruffle is never loaded for html5 games (`loadRuffle` not imported on that path at runtime).
+
+### Validation (`scripts/validate-games.mjs`)
+- `engine` absent or one of `flash|html5`.
+- flash: gameFile ends `.swf`. html5: gameFile matches `/games/<id>/html/**/*.html` and the file exists; no `..`.
+- html5 folder size reported; fail if any single file > 25 MiB (Cloudflare Pages limit).
+
+### Import (`scripts/import-games.mjs`)
+- A directory containing `index.html` (top level of an input sub-folder) is an HTML5 game candidate. Copy the whole folder to `public/games/<slug>/html/` (skip dotfiles, `node_modules`, `.git`, symlinks; reject paths escaping the folder).
+- Flags: `external-requests` listing distinct `http(s)://` hosts found in its .html/.js/.css (the game may break offline or phone home); `missing-size` if sidecar lacks width/height; `large-file` (> 25 MiB); `inline-iframe-breakout` if code references `top.location`/`parent.location`/`window.top` (informational; sandbox blocks it).
+- sha256 of the folder (sorted relative paths + contents) for duplicate detection.
+- Draft: `engine: "html5"`, `gameFile: "/games/<slug>/html/index.html"`, compatibility "unsupported" until tested, same no-invention rules.
+- `scripts/capture-thumbnails.mjs`: html5 drafts are loaded in the same sandboxed iframe markup and screenshotted.
+
+### Non-goals
+No remote/hot-linked HTML5 games, no un-sandboxed mode, no per-game sandbox relaxation, no obfuscated loader bundles. Only named games from a known source with permission recorded in `license`.
