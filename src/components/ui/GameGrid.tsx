@@ -1,8 +1,15 @@
-// STUB (S1). Real component is slice S2.
 import type { JSX } from "react";
 import type { Game } from "../../types/game";
+import { GameCard } from "./GameCard";
 
-// TODO(S2): responsive grid, 2 / 3 / 4 / 6 columns.
-export function GameGrid(_props: { games: Game[] }): JSX.Element {
-  return <div />;
+export function GameGrid({ games }: { games: Game[] }): JSX.Element {
+  return (
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      {games.map((game) => (
+        <li key={game.id}>
+          <GameCard game={game} />
+        </li>
+      ))}
+    </ul>
+  );
 }

@@ -1,7 +1,24 @@
-// STUB (S1). Real component is slice S2.
-import type { JSX, ReactNode } from "react";
+import type { JSX } from "react";
+import { Button } from "./Button";
 
-// TODO(S2): empty-state block with message and optional action.
-export function EmptyState(_props: { children?: ReactNode }): JSX.Element {
-  return <div />;
+export interface EmptyStateProps {
+  title: string;
+  body?: string;
+  action?: { label: string; to: string };
+}
+
+export function EmptyState({ title, body, action }: EmptyStateProps): JSX.Element {
+  return (
+    <div className="rounded-card border border-line bg-surface px-6 py-10 text-center">
+      <p className="text-base font-semibold text-ink">{title}</p>
+      {body && <p className="mt-2 text-sm leading-5 text-ink-muted">{body}</p>}
+      {action && (
+        <div className="mt-6 flex justify-center">
+          <Button variant="secondary" to={action.to}>
+            {action.label}
+          </Button>
+        </div>
+      )}
+    </div>
+  );
 }
