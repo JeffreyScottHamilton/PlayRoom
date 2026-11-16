@@ -10,7 +10,7 @@ const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const COMPATIBILITY = ['verified', 'partial', 'unsupported']
 
 // Single source of truth: the CATEGORIES tuple in src/types/game.ts.
-function readCategories(repoRoot) {
+export function readCategories(repoRoot = REPO_ROOT) {
   const src = readFileSync(join(repoRoot, 'src', 'types', 'game.ts'), 'utf8')
   const match = src.match(/CATEGORIES\s*=\s*\[([\s\S]*?)\]\s*as const/)
   if (!match) throw new Error('could not find CATEGORIES in src/types/game.ts')
@@ -32,9 +32,11 @@ function isValidIsoDate(v) {
 /**
  * Validates manifest entries. `root` is the project root; local asset paths
  * ("/games/<id>/...") are resolved against `<root>/public`.
+ * `options` is either the root path or `{ root }`.
  * Returns a list of "<label>: <problem>" strings (empty when valid).
  */
-export function validateGames(games, root = REPO_ROOT) {
+export function validateGames(games, options = REPO_ROOT) {
+  const root = typeof options === 'string' ? options : (options?.root ?? REPO_ROOT)
   if (!Array.isArray(games)) return ['manifest: must be a JSON array']
 
   const errors = []
