@@ -210,6 +210,28 @@ describe("RufflePlayer lifecycle and handle", () => {
   });
 });
 
+describe("RufflePlayer layout", () => {
+  it("keeps the game aspect ratio and caps the width, not the height", () => {
+    const { container } = renderPlayer();
+    const target = container.firstElementChild as HTMLElement;
+
+    expect(target.style.aspectRatio).toBe("550 / 400");
+    // (100dvh - 160px) * 550 / 400, as normalised by jsdom.
+    expect(target.style.width).toBe("min(100%, 137.5dvh - 220px)");
+    expect(target.style.maxHeight).toBe("");
+  });
+
+  it("lets the ruffle-player element fill the container", async () => {
+    const { container } = renderPlayer();
+    await waitFor(() => expect(players).toHaveLength(1));
+    const mount = container.querySelector<HTMLElement>(".absolute.inset-0");
+
+    expect(mount?.className).toContain("[&>ruffle-player]:block");
+    expect(mount?.className).toContain("[&>ruffle-player]:h-full");
+    expect(mount?.className).toContain("[&>ruffle-player]:w-full");
+  });
+});
+
 describe("RufflePlayer keyboard shortcuts", () => {
   it("marks the container with data-player so the '/' search shortcut is disabled", () => {
     const { container } = renderPlayer();

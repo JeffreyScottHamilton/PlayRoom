@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import type { Game } from "../../types/game";
 import { SearchBox } from "./SearchBox";
 
@@ -166,6 +166,70 @@ describe("SearchBox", () => {
     fireEvent.keyDown(input, { key: "Enter" });
     expect(screen.getByLabelText("location")).toHaveTextContent("/games/mario-kart");
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("clears the query after choosing a result with Enter", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "mario" } });
+    fireEvent.keyDown(input, { key: "ArrowDown" });
+    fireEvent.keyDown(input, { key: "Enter" });
+
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games/mario-kart");
+    expect(input).toHaveValue("");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("clears the query after clicking a result", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "mario" } });
+    fireEvent.click(screen.getByRole("option", { name: "Super Mario" }));
+
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games/super-mario");
+    expect(input).toHaveValue("");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("clears the query when the route changes to a game page", () => {
+    function GoButton() {
+      const navigate = useNavigate();
+      return <button onClick={() => navigate("/games/super-mario")}>Go</button>;
+    }
+    render(
+      <MemoryRouter initialEntries={["/games"]}>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <>
+                <SearchBox />
+                <GoButton />
+                <Where />
+              </>
+            }
+          />
+        </Routes>
+      </MemoryRouter>,
+    );
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "papa" } });
+    expect(input).toHaveValue("papa");
+
+    fireEvent.click(screen.getByRole("button", { name: "Go" }));
+
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games/super-mario");
+    expect(input).toHaveValue("");
+  });
+
+  it("keeps the query when navigating to /games?q=", () => {
+    renderBox();
+    const input = screen.getByRole("combobox", { name: "Search games" });
+    fireEvent.change(input, { target: { value: "mario kart" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+
+    expect(screen.getByLabelText("location")).toHaveTextContent("/games?q=mario%20kart");
+    expect(input).toHaveValue("mario kart");
   });
 
   it("keeps the no-results popup open while focus moves to the All Games link", () => {

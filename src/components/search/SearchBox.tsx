@@ -14,6 +14,8 @@ import { assetUrl } from "../../lib/assetUrl";
 import type { Game } from "../../types/game";
 
 const MAX_RESULTS = 8;
+/** A single game page, e.g. /games/papas-burgeria (not /games or /games?q=). */
+const GAME_PATH = /^\/games\/[^/]+$/;
 
 /** "/" must not steal focus from text fields or from inside the player. */
 function allowsSlashShortcut(target: EventTarget | null): boolean {
@@ -58,6 +60,8 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
     setSeenRoute(routeKey);
     setOpen(false);
     setActive(-1);
+    // A game page is not a search, so the old query must not linger in the header.
+    if (GAME_PATH.test(location.pathname)) setQuery("");
   }
 
   // Global "/" shortcut focuses the search field.
@@ -76,6 +80,7 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
     setOpen(false);
     setActive(-1);
     if (game) {
+      setQuery("");
       navigate(`/games/${game.id}`);
     } else {
       navigate(trimmed === "" ? "/games" : `/games?q=${encodeURIComponent(trimmed)}`);

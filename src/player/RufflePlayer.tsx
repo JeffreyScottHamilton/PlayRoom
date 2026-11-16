@@ -135,10 +135,18 @@ export const RufflePlayer = forwardRef<RufflePlayerHandle, RufflePlayerProps>(
         data-status={status}
         onKeyDown={handleKeyDown}
         onMouseDown={focusContainer}
-        className="relative mx-auto w-full max-h-[calc(100dvh-160px)] bg-black focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink [&:fullscreen]:h-full [&:fullscreen]:max-h-none"
-        style={{ aspectRatio: `${width} / ${height}` }}
+        className="relative mx-auto bg-black focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink [&:fullscreen]:!h-full [&:fullscreen]:!w-full"
+        // Width is capped so the height (derived from aspect-ratio) fits the viewport
+        // below the page chrome. Capping the width instead of the height keeps the ratio.
+        style={{
+          aspectRatio: `${width} / ${height}`,
+          width: `min(100%, calc((100dvh - 160px) * ${width} / ${height}))`,
+        }}
       >
-        <div ref={mountRef} className="absolute inset-0" />
+        <div
+          ref={mountRef}
+          className="absolute inset-0 [&>ruffle-player]:block [&>ruffle-player]:h-full [&>ruffle-player]:w-full"
+        />
 
         {status === "loading" && (
           <div
