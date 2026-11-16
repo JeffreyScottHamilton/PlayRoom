@@ -152,6 +152,65 @@ function startServer() {
   return new Promise((ok) => server.listen(0, '127.0.0.1', () => ok(server)))
 }
 
+// Per-game capture plans (only for games whose preloader or title screen needs input).
+// preWaitMs: wait after load before the first click (default 2000).
+// clicks: stage-relative [x, y] fractions to click, in order (default: centre, CAPTURE_CLICKS times).
+// clickWaitMs: wait after each click (default 3000).
+// postWaitMs: wait after the last click, before the screenshot (intro animations).
+// keys: keyboard keys pressed after the clicks (Playwright key names), each followed by clickWaitMs.
+const CAPTURE_PLAN = {
+  'castle-202c': { preWaitMs: 4000, clicks: [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5]], clickWaitMs: 4000, postWaitMs: 3000 },
+  'bloxorz': { clicks: [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5]], clickWaitMs: 3000 },
+  'duck-life-2': { preWaitMs: 25000, clicks: [[0.67, 0.76], [0.67, 0.76]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'portal-wcs2': { preWaitMs: 15000, clicks: [[0.5, 0.5], [0.5, 0.5]], clickWaitMs: 5000, postWaitMs: 3000 },
+  'abobbos-big-adventure': { preWaitMs: 4000, clicks: [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5]], keys: ['Enter', ' '], clickWaitMs: 4000, postWaitMs: 3000 },
+  'blue-tetris': { preWaitMs: 2000, clicks: [[0.5, 0.55]], clickWaitMs: 4000, postWaitMs: 2000 },
+  'flash-tetris': { preWaitMs: 2000, clicks: [[0.5, 0.55]], clickWaitMs: 4000, postWaitMs: 2000 },
+  'commando-2': { preWaitMs: 12000, clicks: [[0.5, 0.5], [0.9, 0.93]], clickWaitMs: 5000, postWaitMs: 3000 },
+  'super-mario-63': { preWaitMs: 30000, clicks: [[0.95, 0.95]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'ultimate-flash-sonic': { preWaitMs: 2000, clicks: [[0.5, 0.31], [0.5, 0.31]], clickWaitMs: 4000, postWaitMs: 2000 },
+  'bloons-tower-defense': { preWaitMs: 20000, clicks: [[0.5, 0.5], [0.5, 0.5]], clickWaitMs: 5000, postWaitMs: 3000 },
+  'age-of-war': { preWaitMs: 4000, clicks: [[0.52, 0.53], [0.52, 0.53]], clickWaitMs: 5000, postWaitMs: 3000 },
+  'alien-hominid': { preWaitMs: 8000, clicks: [[0.5, 0.5], [0.5, 0.5]], clickWaitMs: 6000, postWaitMs: 2000 },
+  'apple-shooter': { preWaitMs: 6000, clicks: [[0.5, 0.5], [0.9, 0.93]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'my-friend-pedro': { preWaitMs: 20000, clicks: [[0.5, 0.78], [0.5, 0.78]], clickWaitMs: 5000, postWaitMs: 3000 },
+  'duck-life-3': { preWaitMs: 25000, clicks: [[0.67, 0.76], [0.67, 0.76]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'miami-shark': { preWaitMs: 15000, clicks: [[0.23, 0.67], [0.23, 0.67]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'new-york-shark': { preWaitMs: 15000, clicks: [[0.23, 0.67], [0.23, 0.67]], clickWaitMs: 6000, postWaitMs: 3000 },
+  'meat-boy': { preWaitMs: 10000, clicks: [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5]], clickWaitMs: 4000, postWaitMs: 3000 },
+  'the-impossible-quiz': { preWaitMs: 15000, clicks: [[0.5, 0.5], [0.5, 0.5]], clickWaitMs: 5000, postWaitMs: 5000 },
+  'papas-burgeria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-freezeria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-pancakeria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-pasta-ria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-pizzeria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-sushiria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-taco-mia': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+  'papas-wingeria': { preWaitMs: 25000, clicks: [[0.5, 0.5], [0.887, 0.96], [0.887, 0.96]], clickWaitMs: 5000, postWaitMs: 20000 },
+}
+
+// Runs inside the browser: closes Ruffle's hardware-acceleration notice if shown. The notice is
+// in the RUFFLE-PLAYER shadow root (#hardware-acceleration-modal); its x is span.close-modal.
+// Click the x, then remove the modal so it cannot cover the game.
+const DISMISS_NOTICES = () => {
+  let dismissed = 0
+  const walk = (root) => {
+    for (const el of root.querySelectorAll('*')) {
+      if (el.shadowRoot) walk(el.shadowRoot)
+    }
+    for (const x of root.querySelectorAll('.close-modal')) {
+      x.click()
+      dismissed++
+    }
+    for (const m of root.querySelectorAll('#hardware-acceleration-modal')) {
+      m.remove()
+      dismissed++
+    }
+  }
+  walk(document)
+  return dismissed
+}
+
 // Runs inside the browser: cover-crops the screenshot to 640x400 and measures it.
 const ANALYSE_IN_PAGE = async ({ png, W, H }) => {
   const img = new Image()
@@ -243,15 +302,27 @@ async function captureOne(browser, base, draft) {
     if (state.error) fatal.push(state.error)
 
     // Let the first frames run, click the player centre once, then wait 3 s.
-    await page.waitForTimeout(2000)
+    const plan = CAPTURE_PLAN[id] ?? {}
+    await page.waitForTimeout(plan.preWaitMs ?? 2000)
     const box = await page.locator('#stage').boundingBox()
     // Ruffle shows a click-to-play overlay until the player receives a click. The first click
     // can land before the overlay is active, so click, wait, then click again (CLICK_COUNT).
-    for (let i = 0; i < CLICK_COUNT && box; i++) {
-      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
-      await page.waitForTimeout(3000)
+    // A per-game plan may list stage-relative click points (fractions of width and height) instead.
+    const points = plan.clicks ?? Array.from({ length: CLICK_COUNT }, () => [0.5, 0.5])
+    const clickWait = plan.clickWaitMs ?? 3000
+    for (const [fx, fy] of points) {
+      if (!box) break
+      await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy)
+      await page.waitForTimeout(clickWait)
     }
 
+    for (const key of plan.keys ?? []) {
+      await page.keyboard.press(key)
+      await page.waitForTimeout(clickWait)
+    }
+    const dismissed = await page.evaluate(DISMISS_NOTICES)
+    if (process.env.CAPTURE_DEBUG_DIR) console.log(`debug ${id}: dismissed ${dismissed} notice button(s)`)
+    await page.waitForTimeout(plan.postWaitMs ?? 0)
     const shot = await page.locator('#stage').screenshot({ type: 'png' })
     if (process.env.CAPTURE_DEBUG_DIR) writeFileSync(join(process.env.CAPTURE_DEBUG_DIR, `${id}.png`), shot)
     const analysis = await page.evaluate(ANALYSE_IN_PAGE, {
@@ -330,7 +401,12 @@ async function main() {
   const server = await startServer()
   const base = `http://127.0.0.1:${server.address().port}`
   const browser = await chromium.launch({
-    args: ['--autoplay-policy=no-user-gesture-required', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
+    args: [
+      '--autoplay-policy=no-user-gesture-required',
+      '--use-angle=swiftshader',
+      '--enable-unsafe-swiftshader',
+      '--ignore-gpu-blocklist',
+    ],
   })
   const results = []
   try {
