@@ -1,0 +1,45 @@
+# Deploys the full build (all games) to GitHub Pages.
+# Run manually: Actions -> "Deploy to GitHub Pages" -> Run workflow.
+# Pages must be enabled first: Settings -> Pages -> Source: GitHub Actions.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  # Enable only after Pages is set up and you want every push to main to deploy:
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: BASE_PATH=/PlayRoom/ npm run build && node scripts/postbuild-pages.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
