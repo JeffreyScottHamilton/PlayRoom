@@ -2,6 +2,7 @@ import { useState, type JSX } from "react";
 import { Link } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
 import type { Game } from "../../types/game";
+import { assetUrl } from "../../lib/assetUrl";
 
 /** Up to two leading letters of the title's first two words, e.g. "Sample Racer" -> "SR". */
 function initials(title: string): string {
@@ -40,7 +41,7 @@ export function GameCard({ game, showFavorite = true }: GameCardProps): JSX.Elem
             </div>
           ) : (
             <img
-              src={game.thumbnail}
+              src={assetUrl(game.thumbnail)}
               alt=""
               width={640}
               height={400}

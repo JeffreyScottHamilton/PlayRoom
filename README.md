@@ -56,6 +56,7 @@ docs/
   ADDING_GAMES.md          # maintainer guide for adding games
   LIBRARY.md               # published games, licences and compatibility
 vercel.json                # build settings and SPA routing
+.github/workflows/pages.yml # manual GitHub Pages deployment
 ```
 
 ## Game library and licensing
@@ -101,18 +102,42 @@ Each game has a compatibility level:
 - **unsupported**: not published. These entries stay in the manifest but are hidden from every
   listing.
 
-## Deploying to Vercel
+## Deploying
 
-1. In Vercel, choose **Add New Project** and import this GitHub repository.
-2. Set the framework preset to **Vite**.
-3. Set the build command to `npm run build` and the output directory to `dist`.
-4. Deploy. No environment variables are needed.
+Three targets are supported. The build reads two environment variables:
 
-`vercel.json` rewrites all non-file routes to `/index.html`, so direct links to pages such as
-`/games/<id>` work. The current library (about 18 MB of game files in `public/games/`, plus the
-Ruffle WebAssembly runtime) is well within Vercel's limits for a static deployment. For a much
-larger library, host the game files on static object storage or a CDN (for example Cloudflare R2)
-and set `gameFile` to an `https` URL, but only where the licence allows hosting elsewhere.
+- `BASE_PATH` sets the URL prefix (default `/`). GitHub Pages project sites need `/PlayRoom/`.
+- `VITE_LIBRARY` sets the library scope: `all` (default, every published game) or `open` (no
+  owner-asserted games).
+
+### GitHub Pages (open-licensed games only)
+
+1. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. Go to **Actions → Deploy to GitHub Pages**, choose **Run workflow**.
+3. The site is served at `https://<user>.github.io/PlayRoom/`.
+
+The workflow runs `npm run build:pages`, which sets `BASE_PATH=/PlayRoom/` and
+`VITE_LIBRARY=open`, then `scripts/postbuild-pages.mjs` removes owner-asserted game folders from
+`dist/`, copies `index.html` to `404.html` for client-side routes, and writes `.nojekyll`.
+
+On the Free, Pro and Team plans, a GitHub Pages site is **public even when the repository is
+private**. Private Pages visibility requires GitHub Enterprise Cloud. That is why `build:pages`
+ships only openly-licensed games. Building with `VITE_LIBRARY=all`, or publishing
+the owner-asserted titles any other way, makes them public and requires written permission from
+each rights-holder.
+
+### Cloudflare Pages with Cloudflare Access (full library, private)
+
+Use this to host the full library behind a login.
+
+- Build command: `npm run build`. Output directory: `dist`.
+- Put the site behind a **Cloudflare Access** application so that only allowed accounts can open it.
+
+### Vercel
+
+`vercel.json` is kept. It sets the build to `npm run build`, the output to `dist`, and rewrites
+non-file routes to `/index.html`. Vercel's Hobby plan limits uploads to 100 MB. The full library
+(about 263 MB) exceeds that, so Vercel suits the open-licensed build only.
 
 ## Credits
 

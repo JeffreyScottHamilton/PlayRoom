@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 import { Link } from "react-router-dom";
 import type { Game } from "../../types/game";
+import { assetUrl } from "../../lib/assetUrl";
 import { PlayIcon } from "../ui/PlayIcon";
 
 export function FeaturedGame({ game }: { game: Game }): JSX.Element {
@@ -10,7 +11,7 @@ export function FeaturedGame({ game }: { game: Game }): JSX.Element {
       className="group relative block aspect-[16/8.5] overflow-hidden rounded-card border border-line bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
     >
       <img
-        src={game.thumbnail}
+        src={assetUrl(game.thumbnail)}
         alt=""
         width={640}
         height={400}

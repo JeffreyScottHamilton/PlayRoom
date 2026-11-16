@@ -5,6 +5,25 @@ function byTitle(a: Game, b: Game): number {
   return a.title.localeCompare(b.title);
 }
 
+export type LibraryScope = "all" | "open";
+
+/**
+ * VITE_LIBRARY at build time. "open" publishes only entries that are not owner-asserted.
+ * vite.config.ts rejects any other value, so this can only be "all" or "open".
+ */
+export const LIBRARY_SCOPE: LibraryScope =
+  import.meta.env.VITE_LIBRARY === "open" ? "open" : "all";
+
+/** True when the licence is a permission asserted by the owner rather than an open licence. */
+export function isOwnerAsserted(game: Game): boolean {
+  return game.license.type.startsWith("Owner-asserted");
+}
+
+/** "open" drops owner-asserted entries; "all" keeps every entry. Pure; returns a new array. */
+export function filterByScope(games: readonly Game[], scope: LibraryScope): Game[] {
+  return scope === "open" ? games.filter((g) => !isOwnerAsserted(g)) : [...games];
+}
+
 /**
  * Builds the typed accessors over an arbitrary games array. Unsupported entries
  * are hidden from every accessor. Tests use this with fixtures; the module-level
@@ -77,7 +96,7 @@ export function createCatalog(games: readonly Game[]) {
   };
 }
 
-const catalog = createCatalog(gamesJson as Game[]);
+const catalog = createCatalog(filterByScope(gamesJson as Game[], LIBRARY_SCOPE));
 
 export const allGames: readonly Game[] = catalog.allGames;
 export const getGame = catalog.getGame;

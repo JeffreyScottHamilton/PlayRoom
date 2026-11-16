@@ -1,15 +1,16 @@
+import { assetUrl } from "../lib/assetUrl";
 import type { RuffleAPI, RuffleConfig, RuffleGlobal } from "./ruffle";
 
 export type { RuffleAPI } from "./ruffle";
 
-export const RUFFLE_SCRIPT_SRC = "/ruffle/ruffle.js";
-export const RUFFLE_PUBLIC_PATH = "/ruffle/";
+export const RUFFLE_SCRIPT_SRC = assetUrl("/ruffle/ruffle.js");
+export const RUFFLE_PUBLIC_PATH = assetUrl("/ruffle/");
 export const RUFFLE_LOAD_TIMEOUT_MS = 15_000;
 
 let pending: Promise<RuffleAPI> | null = null;
 
 /**
- * Injects <script src="/ruffle/ruffle.js"> once and resolves window.RufflePlayer.
+ * Injects <script src="<base>/ruffle/ruffle.js"> once and resolves window.RufflePlayer.
  * The promise is memoized; a failed attempt clears the memo and removes the
  * script tag so a later call (e.g. the Retry button) injects it again.
  */

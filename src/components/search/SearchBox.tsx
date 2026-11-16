@@ -10,6 +10,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { allGames } from "../../data/catalog";
 import { searchGames } from "../../lib/search";
+import { assetUrl } from "../../lib/assetUrl";
 import type { Game } from "../../types/game";
 
 const MAX_RESULTS = 8;
@@ -171,7 +172,7 @@ export function SearchBox({ className = "" }: { className?: string }): JSX.Eleme
                 }`}
               >
                 <img
-                  src={game.thumbnail}
+                  src={assetUrl(game.thumbnail)}
                   alt=""
                   width={40}
                   height={25}

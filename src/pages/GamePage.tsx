@@ -5,6 +5,7 @@ import { Button } from "../components/ui/Button";
 import { GameGrid } from "../components/ui/GameGrid";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { getGame, getRelatedGames } from "../data/catalog";
+import { assetUrl } from "../lib/assetUrl";
 import { useFavorites } from "../hooks/useFavorites";
 import { useRecentlyPlayed } from "../hooks/useRecentlyPlayed";
 import { RufflePlayer, type RufflePlayerHandle } from "../player/RufflePlayer";
@@ -104,7 +105,7 @@ export default function GamePage() {
       <div className="mt-4">
         <RufflePlayer
           ref={playerRef}
-          src={game.gameFile}
+          src={assetUrl(game.gameFile)}
           width={game.width}
           height={game.height}
         />

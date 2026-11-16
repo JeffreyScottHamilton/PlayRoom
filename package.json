@@ -8,6 +8,7 @@
     "dev": "vite",
     "prebuild": "node scripts/copy-ruffle.mjs && node scripts/validate-games.mjs",
     "build": "tsc -b && vite build",
+    "build:pages": "BASE_PATH=/PlayRoom/ VITE_LIBRARY=open npm run build && VITE_LIBRARY=open node scripts/postbuild-pages.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "validate": "node scripts/validate-games.mjs",

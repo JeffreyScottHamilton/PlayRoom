@@ -1,6 +1,7 @@
 import { Suspense, type ReactNode } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
+import { baseFromBaseUrl } from "./lib/assetUrl";
 import {
   FavoritesPage,
   GamePage,
@@ -17,6 +18,8 @@ function page(node: ReactNode) {
   );
 }
 
+const routerBasename = baseFromBaseUrl(import.meta.env.BASE_URL) || "/";
+
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -29,4 +32,4 @@ export const router = createBrowserRouter([
       { path: "*", element: page(<NotFoundPage />) },
     ],
   },
-]);
+], { basename: routerBasename });
