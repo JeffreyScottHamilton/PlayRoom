@@ -6,6 +6,7 @@
 // writes dist/__player-test.html, which loads /ruffle/ruffle.js and the fixture the
 // same way src/player/loadRuffle.ts does. Both generated files are removed afterwards.
 import { spawn } from "node:child_process";
+import { createServer } from "node:net";
 import { copyFile, mkdir, rm, rmdir, stat, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
@@ -20,8 +21,6 @@ const fixtureSrc = join(root, "tests", "fixtures", "ruffle-test.swf");
 const fixtureDir = join(dist, "games", "__fixture");
 const fixtureDest = join(fixtureDir, "game.swf");
 const testPage = join(dist, "__player-test.html");
-const PORT = 4174;
-const BASE = `http://localhost:${PORT}`;
 
 // Ruffle warnings are console.warn and are not checked. Add a pattern here only
 // when a specific, understood console.error from Ruffle has been observed.
@@ -77,18 +76,33 @@ async function exists(path) {
   }
 }
 
-async function waitForServer(timeoutMs) {
+// Ask the OS for a free port. A fixed port can be held by a stale preview server
+// from another checkout, which then answers for this test page with 404.
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const srv = createServer();
+    srv.unref();
+    srv.on("error", reject);
+    srv.listen(0, "127.0.0.1", () => {
+      const { port } = srv.address();
+      srv.close(() => resolve(port));
+    });
+  });
+}
+
+async function waitForServer(base, timeoutMs) {
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     try {
-      const res = await fetch(`${BASE}/__player-test.html`);
-      if (res.ok) return;
+      const res = await fetch(`${base}/__player-test.html`);
+      // Must be our generated page, not any other server that happens to be up.
+      if (res.ok && (await res.text()).includes("__rufflePlayerReady")) return;
     } catch {
       // Server not up yet.
     }
     await new Promise((r) => setTimeout(r, 250));
   }
-  throw new Error(`vite preview did not serve ${BASE} within ${timeoutMs} ms`);
+  throw new Error(`vite preview did not serve ${base} within ${timeoutMs} ms`);
 }
 
 async function cleanup(server) {
@@ -112,6 +126,8 @@ async function main() {
     throw new Error("dist/ruffle/ruffle.js is missing. Run `npm run build` first.");
   }
 
+  const PORT = await freePort();
+  const BASE = `http://127.0.0.1:${PORT}`;
   let server;
   let browser;
   try {
@@ -119,14 +135,14 @@ async function main() {
     await copyFile(fixtureSrc, fixtureDest);
     await writeFile(testPage, PAGE_HTML, "utf8");
 
-    server = spawn("npx", ["vite", "preview", "--port", String(PORT), "--strictPort"], {
+    server = spawn("npx", ["vite", "preview", "--host", "127.0.0.1", "--port", String(PORT), "--strictPort"], {
       cwd: root,
       stdio: ["ignore", "pipe", "pipe"],
     });
     let serverLog = "";
     server.stdout.on("data", (d) => (serverLog += d));
     server.stderr.on("data", (d) => (serverLog += d));
-    await waitForServer(30_000).catch((err) => {
+    await waitForServer(BASE, 30_000).catch((err) => {
       throw new Error(`${err.message}\n${serverLog}`);
     });
 
