@@ -1859,5 +1859,330 @@
     "controls": "Controls are not documented by the developer.",
     "popularRank": 9,
     "developer": "Damien Clarke"
+  },
+  {
+    "id": "space-huggers",
+    "title": "Space Huggers",
+    "description": "You are an elite rebel soldier wiping out empire outposts on remote planets. Explore strange planets using your tools of destruction and eliminate the invaders.",
+    "category": [
+      "Platformer"
+    ],
+    "controls": "WASD or D-Pad to move, jump and climb. Z or left click to shoot, X or middle click to roll, C or right click for a grenade. R restarts. Xbox or SNES style controllers are also supported.",
+    "developer": "Frank Force",
+    "license": {
+      "type": "GPL-3.0",
+      "source": "https://raw.githubusercontent.com/KilledByAPixel/SpaceHuggers/c31a5aaa116842bed4b7385921eaef54dea9681d/LICENSE",
+      "notes": "Source: https://github.com/KilledByAPixel/SpaceHuggers at commit c31a5aaa116842bed4b7385921eaef54dea9681d."
+    },
+    "needsKeyboard": true,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/space-huggers/html/index.html",
+    "thumbnail": "/games/space-huggers/thumb.webp",
+    "compatibility": "verified",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "elematter",
+    "title": "Elematter",
+    "description": "A simple tower defense game for js13k 2014.",
+    "category": [
+      "Strategy"
+    ],
+    "controls": "Click the on-screen buttons to play, build and upgrade towers, and send the next wave.",
+    "developer": "Jack Rugile",
+    "releaseYear": 2014,
+    "width": 800,
+    "height": 600,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/jackrugile/elematter-js13k/b7c4c0a9e06446a9afacbd605ea1efb0ae3433ae/LICENSE.md",
+      "notes": "Source: https://github.com/jackrugile/elematter-js13k at commit b7c4c0a9e06446a9afacbd605ea1efb0ae3433ae. Built file from the repo's build/ folder."
+    },
+    "needsKeyboard": false,
+    "engine": "html5",
+    "gameFile": "/games/elematter/html/index.html",
+    "thumbnail": "/games/elematter/thumb.webp",
+    "compatibility": "verified",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "onoff",
+    "title": "ONOFF",
+    "description": "Navigate through 25 brain-teasing levels in this fast-paced, hand-crafted platformer. You'll dodge spikes, jump over pits, and toggle between dimensions.",
+    "category": [
+      "Platformer"
+    ],
+    "controls": "Left/Right (A/D or arrow keys) to move, Up (W or Up arrow) to jump, Space to toggle between the on and off layers. Gamepad is supported.",
+    "developer": "Daniel Marino and Brad Dunbar",
+    "releaseYear": 2018,
+    "width": 768,
+    "height": 480,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/starzonmyarmz/js13k-2018/cb1e2e4615af6195aeb0dade06c08738511dd3b6/LICENSE",
+      "notes": "Source: https://github.com/starzonmyarmz/js13k-2018 at commit cb1e2e4615af6195aeb0dade06c08738511dd3b6. PLAYROOM edit: built with the repo's bin/build toolchain (postcss, html-minifier, rollup, uglify-es); the game's ES module script is inlined into index.html as a classic script because the sandboxed iframe blocks loading separate module files; the build's zip step and the editor.html page are not included."
+    },
+    "needsKeyboard": true,
+    "engine": "html5",
+    "gameFile": "/games/onoff/html/index.html",
+    "thumbnail": "/games/onoff/thumb.webp",
+    "compatibility": "verified",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "underrun",
+    "title": "UNDERRUN",
+    "description": "Dominic Szablewski's entry for js13k 2018. Facility systems have gone offline after a buffer underrun and must be rebooted manually.",
+    "controls": "Not documented by the developer. The code reads arrow keys or W, A, S, D to move and the mouse to aim and shoot (source/game.js).",
+    "developer": "Dominic Szablewski",
+    "releaseYear": 2018,
+    "width": 320,
+    "height": 180,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/phoboslab/underrun/f933e29152d7fc1ca61d4b3eaa8b29551d7d7a62/LICENSE.md",
+      "notes": "Source: https://github.com/phoboslab/underrun at commit f933e29152d7fc1ca61d4b3eaa8b29551d7d7a62. Built with the repo's build.sh (uglify-es minification, inlined into a single index.html). The four PNG images (m/q2, m/l1-l3) were inlined as data URIs because cross-origin images break WebGL and canvas reads in the sandbox. No storage is used, so no shim was needed; the m/ folder is not shipped."
+    },
+    "needsKeyboard": true,
+    "category": [
+      "Action"
+    ],
+    "engine": "html5",
+    "gameFile": "/games/underrun/html/index.html",
+    "thumbnail": "/games/underrun/thumb.webp",
+    "compatibility": "verified",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "2048",
+    "title": "2048",
+    "description": "Join the numbers and get to the 2048 tile. A small clone of 1024, made just for fun. Progress is not saved between visits.",
+    "category": [
+      "Puzzle"
+    ],
+    "controls": "Arrow keys (or W, A, S, D) to move the tiles. R restarts the game.",
+    "developer": "Gabriele Cirulli",
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/gabrielecirulli/2048/478b6ec346e3787f589e4af751378d06ded4cbbc/LICENSE.txt",
+      "notes": "Source: https://github.com/gabrielecirulli/2048 at commit 478b6ec346e3787f589e4af751378d06ded4cbbc. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits. Web fonts inlined as data URIs (CORS in the sandbox)."
+    },
+    "needsKeyboard": true,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/2048/html/index.html",
+    "thumbnail": "/games/2048/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "radius-raid",
+    "title": "Radius Raid",
+    "description": "A space themed shoot 'em up where you must blast away unrelenting enemies before they destroy you. It features 13 enemy types and 5 powerups. Progress is not saved between visits.",
+    "category": [
+      "Action"
+    ],
+    "controls": "WASD or arrow keys to move. Mouse to aim and fire. F for autofire, P to pause, M to mute.",
+    "developer": "Jack Rugile",
+    "releaseYear": 2013,
+    "width": 800,
+    "height": 600,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/jackrugile/radius-raid-js13k/361ab5166570cfc8a29a4fc15c9afba566117b66/LICENSE.md",
+      "notes": "Source: https://github.com/jackrugile/radius-raid-js13k at commit 361ab5166570cfc8a29a4fc15c9afba566117b66. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits."
+    },
+    "needsKeyboard": true,
+    "engine": "html5",
+    "gameFile": "/games/radius-raid/html/index.html",
+    "thumbnail": "/games/radius-raid/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "the-last-spartan",
+    "title": "The Last Spartan",
+    "description": "An arcade hack n' slash survival game set in ancient Sparta, 404 B.C. Cut your enemies to pieces and defend your homeland as the last Spartan Hoplite of your battalion. Progress is not saved between visits.",
+    "category": [
+      "Action",
+      "Arcade"
+    ],
+    "controls": "W, A, S, D to move. J or left mouse button to attack. K or right mouse button to block. Space to jump. K + J (or right + left mouse button) for Spartan Charge. Space + J (or Space + left mouse button) for Ground Pound. P to pause.",
+    "developer": "Michael Ferron",
+    "releaseYear": 2020,
+    "width": 768,
+    "height": 432,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/ferronsays/js13k-TheLastSpartan/2fd8dc38a6c0869e895b995b4090d5a9d117fbfe/LICENSE",
+      "notes": "Source: https://github.com/ferronsays/js13k-TheLastSpartan at commit 2fd8dc38a6c0869e895b995b4090d5a9d117fbfe. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits. Built file from the repo's dist/ folder."
+    },
+    "needsKeyboard": true,
+    "engine": "html5",
+    "gameFile": "/games/the-last-spartan/html/index.html",
+    "thumbnail": "/games/the-last-spartan/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "bounce-back",
+    "title": "Bounce Back",
+    "description": "A boomerang roguelite game for JS13k. Aim and throw your boomerang, dash, and buy items in the shop across procedurally generated levels, ending in a final boss battle. Progress is not saved between visits.",
+    "category": [
+      "Action"
+    ],
+    "controls": "WASD to move, mouse to aim, click to throw, Space to dash.",
+    "developer": "Frank Force",
+    "license": {
+      "type": "GPL-2.0-or-later",
+      "source": "https://raw.githubusercontent.com/KilledByAPixel/BounceBack/395fd046338e6c5d5840d10e7fbd74132f90b8f6/LICENSE",
+      "notes": "Source: https://github.com/KilledByAPixel/BounceBack at commit 395fd046338e6c5d5840d10e7fbd74132f90b8f6. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits."
+    },
+    "needsKeyboard": true,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/bounce-back/html/index.html",
+    "thumbnail": "/games/bounce-back/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "black-hole-square",
+    "title": "Black Hole Square",
+    "description": "A puzzle game for js13k 2021 with the theme SPACE. Clean up all the other squares in the universe by tapping them. Progress is not saved between visits.",
+    "category": [
+      "Puzzle"
+    ],
+    "controls": "Tap the squares to clear them. Swipe right to reset a puzzle or go back to the old ones; swipe left to skip a puzzle.",
+    "developer": "Quinten Clause",
+    "releaseYear": 2021,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/Quinten/black-hole-square/4a760a0f3d182c833e345937a0fe4b7704afd737/LICENSE",
+      "notes": "Source: https://github.com/Quinten/black-hole-square at commit 4a760a0f3d182c833e345937a0fe4b7704afd737. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits. Service-worker registration disabled (not available in the sandbox). Built file from the repo's public/ folder."
+    },
+    "needsKeyboard": false,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/black-hole-square/html/index.html",
+    "thumbnail": "/games/black-hole-square/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "spacepi",
+    "title": "SpacePi",
+    "description": "A mouse accuracy/agility game revolving around the defense of 13 bases in the most desolate regions of space. Create lines to defend against enemy lines, and collect coins to purchase upgrades. Progress is not saved between visits.",
+    "category": [
+      "Arcade"
+    ],
+    "controls": "Click and drag to create defensive lines, which is limited by your available power. Press the spacebar to pause.",
+    "developer": "Jack Rugile",
+    "width": 960,
+    "height": 600,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/jackrugile/spacepi-js13k/f207e01a340d932acb04fe8b33ebc53b294f7b37/LICENSE.md",
+      "notes": "Source: https://github.com/jackrugile/spacepi-js13k at commit f207e01a340d932acb04fe8b33ebc53b294f7b37. PLAYROOM edit: an in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits."
+    },
+    "needsKeyboard": false,
+    "engine": "html5",
+    "gameFile": "/games/spacepi/html/index.html",
+    "thumbnail": "/games/spacepi/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "hextris",
+    "title": "Hextris",
+    "description": "An addictive puzzle game inspired by Tetris. Stop blocks from leaving the inside of the outer gray hexagon by making 3 or more blocks of the same color touch. Progress is not saved between visits.",
+    "category": [
+      "Puzzle"
+    ],
+    "controls": "Press the right and left arrow keys to rotate the hexagon. Press the down arrow to speed up the block falling. On mobile, tap the left and right sides of the screen.",
+    "developer": "Logan Engstrom, Garrett Finucane, Noah Moroze, Michael Yang",
+    "license": {
+      "type": "GPL-3.0-or-later",
+      "source": "https://raw.githubusercontent.com/Hextris/hextris/3f4847dc8fd7dab3d1c87e6324b9159d92fbd396/LICENSE.md",
+      "notes": "Source: https://github.com/Hextris/hextris at commit 3f4847dc8fd7dab3d1c87e6324b9159d92fbd396. PLAYROOM edit: static copy of the runtime files with no build step; the Google AdSense script, Google Analytics snippets (index.html and js/initialization.js) and the Google Fonts link are removed. A score-submission request to a raw IP and the loader for hextris.io/a.js are removed (js/main.js). Exo 2 and Font Awesome fonts are inlined as data URIs in the CSS (CORS in the sandbox), and the unused font files are dropped. The pause-screen store link in js/view.js is kept as plain text. An in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits. The service worker is absent, so nothing to disable."
+    },
+    "needsKeyboard": true,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/hextris/html/index.html",
+    "thumbnail": "/games/hextris/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "a-dark-room",
+    "title": "A Dark Room",
+    "description": "A minimalist text adventure game for your browser. Progress is not saved between visits.",
+    "category": [
+      "Adventure"
+    ],
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Michael Townsend",
+    "license": {
+      "type": "MPL-2.0",
+      "source": "https://raw.githubusercontent.com/doublespeakgames/adarkroom/1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7/LICENSE.md",
+      "notes": "Source: https://github.com/doublespeakgames/adarkroom at commit 1fada4620b6c66bd07bf15a3f1eb8223df8bc1d7. PLAYROOM edit: static copy with no build step; the Google Analytics tag is removed from index.html. The jQuery CDN script is replaced by the vendored lib/jquery.min.js (jQuery 1.10.1, the same version as the CDN file, licence header intact). The .flac audio is bundled as classic scripts under audio/data/ and script/audio.js reads them from there instead of fetch(), because fetch is blocked in the sandbox; the raw .flac files are removed. An in-memory localStorage stand-in is injected into index.html because the sandboxed iframe has no storage; progress is not saved between visits. Dev-only files (tools/, doc/, dev-server.js, package.json, browser and mobile warning pages, unused script/dropbox.js and lib/icu.js) are not included."
+    },
+    "needsKeyboard": false,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/a-dark-room/html/index.html",
+    "thumbnail": "/games/a-dark-room/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "stolen-sword",
+    "title": "Stolen Sword",
+    "description": "A one finger action platform game for js13k 2020. Progress is not saved between visits.",
+    "category": [
+      "Action",
+      "Platformer"
+    ],
+    "controls": "Controls are not documented by the developer. The game reads mouse and touch input only (src/modules/interaction.js).",
+    "developer": "Ian Chiao",
+    "releaseYear": 2020,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/chiaogu/stolen-sword/e5aa6e06ce50545df80e5bdfdde4122b5e267d09/LICENSE.md",
+      "notes": "Source: https://github.com/chiaogu/stolen-sword at commit e5aa6e06ce50545df80e5bdfdde4122b5e267d09. Built with Rollup in production mode (Terser-minified, inlined into a single index.html). A localStorage shim was injected because the game saves progress through localStorage; progress is not saved between visits. The build's zip step was not used, so no index.zip is included. Frame size 11x16 is the game's fixed aspect ratio (ASPECT_RATIO = 16 / 11, height over width, src/constants.js); the canvas scales to fit."
+    },
+    "needsKeyboard": false,
+    "width": 11,
+    "height": 16,
+    "engine": "html5",
+    "gameFile": "/games/stolen-sword/html/index.html",
+    "thumbnail": "/games/stolen-sword/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
+  },
+  {
+    "id": "the-wandering-wraith",
+    "title": "The Wandering Wraith",
+    "description": "A 2d platformer for js13kGames 2019 edition challenge. Progress is not saved between visits.",
+    "category": [
+      "Platformer"
+    ],
+    "controls": "Left and right arrows for movement, space for jumping.",
+    "developer": "Mateusz Tomczyk",
+    "releaseYear": 2019,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/tulustul/The-Wandering-Wraith/24a019be1cab3e6cd20cf82136a9f1cb8bbebd84/LICENSE",
+      "notes": "Source: https://github.com/tulustul/The-Wandering-Wraith at commit 24a019be1cab3e6cd20cf82136a9f1cb8bbebd84. PLAYROOM edit: built with the repo's webpack production build (advzip and the bundle size check were not run); the dev-only editor is not in the production bundle; the bundle is inlined into index.html; an in-memory localStorage stand-in is injected because the game saves progress to localStorage, so progress is not saved between visits."
+    },
+    "needsKeyboard": true,
+    "responsive": true,
+    "engine": "html5",
+    "gameFile": "/games/the-wandering-wraith/html/index.html",
+    "thumbnail": "/games/the-wandering-wraith/thumb.webp",
+    "compatibility": "partial",
+    "addedAt": "2026-11-16"
   }
 ]

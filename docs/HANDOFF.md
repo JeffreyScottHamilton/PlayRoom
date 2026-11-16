@@ -7,7 +7,7 @@ delete finished items rather than letting it grow.
 
 - `origin/claude/nifty-bell-9ujhdb` (f714d16, developer credits checked against sources,
   unconfirmed ones removed) is merged into this branch (fast-forward).
-- HTML5 engine (docs/ARCHITECTURE.md §13) is implemented; first html5 games are being added.
+- HTML5 engine (docs/ARCHITECTURE.md §13) is implemented; 14 open-licensed html5 games added.
 
 ## HTML5 games: how they are prepared
 
@@ -27,22 +27,27 @@ opaque (`null`) origin. Found in real-browser tests:
 
 ## Game list status
 
-| Game | Repo | Licence (LICENSE file read) | Status |
+| Game | Repo | Licence | Compatibility |
 |---|---|---|---|
-| Space Huggers | KilledByAPixel/SpaceHuggers | GPL-3.0 | sandbox-tested OK, importing |
-| 2048 | gabrielecirulli/2048 | MIT | OK with font inlining + shim, importing |
-| Radius Raid | jackrugile/radius-raid-js13k | MIT | OK with shim, importing |
-| The Last Spartan | ferronsays/js13k-TheLastSpartan (prebuilt `dist/`) | MIT | OK with shim, importing |
-| Bounce Back | KilledByAPixel/BounceBack | GPL-2.0 | OK with shim, importing |
-| Black Hole Square | Quinten/black-hole-square (prebuilt `public/`) | MIT | OK with shim + SW off, importing |
-| Elematter | jackrugile/elematter-js13k (prebuilt `build/`) | MIT | sandbox-tested OK, importing |
-| SpacePi | jackrugile/spacepi-js13k | MIT | OK with shim, importing |
-| ONOFF | starzonmyarmz/js13k-2018 | MIT | needs build (`./bin/build`) |
-| The Wandering Wraith | tulustul/The-Wandering-Wraith | MIT | needs build (webpack) |
-| Stolen Sword | chiaogu/stolen-sword | MIT | needs build (rollup) |
-| Underrun | phoboslab/underrun | MIT | needs build (`build.sh`) |
-| Hextris | Hextris/hextris | GPL-3.0 | needs edit: remove Google ads script |
-| A Dark Room | doublespeakgames/adarkroom | MPL-2.0 | needs edit: vendor jQuery, remove analytics |
+| Space Huggers | KilledByAPixel/SpaceHuggers | GPL-3.0 | verified (responsive) |
+| Elematter | jackrugile/elematter-js13k (prebuilt `build/`) | MIT | verified |
+| ONOFF | starzonmyarmz/js13k-2018 (built; module inlined) | MIT | verified |
+| Underrun | phoboslab/underrun (built; PNGs inlined) | MIT | verified |
+| 2048 | gabrielecirulli/2048 | MIT | partial: no saves (responsive) |
+| Radius Raid | jackrugile/radius-raid-js13k | MIT | partial: no saves |
+| The Last Spartan | ferronsays/js13k-TheLastSpartan (prebuilt `dist/`) | MIT | partial: no saves |
+| Bounce Back | KilledByAPixel/BounceBack | GPL-2.0-or-later | partial: no saves (responsive) |
+| Black Hole Square | Quinten/black-hole-square (prebuilt `public/`) | MIT | partial: no saves (responsive) |
+| SpacePi | jackrugile/spacepi-js13k | MIT | partial: no saves |
+| Hextris | Hextris/hextris (ads/analytics removed) | GPL-3.0-or-later | partial: no saves (responsive) |
+| A Dark Room | doublespeakgames/adarkroom (jQuery vendored, analytics removed, audio via script tags) | MPL-2.0 | partial: no saves (responsive) |
+| Stolen Sword | chiaogu/stolen-sword (built) | MIT | partial: no saves; 11x16 frame from its ASPECT_RATIO |
+| The Wandering Wraith | tulustul/The-Wandering-Wraith (built) | MIT | partial: no saves (responsive) |
+
+All 14 imported and promoted 2026-11-16; each loads with 0 errors in the sandboxed iframe in
+the built app (Chromium). "partial: no saves" = uses the storage stand-in; the description
+says progress is not saved between visits. Not yet done: hands-on play-through of each game
+by a person.
 
 Rejected, never add: Chrome Dino, Mario JS, Super Bowser's World, Reversed, Racer,
 Tetris/Pong/Breakout clones, Clumsy Bird, Q1K3, Highway 404.
@@ -55,9 +60,7 @@ Tetris/Pong/Breakout clones, Clumsy Bird, Q1K3, Highway 404.
   omitted; player uses a 16:9 frame). Used for Space Huggers, 2048, Bounce Back,
   Black Hole Square, The Wandering Wraith.
 
-## Prepared files (scratchpad, lost with the container)
+## Known leftovers
 
-Game folders and sidecars were prepared in the session scratchpad (`incoming/`,
-`incoming2/`) and are then imported into `public/games/<id>/html/` and committed. If a
-session ends before import, redo from the repo + commit listed in each entry's
-`license.notes`; the edits needed are listed there too.
+- `src/data/games.import.json` still holds older drafts `shape-wars` and `dotdot` whose
+  `game.swf` is missing (not from this work).
