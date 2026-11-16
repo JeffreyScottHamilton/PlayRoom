@@ -1,10 +1,6 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { CategoryFilter } from "./CategoryFilter";
-
-afterEach(() => {
-  cleanup();
-});
 
 describe("CategoryFilter", () => {
   it("renders a radiogroup with All plus the eight categories", () => {

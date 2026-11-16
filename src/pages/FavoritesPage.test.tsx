@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { STORAGE_KEYS } from "../lib/storage";
@@ -64,7 +64,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  cleanup();
   localStorage.clear();
 });
 

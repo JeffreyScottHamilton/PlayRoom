@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, type Ref } from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Game } from "../types/game";
 import GamePage from "./GamePage";
 
@@ -90,9 +90,6 @@ function setCoarsePointer(coarse: boolean) {
     dispatchEvent: vi.fn(),
   })) as unknown as typeof window.matchMedia;
 }
-
-// Vitest runs without RTL auto-cleanup (src/test/setup.ts only loads jest-dom).
-afterEach(() => cleanup());
 
 beforeEach(() => {
   vi.clearAllMocks();

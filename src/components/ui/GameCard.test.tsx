@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { GameCard } from "./GameCard";
 import type { Game } from "../../types/game";
@@ -45,10 +45,6 @@ function renderCard(props: { showFavorite?: boolean } = {}) {
     </MemoryRouter>,
   );
 }
-
-afterEach(() => {
-  cleanup();
-});
 
 describe("GameCard", () => {
   it("links to the game page", () => {

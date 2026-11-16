@@ -1,5 +1,5 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import type { Category, Game } from "../types/game";
 import GamesPage from "./GamesPage";
@@ -82,10 +82,6 @@ const titles = () =>
 
 beforeEach(() => {
   state.games = [...fixtures];
-});
-
-afterEach(() => {
-  cleanup();
 });
 
 describe("GamesPage", () => {

@@ -1,6 +1,6 @@
 import { createRef } from "react";
-import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RufflePlayer, type RufflePlayerHandle } from "./RufflePlayer";
 
 const mocks = vi.hoisted(() => ({
@@ -23,9 +23,6 @@ function makePlayer(): FakePlayer {
   el.load = vi.fn(() => undefined);
   return el;
 }
-
-// Vitest runs without RTL auto-cleanup (src/test/setup.ts only loads jest-dom).
-afterEach(() => cleanup());
 
 beforeEach(() => {
   players = [];
