@@ -8,8 +8,8 @@ import sidecar in `.import-staging/` also records as `license.source`.
 ## Compatibility levels
 
 - **verified**: loads and renders in Ruffle (automated check). The headless check opened the
-  game, waited up to 20 s for it to load, clicked the player centre once, waited 3 s and
-  confirmed the frame is not blank. No Ruffle error, panic or page error occurred, and the
+  game, waited up to 20 s for it to load, clicked the player centre twice (3 s after each click),
+  waited and confirmed the frame is not blank. No Ruffle error, panic or page error occurred, and the
   browser console had no errors or warnings for the game. **This does not prove gameplay**:
   controls, progression and audio were not played by a person.
 - **partial**: loads and renders in Ruffle, but the check recorded console errors or
@@ -31,7 +31,6 @@ Added 2026-11-16. Licence links point at the proof of permission used for `licen
 | Bump! | Rob Miller (st33d) | [MIT and GPL-3.0](https://raw.githubusercontent.com/st33d/bump/master/LICENSE) | [repo](https://github.com/st33d/bump) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
 | Clouds Don't Like Copters | Isa Hassen | [GPL-2.0](https://raw.githubusercontent.com/ibnIrshad/cloudcopter/master/LICENSE) | [repo](https://github.com/ibnIrshad/cloudcopter) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
 | Colour Match | Ian Ramzy | [MIT](https://raw.githubusercontent.com/ianramzy/colour-match/master/LICENSE) | [repo](https://github.com/ianramzy/colour-match) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
-| DotDot | Ethan Kennerly | [MIT](https://raw.githubusercontent.com/ethankennerly/connectedworlds/master/LICENSE) | [repo](https://github.com/ethankennerly/connectedworlds) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
 | Ending | Rob Miller | [GPL-2.0](https://raw.githubusercontent.com/st33d/Ending/master/LICENSE) | [repo](https://github.com/st33d/Ending) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
 | Entity Asteroids | Iain Lobb | [MIT](https://raw.githubusercontent.com/iainlobb/EntityAsteroids/master/MIT-LICENSE.txt) | [repo](https://github.com/iainlobb/EntityAsteroids) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
 | Fruit Madness | Vladimir "Leinstay" Belyaev | [MIT](https://raw.githubusercontent.com/leinstay/fruitmadness/main/LICENSE) | [repo](https://github.com/leinstay/fruitmadness) | verified (loads and renders in Ruffle, automated check) | 2026-11-16 |
@@ -44,8 +43,16 @@ Added 2026-11-16. Licence links point at the proof of permission used for `licen
 | Sweet Smash | Matthew Farmer (MFarmer) | [GPL-2.0](https://raw.githubusercontent.com/mfarmer/sweet-smash/master/License) | [repo](https://github.com/mfarmer/sweet-smash) | partial (loads and renders in Ruffle, automated check; see notes) | 2026-11-16 |
 
 Controls are copied from the developer's README or the candidate notes where documented.
-Where they are not, the game page says so. `needsKeyboard` is `false` only for games whose
-documented controls are mouse-only. Unknown-control games are set `true` as a conservative default.
+Text shown on the game's own title screen was used for Bump!, Clouds Don't Like Copters, Mofle and
+Bounce. Otherwise the developer README is used (Moto, Red Rogue, Star Catch), or the candidate notes
+(Sweet Smash: mouse). Where nothing is documented, the game page says so. `needsKeyboard` is `false`
+only for games whose controls are mouse-only (or mouse-or-keys, as Clouds Don't Like Copters).
+Unknown-control games are set `true` as a conservative default.
+
+## Curation
+
+Set by the maintainer, not measured: **Fruit Madness** is the featured game. Popular order: 1 Star Catch,
+2 Red Rogue, 3 Sweet Smash, 4 Moto, 5 Clouds Don't Like Copters, 6 Ending, 7 Pixel Shooter, 8 Bump!.
 
 ## Notes on published games
 
@@ -62,17 +69,22 @@ documented controls are mouse-only. Unknown-control games are set `true` as a co
 - **Moto**: bundles Flixel 2.5 (MIT) and as3signals. Their licence texts are not reproduced on the
   site. Adding them is a follow-up.
 - **Bounce**: made with the Box2D test bed. Box2D is third-party code under the zlib licence.
-- **DotDot**: the developer's README credits musical notes from a song by Jade Brewer. That
-  permission has not been verified. Remove the game if it cannot be confirmed.
-- **Colour Match** and **Pixel Shooter**: the thumbnails were captured with Ruffle's play-button
-  overlay still visible. Replace the thumbnails with a gameplay screenshot if you want better art.
+- **Colour Match** and **Pixel Shooter**: re-captured after two clicks, so the thumbnails show the game's
+  own title or play screen rather than Ruffle's play overlay. The Colour Match thumbnail is a crop of a
+  portrait screen (405x720), so it shows only part of the scene.
 - **Ending**, **Bogus Quest**, **Fruit Madness** and others with no documented controls: the controls
   text says so. Verify controls in a browser before relying on them.
+
+## Network notes
+
+- mofle and recycle-sort attempt requests to external hosts that no longer resolve (likely old
+  high-score/analytics endpoints). Harmless: failed requests only.
 
 ## Rejected or not published
 
 | Candidate | Result | Reason |
 |---|---|---|
+| DotDot (Ethan Kennerly, MIT) | unpublished; draft kept in `src/data/games.import.json` with an UNPUBLISHED note; SWF and thumbnail removed from `public/games/` | music by Jade Brewer — permission not verified |
 | Shape Wars (rnand, Unlicense) | unsupported, not published | Loads with no Ruffle error, but the frame stays blank after a click and a Space key press. The check also logged a 404 and a blocked external request. SWF and thumbnail are not in `public/games/`; the draft remains in `src/data/games.import.json` with `compatibility: unsupported`; the SWF is in `.import-staging/shape-wars/`. |
 | Candidates #14 Subtle Tea, #15 Salsa, #20 to #34, sources S1 to S9 | not in this slice | Not in the approved list (`library-candidates.md` section A, #1-13 and #16-19 only). |
 

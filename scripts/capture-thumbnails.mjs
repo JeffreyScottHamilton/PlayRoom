@@ -5,7 +5,7 @@
 //      with the same options as src/player/loadRuffle.ts and RufflePlayer.tsx.
 //   2. Loads the SWF and waits up to 20 s for loadedmetadata / load / error.
 //   3. Records Ruffle error events, console errors and warnings, and page errors.
-//   4. Clicks the player centre once, waits 3 s, screenshots the player.
+//   4. Clicks the player centre (twice, see Clicks below), waits 3 s after each click, screenshots the player.
 //   5. Checks whether the screenshot is blank (near-uniform pixels).
 //   6. Writes public/games/<id>/thumb.webp (640x400, cover crop, #111514 fill) when the game renders.
 //   7. Prints a table with a verdict. It never edits the manifest; promotion is separate.
@@ -16,8 +16,12 @@
 // (automated check); it does not prove gameplay.
 //
 // Usage: node scripts/capture-thumbnails.mjs [id ...]
-// Needs Node, Playwright (require('playwright'), or set PLAYWRIGHT_MODULE_PATH to its directory)
-// and public/ruffle/ (run node scripts/copy-ruffle.mjs first). Never installs browsers.
+//   no ids: checks every draft with compatibility "unsupported" in games.import.json
+//   with ids: checks those ids (looked up in the drafts, then the live manifest; use for re-captures)
+//   Clicks: CAPTURE_CLICKS (default 2). The first click can land before Ruffle's click-to-play
+//   overlay is active, so the player is clicked twice, 3 s apart, before the screenshot.
+//   Playwright: require('playwright') first, then PLAYWRIGHT_MODULE_PATH (a package directory).
+// Needs Node, Playwright and public/ruffle/ (run node scripts/copy-ruffle.mjs first). Never installs browsers.
 // Set CAPTURE_DEBUG_DIR to also save each screenshot as <id>.png there (review aid).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
@@ -29,9 +33,11 @@ const require = createRequire(import.meta.url)
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PUBLIC = join(ROOT, 'public')
 const DRAFTS = join(ROOT, 'src', 'data', 'games.import.json')
+const LIVE = join(ROOT, 'src', 'data', 'games.json')
 const THUMB_W = 640
 const THUMB_H = 400
 const LOAD_TIMEOUT_MS = 20_000
+const CLICK_COUNT = Number(process.env.CAPTURE_CLICKS ?? 2)
 const FATAL_PATTERN = /panic|uncaught|runtimeerror/i
 // Browser GPU driver chatter (not Ruffle or the game); ignored so it does not count as a warning.
 const IGNORED_CONSOLE_PATTERN = /GL Driver Message/
@@ -46,7 +52,9 @@ function loadPlaywright() {
       if (err.code !== 'MODULE_NOT_FOUND') throw err
     }
   }
-  throw new Error('Playwright not found. Set PLAYWRIGHT_MODULE_PATH to the preinstalled playwright package directory.')
+  throw new Error(
+    "Playwright not found: require('playwright') failed and PLAYWRIGHT_MODULE_PATH is unset or does not point at the playwright package.",
+  )
 }
 
 // Same options as src/player/RufflePlayer.tsx; the loader mirrors src/player/loadRuffle.ts.
@@ -237,8 +245,12 @@ async function captureOne(browser, base, draft) {
     // Let the first frames run, click the player centre once, then wait 3 s.
     await page.waitForTimeout(2000)
     const box = await page.locator('#stage').boundingBox()
-    if (box) await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
-    await page.waitForTimeout(3000)
+    // Ruffle shows a click-to-play overlay until the player receives a click. The first click
+    // can land before the overlay is active, so click, wait, then click again (CLICK_COUNT).
+    for (let i = 0; i < CLICK_COUNT && box; i++) {
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
+      await page.waitForTimeout(3000)
+    }
 
     const shot = await page.locator('#stage').screenshot({ type: 'png' })
     if (process.env.CAPTURE_DEBUG_DIR) writeFileSync(join(process.env.CAPTURE_DEBUG_DIR, `${id}.png`), shot)
@@ -303,9 +315,11 @@ async function main() {
     process.exit(1)
   }
   const drafts = JSON.parse(readFileSync(DRAFTS, 'utf8'))
+  const live = JSON.parse(readFileSync(LIVE, 'utf8'))
   const wanted = process.argv.slice(2)
+  // Named ids are looked up in the drafts, then the live manifest (for re-captures).
   const selected = wanted.length
-    ? wanted.map((id) => drafts.find((d) => d.id === id) ?? { id, flags: [] })
+    ? wanted.map((id) => drafts.find((d) => d.id === id) ?? live.find((g) => g.id === id) ?? { id, flags: [] })
     : drafts.filter((d) => d.compatibility === 'unsupported')
   if (selected.length === 0) {
     console.log('capture-thumbnails: no drafts to check.')

@@ -54,7 +54,7 @@
       "Puzzle",
       "Adventure"
     ],
-    "controls": "Controls are not documented by the developer.",
+    "controls": "Q-W-E-A-S-D to move, R to restart, click to play.",
     "developer": "Rob Miller (st33d)",
     "license": {
       "type": "MIT and GPL-3.0",
@@ -67,7 +67,8 @@
     "width": 512,
     "height": 480,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 8
   },
   {
     "id": "clouds-dont-like-copters",
@@ -77,20 +78,21 @@
       "Arcade",
       "Action"
     ],
-    "controls": "Controls are not documented by the developer.",
+    "controls": "Click or arrow keys to move the copter.",
     "developer": "Isa Hassen",
     "license": {
       "type": "GPL-2.0",
       "source": "https://raw.githubusercontent.com/ibnIrshad/cloudcopter/master/LICENSE",
       "notes": "Source: https://github.com/ibnIrshad/cloudcopter. Corresponding source available at the repository above."
     },
-    "needsKeyboard": true,
+    "needsKeyboard": false,
     "gameFile": "/games/clouds-dont-like-copters/game.swf",
     "thumbnail": "/games/clouds-dont-like-copters/thumb.webp",
     "width": 500,
     "height": 400,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 5
   },
   {
     "id": "colour-match",
@@ -116,30 +118,6 @@
     "addedAt": "2026-11-16"
   },
   {
-    "id": "dotdot",
-    "title": "DotDot",
-    "description": "A Ludum Dare 30 game jam entry by Ethan Kennerly on the 'Connected Worlds' theme. Connect the dots.",
-    "category": [
-      "Puzzle",
-      "Arcade"
-    ],
-    "controls": "Controls are not documented by the developer.",
-    "developer": "Ethan Kennerly",
-    "releaseYear": 2014,
-    "license": {
-      "type": "MIT",
-      "source": "https://raw.githubusercontent.com/ethankennerly/connectedworlds/master/LICENSE",
-      "notes": "Source: https://github.com/ethankennerly/connectedworlds. Developer README credits music (musical notes from a song by Jade Brewer); that permission is not verified."
-    },
-    "needsKeyboard": true,
-    "gameFile": "/games/dotdot/game.swf",
-    "thumbnail": "/games/dotdot/thumb.webp",
-    "width": 640,
-    "height": 480,
-    "compatibility": "verified",
-    "addedAt": "2026-11-16"
-  },
-  {
     "id": "ending",
     "title": "Ending",
     "description": "A puzzle game about movement and death.",
@@ -160,7 +138,8 @@
     "width": 480,
     "height": 320,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 6
   },
   {
     "id": "entity-asteroids",
@@ -208,7 +187,8 @@
     "width": 600,
     "height": 450,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "featured": true
   },
   {
     "id": "moto",
@@ -233,7 +213,8 @@
     "width": 696,
     "height": 696,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 4
   },
   {
     "id": "pixel-shooter",
@@ -256,7 +237,8 @@
     "width": 1000,
     "height": 650,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 7
   },
   {
     "id": "red-rogue",
@@ -279,7 +261,8 @@
     "width": 640,
     "height": 480,
     "compatibility": "verified",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 2
   },
   {
     "id": "mofle",
@@ -288,7 +271,7 @@
     "category": [
       "Platformer"
     ],
-    "controls": "Controls are not documented by the developer.",
+    "controls": "Use the arrow buttons to control the mofle.",
     "developer": "Sindre Sorhus",
     "license": {
       "type": "MIT",
@@ -348,7 +331,8 @@
     "compatibility": "partial",
     "addedAt": "2026-11-16",
     "width": 640,
-    "height": 480
+    "height": 480,
+    "popularRank": 1
   },
   {
     "id": "sweet-smash",
@@ -370,6 +354,7 @@
     "width": 960,
     "height": 640,
     "compatibility": "partial",
-    "addedAt": "2026-11-16"
+    "addedAt": "2026-11-16",
+    "popularRank": 3
   }
 ]

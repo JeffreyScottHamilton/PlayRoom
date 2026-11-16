@@ -26,5 +26,36 @@
     ],
     "flags": [],
     "sha256": "0b0b5d2269b123f9f0a4ce27ec470d3b06e44bed2077694689b73359b554ac93"
+  },
+  {
+    "id": "dotdot",
+    "title": "DotDot",
+    "description": "A Ludum Dare 30 game jam entry by Ethan Kennerly on the 'Connected Worlds' theme. Connect the dots.",
+    "category": [
+      "Puzzle",
+      "Arcade"
+    ],
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Ethan Kennerly",
+    "releaseYear": 2014,
+    "license": {
+      "type": "MIT",
+      "source": "https://raw.githubusercontent.com/ethankennerly/connectedworlds/master/LICENSE",
+      "notes": "Source: https://github.com/ethankennerly/connectedworlds. Developer README credits music (musical notes from a song by Jade Brewer); that permission is not verified. UNPUBLISHED: music by Jade Brewer (credited in the developer README), permission not verified."
+    },
+    "needsKeyboard": true,
+    "gameFile": "/games/dotdot/game.swf",
+    "thumbnail": "/games/dotdot/thumb.webp",
+    "width": 640,
+    "height": 480,
+    "compatibility": "unsupported",
+    "addedAt": "2026-11-16",
+    "missing": [
+      "thumbnail"
+    ],
+    "flags": [
+      "UNPUBLISHED: music by Jade Brewer (credited in the developer README), permission not verified."
+    ],
+    "sha256": "85476382c83c6d78563911c4cc416eabf5180246e7fa9333e5fdf40f70f70ae9"
   }
 ]
