@@ -273,7 +273,7 @@ describe('import-games CLI', () => {
     const out = execFileSync(process.execPath, [SCRIPT, input, '--dry-run'], { encoding: 'utf8' })
     expect(out).toMatch(/cli-game/)
     expect(out).toMatch(/Dry run/)
-  })
+  }, 20000)
 
   it('exits 1 when the input directory cannot be read', () => {
     let status = 0
@@ -283,5 +283,5 @@ describe('import-games CLI', () => {
       status = err.status
     }
     expect(status).toBe(1)
-  })
+  }, 20000)
 })

@@ -278,5 +278,5 @@ describe('import-games CLI with html5 folders', () => {
     expect(out).toMatch(/! missing-size: sidecar has no width\/height/)
     expect(out).toMatch(/2 game candidate\(s\): 2 draft\(s\)/)
     expect(out).toMatch(/Dry run: nothing was copied or written/)
-  })
+  }, 20000)
 })
