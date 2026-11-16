@@ -1,5 +1,4 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import type { Category, Game } from "../types/game";
@@ -52,50 +51,6 @@ vi.mock("../data/catalog", async () => {
   };
 });
 
-// GameGrid, CategoryFilter and EmptyState are S2 components; these minimal stand-ins
-// keep the page logic under test independent of their styling.
-vi.mock("../components/ui/GameGrid", () => ({
-  GameGrid: ({ games }: { games: Game[] }) => (
-    <ul aria-label="Games">
-      {games.map((g) => (
-        <li key={g.id}>{g.title}</li>
-      ))}
-    </ul>
-  ),
-}));
-
-vi.mock("../components/ui/CategoryFilter", () => ({
-  CategoryFilter: ({
-    value,
-    onChange,
-  }: {
-    value: string;
-    onChange: (c: string) => void;
-  }) => (
-    <div role="radiogroup" aria-label="Categories">
-      {["All", "Action", "Puzzle", "Racing"].map((c) => (
-        <button
-          key={c}
-          type="button"
-          role="radio"
-          aria-checked={value === c}
-          onClick={() => onChange(c)}
-        >
-          {c}
-        </button>
-      ))}
-    </div>
-  ),
-}));
-
-vi.mock("../components/ui/EmptyState", () => ({
-  EmptyState: ({ children }: { children?: ReactNode }) => (
-    <div role="region" aria-label="Empty state">
-      {children}
-    </div>
-  ),
-}));
-
 function Where() {
   const location = useLocation();
   return <output aria-label="location">{location.pathname + location.search + location.hash}</output>;
@@ -119,8 +74,9 @@ function renderPage(initial: string) {
   );
 }
 
+// GameGrid renders the only list on the page; each item is a GameCard whose link text is the title.
 const titles = () =>
-  within(screen.getByRole("list", { name: "Games" }))
+  within(screen.getByRole("list"))
     .queryAllByRole("listitem")
     .map((li) => li.textContent);
 
@@ -196,7 +152,7 @@ describe("GamesPage", () => {
     renderPage("/games?q=zzz");
     expect(screen.getByText("No games match “zzz”")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Clear search" }));
+    fireEvent.click(screen.getByRole("link", { name: "Clear search" }));
     expect(screen.getByLabelText("location")).toHaveTextContent(/^\/games$/);
     expect(titles()).toHaveLength(24);
   });
@@ -207,7 +163,7 @@ describe("GamesPage", () => {
     fireEvent.click(screen.getByRole("radio", { name: "Puzzle" }));
 
     expect(screen.getByText("No games in this category.")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Show all games" }));
+    fireEvent.click(screen.getByRole("link", { name: "Show all games" }));
     expect(screen.getByLabelText("location")).toHaveTextContent(/^\/games$/);
     expect(titles()).toEqual(["Only Action"]);
   });
@@ -216,7 +172,10 @@ describe("GamesPage", () => {
     state.games = [];
     renderPage("/games");
     expect(screen.getByText("0 games")).toBeInTheDocument();
-    expect(screen.getByText("No games in the library yet.")).toBeInTheDocument();
+    expect(screen.getByText("The library is being stocked")).toBeInTheDocument();
+    expect(
+      screen.getByText("Licensed games are added as permission is confirmed."),
+    ).toBeInTheDocument();
   });
 
   it("focuses the category filter when the URL hash is #categories", () => {

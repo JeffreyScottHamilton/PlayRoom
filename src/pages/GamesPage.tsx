@@ -32,7 +32,7 @@ export default function GamesPage() {
   const category = parseCategory(params.get("category"));
 
   // Keep the URL as the single source of truth for the filters.
-  function update(changes: { q?: string | null; category?: Category | "All" | null }) {
+  function filtersWith(changes: { q?: string | null; category?: Category | "All" | null }) {
     const next = new URLSearchParams(params);
     if ("q" in changes) {
       if (changes.q) next.set("q", changes.q);
@@ -42,7 +42,17 @@ export default function GamesPage() {
       if (changes.category && changes.category !== "All") next.set("category", changes.category);
       else next.delete("category");
     }
-    setParams(next, { replace: true });
+    return next;
+  }
+
+  function update(changes: { q?: string | null; category?: Category | "All" | null }) {
+    setParams(filtersWith(changes), { replace: true });
+  }
+
+  // EmptyState actions are links, so they carry the resulting URL as `to`.
+  function hrefWith(changes: { q?: string | null; category?: Category | "All" | null }) {
+    const qs = filtersWith(changes).toString();
+    return qs ? `${location.pathname}?${qs}` : location.pathname;
   }
 
   // "/categories" redirects here with #categories: move focus to the filter.
@@ -99,28 +109,21 @@ export default function GamesPage() {
 
       <div className="mt-8">
         {allGames.length === 0 ? (
-          <EmptyState>
-            <p className="text-base text-ink">No games in the library yet.</p>
-          </EmptyState>
+          <EmptyState
+            title="The library is being stocked"
+            body="Licensed games are added as permission is confirmed."
+          />
         ) : results.length === 0 ? (
           trimmed !== "" ? (
-            <EmptyState>
-              <p className="text-base text-ink">No games match “{trimmed}”</p>
-              <button type="button" className={secondaryButton} onClick={() => update({ q: null })}>
-                Clear search
-              </button>
-            </EmptyState>
+            <EmptyState
+              title={`No games match “${trimmed}”`}
+              action={{ label: "Clear search", to: hrefWith({ q: null }) }}
+            />
           ) : (
-            <EmptyState>
-              <p className="text-base text-ink">No games in this category.</p>
-              <button
-                type="button"
-                className={secondaryButton}
-                onClick={() => update({ category: "All" })}
-              >
-                Show all games
-              </button>
-            </EmptyState>
+            <EmptyState
+              title="No games in this category."
+              action={{ label: "Show all games", to: hrefWith({ category: "All" }) }}
+            />
           )
         ) : (
           <>
