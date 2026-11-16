@@ -67,8 +67,7 @@
     "width": 512,
     "height": 480,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "popularRank": 8
+    "addedAt": "2026-11-16"
   },
   {
     "id": "clouds-dont-like-copters",
@@ -91,8 +90,7 @@
     "width": 500,
     "height": 400,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "popularRank": 5
+    "addedAt": "2026-11-16"
   },
   {
     "id": "colour-match",
@@ -138,8 +136,7 @@
     "width": 480,
     "height": 320,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "popularRank": 6
+    "addedAt": "2026-11-16"
   },
   {
     "id": "entity-asteroids",
@@ -187,8 +184,7 @@
     "width": 600,
     "height": 450,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "featured": true
+    "addedAt": "2026-11-16"
   },
   {
     "id": "moto",
@@ -213,8 +209,7 @@
     "width": 696,
     "height": 696,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "popularRank": 4
+    "addedAt": "2026-11-16"
   },
   {
     "id": "pixel-shooter",
@@ -237,8 +232,7 @@
     "width": 1000,
     "height": 650,
     "compatibility": "verified",
-    "addedAt": "2026-11-16",
-    "popularRank": 7
+    "addedAt": "2026-11-16"
   },
   {
     "id": "red-rogue",
@@ -262,7 +256,7 @@
     "height": 480,
     "compatibility": "verified",
     "addedAt": "2026-11-16",
-    "popularRank": 2
+    "popularRank": 12
   },
   {
     "id": "mofle",
@@ -332,7 +326,7 @@
     "addedAt": "2026-11-16",
     "width": 640,
     "height": 480,
-    "popularRank": 1
+    "popularRank": 11
   },
   {
     "id": "sweet-smash",
@@ -354,8 +348,7 @@
     "width": 960,
     "height": 640,
     "compatibility": "partial",
-    "addedAt": "2026-11-16",
-    "popularRank": 3
+    "addedAt": "2026-11-16"
   },
   {
     "id": "castle-202c",
@@ -440,7 +433,9 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Light Bringer",
+    "popularRank": 5
   },
   {
     "id": "mario-combat",
@@ -508,7 +503,7 @@
   },
   {
     "id": "abobbos-big-adventure",
-    "title": "Abobbo's Big Adventure",
+    "title": "Abobbos Big Adventure",
     "license": {
       "type": "Owner-asserted permission (proof of concept) — not independently verified",
       "source": "https://github.com/CBGamesdev/chilibowlflash",
@@ -547,7 +542,9 @@
       "Strategy"
     ],
     "description": "Classic Flash strategy game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "louissi",
+    "popularRank": 8
   },
   {
     "id": "alien-hominid",
@@ -653,7 +650,8 @@
       "Strategy"
     ],
     "description": "Classic Flash tower defense game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 3
   },
   {
     "id": "blue-tetris",
@@ -759,7 +757,8 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Max Abernethy Plecko"
   },
   {
     "id": "dad-n-me",
@@ -865,7 +864,8 @@
       "Sports"
     ],
     "description": "Classic Flash sports game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 7
   },
   {
     "id": "duck-life-2",
@@ -992,7 +992,9 @@
       "Platformer"
     ],
     "description": "Classic Flash platformer.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Brad Borne",
+    "popularRank": 4
   },
   {
     "id": "flash-tetris",
@@ -1101,7 +1103,7 @@
   },
   {
     "id": "ib",
-    "title": "IB",
+    "title": "Interactive Buddy",
     "license": {
       "type": "Owner-asserted permission (proof of concept) — not independently verified",
       "source": "https://github.com/CBGamesdev/chilibowlflash",
@@ -1139,7 +1141,8 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Mausland.de"
   },
   {
     "id": "miniputt",
@@ -1182,7 +1185,8 @@
       "Platformer"
     ],
     "description": "Classic Flash action platformer.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Deadtoast Entertainment"
   },
   {
     "id": "new-york-shark",
@@ -1203,7 +1207,8 @@
       "Action"
     ],
     "description": "Classic Flash action game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Felix Wiesner"
   },
   {
     "id": "pacman",
@@ -1245,7 +1250,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-pasta-ria",
@@ -1266,7 +1272,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-freezeria",
@@ -1287,7 +1294,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-pancakeria",
@@ -1308,7 +1316,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-pizzeria",
@@ -1329,7 +1338,10 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios",
+    "featured": true,
+    "popularRank": 1
   },
   {
     "id": "papas-sushiria",
@@ -1350,7 +1362,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-taco-mia",
@@ -1371,7 +1384,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "papas-wingeria",
@@ -1392,7 +1406,8 @@
       "Strategy"
     ],
     "description": "Classic Flash restaurant management game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "developer": "Flipline Studios"
   },
   {
     "id": "pong",
@@ -1436,7 +1451,8 @@
       "Adventure"
     ],
     "description": "Classic Flash puzzle adventure game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 10
   },
   {
     "id": "riddle-school-2",
@@ -1523,7 +1539,8 @@
       "Platformer"
     ],
     "description": "Classic Flash endless runner game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 2
   },
   {
     "id": "smiley-wars",
@@ -1650,7 +1667,8 @@
       "Arcade"
     ],
     "description": "Classic Flash arcade game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 6
   },
   {
     "id": "the-worlds-hardest-game-2",
@@ -1749,7 +1767,7 @@
     "thumbnail": "/games/apple-shooter/thumb.webp",
     "width": 720,
     "height": 425,
-    "compatibility": "verified",
+    "compatibility": "partial",
     "addedAt": "2026-11-16",
     "needsKeyboard": true,
     "category": [
@@ -1800,6 +1818,7 @@
       "Puzzle"
     ],
     "description": "Classic Flash puzzle game.",
-    "controls": "Controls are not documented by the developer."
+    "controls": "Controls are not documented by the developer.",
+    "popularRank": 9
   }
 ]

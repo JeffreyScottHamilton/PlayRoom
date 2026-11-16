@@ -51,8 +51,7 @@ Unknown-control games are set `true` as a conservative default.
 
 ## Curation
 
-Set by the maintainer, not measured: **Fruit Madness** is the featured game. Popular order: 1 Star Catch,
-2 Red Rogue, 3 Sweet Smash, 4 Moto, 5 Clouds Don't Like Copters, 6 Ending, 7 Pixel Shooter, 8 Bump!.
+Set by the maintainer, not measured: **Papa's Pizzeria** is the featured game. Popular order: 1 Papa's Pizzeria, 2 Run 2, 3 Bloons Tower Defense, 4 The Fancy Pants Adventure, 5 Learn to Fly, 6 The World's Hardest Game, 7 Duck Life, 8 Age of War, 9 Bloxorz, 10 Riddle School, 11 Star Catch, 12 Red Rogue.
 
 ## Notes on published games
 
@@ -96,27 +95,28 @@ Set by the maintainer, not measured: **Fruit Madness** is the featured game. Pop
 4. `node scripts/import-games.mjs .import-staging` produced drafts; `node scripts/capture-thumbnails.mjs` checked each draft in headless Ruffle and wrote the thumbnail.
 5. `node scripts/promote-game.mjs <id> --compat=<verified|partial>` moved each passing draft into `src/data/games.json`.
 
+
 ## Owner-asserted titles (proof of concept)
 
-**These titles are not independently licence-verified. They must not be deployed publicly without written permission from the rights-holder.**
+**These titles are not independently licence-verified and must not be deployed publicly without written permission from the rights-holder.**
 
-The owner of the PLAYROOM project asserted on 2026-11-16 that they hold permission from the rights-holders for a private proof of concept, and instructed that all games in the chilibowlflash repository (https://github.com/CBGamesdev/chilibowlflash) be imported. No written permission has been seen. The licence record for each entry is `Owner-asserted permission (proof of concept) — not independently verified`, with the repository as `license.source`.
+The owner of the PLAYROOM project asserted on 2026-11-16 that they hold permission from the rights-holders for a private proof of concept, and instructed that the games in the chilibowlflash repository (https://github.com/CBGamesdev/chilibowlflash) be imported. No written permission has been seen. Each entry's `license.type` is `Owner-asserted permission (proof of concept) — not independently verified`, with the repository as `license.source`.
 
-Excluded from the import: the SoundManager 2 and XAudioJS helper SWFs (not games). No byte-identical duplicates were found. Developer and release year are given only where credited on the game's own title screen; otherwise they are omitted. Descriptions are generic genre lines and controls are not documented unless stated.
+Excluded from the import: the SoundManager 2 and XAudioJS helper SWFs (not games). No byte-identical duplicates were found. Developers are given only where credited on the game's own screens; otherwise omitted. Descriptions are generic genre lines, controls are not documented unless stated, and release years are omitted.
 
-Compatibility is from the automated Ruffle check (`scripts/capture-thumbnails.mjs`), not play-testing. Some thumbnails show a preloader or Ruffle's hardware-acceleration notice rather than gameplay (notably the Papa's series, which share one preloader screen).
+Compatibility comes from the automated Ruffle check (`scripts/capture-thumbnails.mjs`), not play-testing. Thumbnails were captured with Ruffle's hardware-acceleration notice closed. A few still show a splash or sponsor screen, not a title screen: Abobbos Big Adventure, Alien Hominid, Portal, Mario Combat and Meat Boy.
 
 | Title | Developer | Compatibility | Source file |
 |---|---|---|---|
 | Defend Your Castle |  | verified | `102209_castle202c.swf` |
 | Gunblood |  | partial | `1gunblood.swf` |
 | Donkey Kong |  | verified | `Donkey-Kong.swf` |
-| Learn to Fly |  | verified | `Learn20Fly.swf` |
+| Learn to Fly | Light Bringer | verified | `Learn20Fly.swf` |
 | Mario Combat |  | partial | `Mario_Combat.swf` |
 | Portal |  | verified | `Portal_wcs2.swf` |
 | The Impossible Quiz |  | verified | `TheImpossibleQuiz.swf` |
-| Abobbo's Big Adventure |  | partial | `abobbos-big-adventure.swf` |
-| Age of War |  | verified | `age_of_war.swf` |
+| Abobbos Big Adventure |  | partial | `abobbos-big-adventure.swf` |
+| Age of War | louissi | verified | `age_of_war.swf` |
 | Alien Hominid |  | verified | `alien_hominid (1).swf` |
 | Asteroids |  | verified | `asteroids.swf` |
 | Bad Piggies |  | partial | `bad-piggies.swf` |
@@ -127,7 +127,7 @@ Compatibility is from the automated Ruffle check (`scripts/capture-thumbnails.mj
 | Bubble Shooter |  | verified | `bubble-shooter.swf` |
 | Color Combat |  | verified | `color_combat.swf` |
 | Commando 2 |  | verified | `commando2_1.swf` |
-| Cubefield |  | verified | `cubefield.swf` |
+| Cubefield | Max Abernethy Plecko | verified | `cubefield.swf` |
 | Dad N Me |  | verified | `dadnme.swf` |
 | Meat Boy |  | partial | `dagobah_Meat_Boy.swf` |
 | Super Mario Flash |  | verified | `dagobah_super_mario_flash.swf` |
@@ -138,26 +138,26 @@ Compatibility is from the automated Ruffle check (`scripts/capture-thumbnails.mj
 | Electricman 2HS |  | verified | `electricman2.swf` |
 | Escaping the Prison |  | verified | `escapingtheprisongame.swf` |
 | Extreme Pamplona |  | partial | `extreme-pamplona.swf` |
-| The Fancy Pants Adventure |  | verified | `fancypantsadventure.swf` |
+| The Fancy Pants Adventure | Brad Borne | verified | `fancypantsadventure.swf` |
 | Flash Tetris |  | verified | `flash-tetris.swf` |
 | Doom |  | verified | `flash/doom.swf` |
 | Handless Millionaire |  | verified | `flash/handlessmillionaire.swf` |
 | Hobo |  | verified | `hobo.swf` |
 | Hobo Prison Brawl |  | verified | `hobo_prison_brawl.swf` |
-| IB |  | verified | `ib.swf` |
-| Miami Shark |  | partial | `miami-shark.swf` |
+| Interactive Buddy |  | verified | `ib.swf` |
+| Miami Shark | Mausland.de | partial | `miami-shark.swf` |
 | Mini-Putt |  | verified | `miniputt.swf` |
-| My Friend Pedro |  | partial | `my-friend-pedro-15980.swf` |
-| New York Shark |  | partial | `new-york-shark-unblocked.swf` |
+| My Friend Pedro | Deadtoast Entertainment | partial | `my-friend-pedro-15980.swf` |
+| New York Shark | Felix Wiesner | partial | `new-york-shark-unblocked.swf` |
 | Pac-Man |  | verified | `pacman.swf` |
-| Papa's Burgeria |  | partial | `papaburger.swf` |
-| Papa's Pastaria |  | partial | `papapasta.swf` |
-| Papa's Freezeria |  | partial | `papasfreezeria.swf` |
-| Papa's Pancakeria |  | partial | `papaspancakeria.swf` |
-| Papa's Pizzeria |  | partial | `papaspizzeria_v2.swf` |
-| Papa's Sushiria |  | partial | `papassushiria.swf` |
-| Papa's Taco Mia |  | partial | `papastacomia.swf` |
-| Papa's Wingeria |  | partial | `papawing.swf` |
+| Papa's Burgeria | Flipline Studios | partial | `papaburger.swf` |
+| Papa's Pastaria | Flipline Studios | partial | `papapasta.swf` |
+| Papa's Freezeria | Flipline Studios | partial | `papasfreezeria.swf` |
+| Papa's Pancakeria | Flipline Studios | partial | `papaspancakeria.swf` |
+| Papa's Pizzeria | Flipline Studios | partial | `papaspizzeria_v2.swf` |
+| Papa's Sushiria | Flipline Studios | partial | `papassushiria.swf` |
+| Papa's Taco Mia | Flipline Studios | partial | `papastacomia.swf` |
+| Papa's Wingeria | Flipline Studios | partial | `papawing.swf` |
 | Pong |  | verified | `pong.swf` |
 | Riddle School |  | verified | `riddleschool.swf` |
 | Riddle School 2 |  | verified | `riddleschool2.swf` |
@@ -174,5 +174,5 @@ Compatibility is from the automated Ruffle check (`scripts/capture-thumbnails.mj
 | This Is the Only Level |  | verified | `this_is_the_only_level.swf` |
 | Toss the Turtle |  | partial | `toss_the_turtle.swf` |
 | Ultimate Flash Sonic |  | verified | `ultimate-flash-sonic.swf` |
-| Apple Shooter |  | verified | `weebly_apple_shooter.swf` |
+| Apple Shooter |  | partial | `weebly_apple_shooter.swf` |
 | Yeti Sports | Chris Hilbert | verified | `yetisports1free.swf` |
